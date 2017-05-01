@@ -2,7 +2,7 @@ GTAV MAP HELPER BY NEOS7
 v0.1
 
 INSTALL:
-Copy the folder "scripts" in your 3ds Max root folder.
+Copy the folders "GTAV_Map_Helper" and "Startup" in the "scripts" folder of your 3ds Max. (usually "3dsmax\scripts\")
 Run 3ds Max and the script will appear in your utilities.
 
 If you have an error on startup about the assembly, right click on "Newtonsoft.Json.dll" located in the "scripts\GTAV_Map_Helper\" folder, go to Properties and unblock it or simply download it from Newtonsoft here:
