@@ -5,6 +5,9 @@ INSTALL:
 Copy the folders "GTAV_Map_Helper" and "Startup" in the "scripts" folder of your 3ds Max. (usually "3dsmax\scripts\")
 Run 3ds Max and the script will appear in your utilities.
 
+USAGE:
+Select geometries and click the export button.
+
 If you have an error on startup about the assembly, right click on "Newtonsoft.Json.dll" located in the "scripts\GTAV_Map_Helper\" folder, go to Properties and unblock it or simply download it from Newtonsoft here:
 https://github.com/JamesNK/Newtonsoft.Json/releases/latest
 
