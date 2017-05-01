@@ -18,7 +18,7 @@ I also included the .json support since this script is initially written to work
 You can also import a json to move/rotate geometries in scene, it will create instances for entities with the same name.(this feature will be extended to ymaps)
 
 The .ytyp.xml and .ymap.xml files have fixed properties for now, the settings panel is just a placeholder until I finish it.
-This script isn't complete but I've choosen to release it to have suggestions, feedbacks and help of course, I've started working on this just because I needed it and then I thought someone else could need it too.
+This script isn't complete but I've choosen to release it to have suggestions, feedbacks and help of course, I've started working on this just because I needed and I had no maxscript knowledge.
 
 NOTE: This script doesn't export game models, you will still need a script like GIMS EVO to do that.
 
@@ -27,3 +27,7 @@ IMPORTANT: Because of its early state, I remember that you have to manually edit
 2.lodDist in ymaps which is meant to be at least big as the radius of the archetype.
 
 So to finish, this might be a incomplete shit for now but I hope it might help already,somehow.
+
+People I would thanks:
+3Doomer
+Those 2 guys who keeps blaming what I don't do. <3
