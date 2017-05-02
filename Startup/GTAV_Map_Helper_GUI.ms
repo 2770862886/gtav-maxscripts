@@ -1,5 +1,6 @@
 fileIn (scriptspath+"\\GTAV_Map_Helper\\GIMS_shortcut.ms")
 fileIn (scriptspath+"\\GTAV_Map_Helper\\xml.ms")
+fileIn (scriptspath+"\\GTAV_Map_Helper\\json.ms")
 
 utility GTAV_Map_Helper "GTA V Map Helper" width:162 /*height:344*/ height:400
 (	
@@ -54,7 +55,6 @@ utility GTAV_Map_Helper "GTA V Map Helper" width:162 /*height:344*/ height:400
 	(
 		if (enable_json.state == true) do 
 		(
-			fileIn (scriptspath+"\\GTAV_Map_Helper\\json.ms")
 			if(Json_Assembly == undefined) do
 			(
 				messageBox "Please check if Windows is locking the assembly Newtonsoft.Json.dll\nRight click on it and open Properties, then unlock it from its General tab.\nThen restart 3ds Max."
