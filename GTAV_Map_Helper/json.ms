@@ -1,4 +1,6 @@
-dotNet.loadAssembly (scriptspath+"\\GTAV_Map_Helper\\Newtonsoft.Json.dll")
+try( global Json_Assembly = dotNet.loadAssembly (scriptspath+"\\GTAV_Map_Helper\\Newtonsoft.Json.dll"))
+catch( format "GTA V Map Helper: Impossible to load assembly Newtonsoft.Json.dll" )
+
 fileIn (scriptspath+"\\GTAV_Map_Helper\\gtav_formats.ms")
 
 fn create_JObject_Archetype obj =(
