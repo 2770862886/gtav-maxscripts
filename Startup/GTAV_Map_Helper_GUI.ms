@@ -19,17 +19,13 @@ utility GTAV_Map_Helper "GTA V Map Helper" width:162 /*height:344*/ height:400
 		button 'btn_gtav_export' "Export" width:140 align:#center
 	)
 	
-	group "FiveM Import"
+	group "FiveM"
 	(
+		checkbox 'chk_archetypes' "Export Archetypes" 
+		checkbox 'chk_entities' "Export Entities"
+		button 'btn_json_export' "Export Json" width:140 align:#center
 		button 'btn_json_check' "Check Json" width:140 align:#center
 		button 'btn_json_import' "Import Json" width:140 align:#center
-	)
-	
-	group "FiveM Export"
-	(
-		checkbox 'chk_archetypes' "Archetypes" 
-		checkbox 'chk_entities' "Entities"
-		button 'btn_json_export' "Export Json" width:140 align:#center
 	)
 	
 	on btn_gtav_settings pressed do
