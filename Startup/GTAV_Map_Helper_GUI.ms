@@ -1,4 +1,3 @@
-fileIn (scriptspath+"\\GTAV_Map_Helper\\json.ms")
 fileIn (scriptspath+"\\GTAV_Map_Helper\\GIMS_shortcut.ms")
 fileIn (scriptspath+"\\GTAV_Map_Helper\\xml.ms")
 
@@ -21,6 +20,7 @@ utility GTAV_Map_Helper "GTA V Map Helper" width:162 /*height:344*/ height:400
 	
 	group "FiveM"
 	(
+		checkbutton 'enable_json' "Enable Json" width:140 align:#center tooltip:"WARNING:This will load the Newtonsoft assembly!"
 		checkbox 'chk_archetypes' "Export Archetypes" 
 		checkbox 'chk_entities' "Export Entities"
 		button 'btn_json_export' "Export Json" width:140 align:#center
@@ -50,29 +50,53 @@ utility GTAV_Map_Helper "GTA V Map Helper" width:162 /*height:344*/ height:400
 		)	
 	)
 	
+	on enable_json changed state do
+	(
+		if (enable_json.state == true) do 
+		(
+			fileIn (scriptspath+"\\GTAV_Map_Helper\\json.ms")
+			if(Json_Assembly == undefined) do
+			(
+				messageBox "Please check if Windows is locking the assembly Newtonsoft.Json.dll\nRight click on it and open Properties, then unlock it from its General tab.\nThen restart 3ds Max."
+				enable_json.state = false
+			)
+		)
+	)
+	
 	on btn_json_export pressed do
 	(
-		list = getCurrentSelection()
-		
-		if(chk_archetypes.checked or chk_entities.checked) do
-			exportJson chk_archetypes.checked chk_entities.checked list
+		if(enable_json.checked)then
+		(
+			list = getCurrentSelection()
+			if(chk_archetypes.checked or chk_entities.checked) do
+				exportJson chk_archetypes.checked chk_entities.checked list
+		)else messageBox "First enable the json core."
 	)
+	
 	on btn_json_import pressed do
 	(
-		importJson()
+		if(enable_json.checked) then
+			importJson()
+		else messageBox "First enable the json core."
 	)
+	
 	on btn_json_check pressed do
 	(
-		checkJson()
+		if(enable_json.checked) then
+			checkJson()
+		else messageBox "First enable the json core."
 	)
+	
 	on btn_createmodel pressed do
 	(
 		create_GIMS_model()
 	)	
+	
 	on btn_createmultimodels pressed do
 	(
 		create_multiple_GIMS_models()
 	)
+	
 	on btn_createcomposite pressed do
 	(
 		create_GIMS_composite()
@@ -80,4 +104,3 @@ utility GTAV_Map_Helper "GTA V Map Helper" width:162 /*height:344*/ height:400
 	
 )
 openUtility GTAV_Map_Helper
-format "GTA V Map Helper\nMade by Neos7\nVersion: 0.1\n"
