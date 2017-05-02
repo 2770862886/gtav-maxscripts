@@ -1,5 +1,5 @@
-dotNet.loadAssembly @"$scripts\GTAV_Map_Helper\Newtonsoft.Json.dll"
-fileIn ("$scripts\\GTAV_Map_Helper\\gtav_formats.ms")
+dotNet.loadAssembly (scriptspath+"\\GTAV_Map_Helper\\Newtonsoft.Json.dll")
+fileIn (scriptspath+"\\GTAV_Map_Helper\\gtav_formats.ms")
 
 fn create_JObject_Archetype obj =(
 	local archetype = dotNetObject "Newtonsoft.Json.Linq.JObject"

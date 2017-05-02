@@ -1,5 +1,5 @@
 DotNet.LoadAssembly "System.Xml.Linq"
-fileIn ("$scripts\\GTAV_Map_Helper\\gtav_formats.ms")
+fileIn (scriptspath+"\\GTAV_Map_Helper\\gtav_formats.ms")
 
 Class_XName = dotnetClass "System.Xml.Linq.XName"
 XName_type = Class_XName.get "type"
@@ -447,13 +447,13 @@ fn export_YMAP objects_list filename = (
 	( 	
 		format "YMAP EXPORTER: %\n\n" (filePath)
 		local XDocument_YMAP = create_YMAP filename selection.min selection.max /*(objects_list.min) (objects_list.max)*/
-		
 		XElement_CMapData = XDocument_YMAP.Element XName_CMapData
 		XElement_entities = XElement_CMapData.Element XName_entities
 		for obj in objects_list do
 		(
 			local entity = getEntity(obj)
 			local XElement_CEntityDef= create_CEntityDef entity
+
 			XElement_entities.Add XElement_CEntityDef
 		)
 		XDocument_YMAP.Save filePath
