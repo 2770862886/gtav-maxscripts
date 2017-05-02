@@ -7,6 +7,14 @@ fn create_GIMS_model=(
 			model_new.rotation = i.rotation
 			model_new.pivot = i.pivot
 			i.parent  = model_new
+			if((classOf i) == Editable_Mesh or (classOf i) == Editable_Poly) then
+			(
+				addmodifier i (EGIMS_V_ModelMesh())
+			)
+			else
+			(
+				format "% is not an Editable_Mesh or Editable_Poly, Game_mesh modifier skipped\n" (i.name)
+			)
 		)
 		else
 		(
@@ -25,6 +33,14 @@ fn create_multiple_GIMS_models=(
 			model_new.rotation = i.rotation
 			model_new.pivot = i.pivot
 			i.parent  = model_new
+			if((classOf i) == Editable_Mesh or (classOf i) == Editable_Poly) then
+			(
+				addmodifier i (EGIMS_V_ModelMesh())
+			)
+			else
+			(
+				format "% is not an Editable_Mesh or Editable_Poly, Game_mesh modifier skipped\n" (i.name)
+			)
 		)
 		else
 		(
@@ -41,6 +57,14 @@ fn create_GIMS_composite=(
 		(
 			i.parent  = composite_new
 			i.pivot = composite_new.pivot
+			if((classOf i) == Editable_Mesh or (classOf i) == Editable_Poly) then
+			(
+				addmodifier i (EGIMS_V_CollisionMesh())
+			)
+			else
+			(
+				format "% is not an Editable_Mesh or Editable_Poly, Mesh modifier skipped\n" (i.name)
+			)
 		)
 		else
 		(
