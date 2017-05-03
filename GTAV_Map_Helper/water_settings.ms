@@ -1,16 +1,14 @@
 fileIn (scriptspath+"\\GTAV_Map_Helper\\water.ms")
 struct WaterQuadValues(minX,maxX,minY,maxY,Type,IsInvisible,HasLimitedDepth,z,a1,a2,a3,a4,NoStencil)
+
+XDocument_Water = create_Water()
+XElement_WaterData = XDocument_Water.Element XName_WaterData
+XElement_WaterQuads = XElement_WaterData.Element XName_WaterQuads
+XElement_CalmingQuads = XElement_WaterData.Element XName_CalmingQuads
+XElement_WaveQuads = XElement_WaterData.Element XName_WaveQuads
+		
 rollout Water_Exporter "Water Exporter " width:200 height:350
-(
-	on Water_Exporter  open do
-	(
-		XDocument_Water = create_Water()
-		XElement_WaterData = XDocument_Water.Element XName_WaterData
-		XElement_WaterQuads = XElement_WaterData.Element XName_WaterQuads
-		XElement_CalmingQuads = XElement_WaterData.Element XName_CalmingQuads
-		XElement_WaveQuads = XElement_WaterData.Element XName_WaveQuads
-	)
-	
+(	
 	group "WaterQuads"
 	(
 		spinner 'WaterQuads_minX' "minX" range:[-8192,8192,0] type:#integer align:#center width:150
