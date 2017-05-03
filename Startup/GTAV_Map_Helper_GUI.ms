@@ -2,7 +2,7 @@ fileIn (scriptspath+"\\GTAV_Map_Helper\\GIMS_shortcut.ms")
 fileIn (scriptspath+"\\GTAV_Map_Helper\\xml.ms")
 fileIn (scriptspath+"\\GTAV_Map_Helper\\json.ms")
 
-utility GTAV_Map_Helper "GTA V Map Helper" width:162 /*height:344*/ height:400
+utility GTAV_Map_Helper "GTA V Map Helper" width:162 height:420
 (	
 	group "GIMS EVO Shortcut"
 	(
@@ -17,6 +17,7 @@ utility GTAV_Map_Helper "GTA V Map Helper" width:162 /*height:344*/ height:400
 		checkbox 'chk_ymap' ".ymap.xml"
 		button 'btn_gtav_settings' "Settings" width:140 align:#center
 		button 'btn_gtav_export' "Export" width:140 align:#center
+		button 'btn_water_export' "Water" width:140 align:#center
 	)
 	
 	group "FiveM"
@@ -49,6 +50,11 @@ utility GTAV_Map_Helper "GTA V Map Helper" width:162 /*height:344*/ height:400
 			
 			actionMan.executeAction 0 "40472"
 		)	
+	)
+	
+	on btn_water_export pressed do
+	(
+		fileIn (scriptspath+"\\GTAV_Map_Helper\\water_settings.ms")
 	)
 	
 	on enable_json changed state do
