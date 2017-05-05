@@ -1,5 +1,9 @@
-try( global Json_Assembly = dotNet.loadAssembly (scriptspath+"\\GTAV_Map_Helper\\Newtonsoft.Json.dll"))
-catch( format "GTA V Map Helper: Impossible to load assembly Newtonsoft.Json.dll" )
+try( 
+	global Json_Assembly = dotNet.loadAssembly (scriptspath+"\\GTAV_Map_Helper\\Newtonsoft.Json.dll")
+	)
+catch( 
+	messagebox "Impossible to load assembly Newtonsoft.Json.dll\nPlease check if Windows is locking the assembly Newtonsoft.Json.dll\nRight click on it and open Properties, then unlock it from its General tab.\nThen restart 3ds Max.\n\n Json features will be disabled." title:"GTA V Map Helper" 
+	)
 
 fileIn (scriptspath+"\\GTAV_Map_Helper\\gtav_formats.ms")
 

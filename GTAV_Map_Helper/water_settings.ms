@@ -7,7 +7,7 @@ XElement_WaterQuads = XElement_WaterData.Element XName_WaterQuads
 XElement_CalmingQuads = XElement_WaterData.Element XName_CalmingQuads
 XElement_WaveQuads = XElement_WaterData.Element XName_WaveQuads
 		
-rollout Water_Exporter "Water Exporter " width:200 height:530
+rollout Water_Exporter "Water.xml Exporter" width:200 height:530
 (	
 	group "WaterQuads"
 	(
