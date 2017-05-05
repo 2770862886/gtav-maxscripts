@@ -17,12 +17,11 @@ utility GTAV_Map_Helper "GTA V Map Helper" width:162 height:420
 		checkbox 'chk_ymap' ".ymap.xml"
 		button 'btn_gtav_settings' "Settings" width:140 align:#center
 		button 'btn_gtav_export' "Export" width:140 align:#center
-		button 'btn_water_export' "Water" width:140 align:#center
+		button 'btn_water_export' "Water.xml" width:140 align:#center
 	)
 	
 	group "FiveM"
 	(
-		checkbutton 'enable_json' "Enable Json" width:140 align:#center tooltip:"WARNING:This will load the Newtonsoft assembly!"
 		checkbox 'chk_archetypes' "Export Archetypes" 
 		checkbox 'chk_entities' "Export Entities"
 		button 'btn_json_export' "Export Json" width:140 align:#center
@@ -42,13 +41,12 @@ utility GTAV_Map_Helper "GTA V Map Helper" width:162 height:420
 		(
 			clearlistener()
 			list = getCurrentSelection()
-		
+			actionMan.executeAction 0 "40472"
+			
 			if( chk_ytyp.checked )then
 				export_YTYP list "Output"
 			if( chk_ymap.checked) then
 				export_YMAP list "Output"
-			
-			actionMan.executeAction 0 "40472"
 		)	
 	)
 	
@@ -57,40 +55,29 @@ utility GTAV_Map_Helper "GTA V Map Helper" width:162 height:420
 		fileIn (scriptspath+"\\GTAV_Map_Helper\\water_settings.ms")
 	)
 	
-	on enable_json changed state do
-	(
-		if (enable_json.state == true) do 
-		(
-			if(Json_Assembly == undefined) do
-			(
-				messageBox "Please check if Windows is locking the assembly Newtonsoft.Json.dll\nRight click on it and open Properties, then unlock it from its General tab.\nThen restart 3ds Max."
-				enable_json.state = false
-			)
-		)
-	)
 	
 	on btn_json_export pressed do
 	(
-		if(enable_json.checked)then
+		if(Json_Assembly != undefined)then
 		(
 			list = getCurrentSelection()
 			if(chk_archetypes.checked or chk_entities.checked) do
 				exportJson chk_archetypes.checked chk_entities.checked list
-		)else messageBox "First enable the json core."
+		)else messageBox "Newtonsoft.Json.dll isn't loaded."
 	)
 	
 	on btn_json_import pressed do
 	(
-		if(enable_json.checked) then
+		if(Json_Assembly != undefined) then
 			importJson()
-		else messageBox "First enable the json core."
+		else messageBox "Newtonsoft.Json.dll isn't loaded."
 	)
 	
 	on btn_json_check pressed do
 	(
-		if(enable_json.checked) then
+		if(Json_Assembly != undefined) then
 			checkJson()
-		else messageBox "First enable the json core."
+		else messageBox "Newtonsoft.Json.dll isn't loaded."
 	)
 	
 	on btn_createmodel pressed do
@@ -109,4 +96,4 @@ utility GTAV_Map_Helper "GTA V Map Helper" width:162 height:420
 	)
 	
 )
-openUtility GTAV_Map_Helper
+openutility GTAV_Map_Helper
