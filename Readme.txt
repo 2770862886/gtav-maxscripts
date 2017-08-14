@@ -8,7 +8,7 @@ Run 3ds Max and the script will appear in your utilities.
 USAGE:
 Select geometries and click the export button.
 
-If you have an error on startup about the assembly, right click on "Newtonsoft.Json.dll" located in the "scripts\GTAV_Map_Helper\" folder, go to Properties and unblock it or simply download it from Newtonsoft here:
+If you have an error on startup about the assembly, right click on "Newtonsoft.Json.dll" located in the "scripts\GTAV_Map_Helper\fivem\" folder, go to Properties and unblock it or simply download it from Newtonsoft here:
 https://github.com/JamesNK/Newtonsoft.Json/releases/latest
 
 This maxscript allows you to export meta data to help loading maps/props in GTA V.
