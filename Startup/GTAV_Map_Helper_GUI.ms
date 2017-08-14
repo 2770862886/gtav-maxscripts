@@ -1,6 +1,5 @@
 fileIn (scriptspath+"\\GTAV_Map_Helper\\GIMS_shortcut.ms")
 fileIn (scriptspath+"\\GTAV_Map_Helper\\xml.ms")
-fileIn (scriptspath+"\\GTAV_Map_Helper\\json.ms")
 
 utility GTAV_Map_Helper "GTA V Map Helper" width:162 height:420
 (	
@@ -20,14 +19,7 @@ utility GTAV_Map_Helper "GTA V Map Helper" width:162 height:420
 		button 'btn_water_export' "Water.xml" width:140 align:#center
 	)
 	
-	group "FiveM"
-	(
-		checkbox 'chk_archetypes' "Export Archetypes" 
-		checkbox 'chk_entities' "Export Entities"
-		button 'btn_json_export' "Export Json" width:140 align:#center
-		button 'btn_json_check' "Check Json" width:140 align:#center
-		button 'btn_json_import' "Import Json" width:140 align:#center
-	)
+	button 'btn_fivem' "FiveM Json" width:140 align:#center
 	
 	on btn_gtav_settings pressed do
 	(
@@ -50,34 +42,14 @@ utility GTAV_Map_Helper "GTA V Map Helper" width:162 height:420
 		)	
 	)
 	
+	on btn_fivem pressed do
+	(
+		fileIn (scriptspath+"\\GTAV_Map_Helper\\fivem\\FiveM_Json.ms")
+	)
+	
 	on btn_water_export pressed do
 	(
 		fileIn (scriptspath+"\\GTAV_Map_Helper\\water_settings.ms")
-	)
-	
-	
-	on btn_json_export pressed do
-	(
-		if(Json_Assembly != undefined)then
-		(
-			list = getCurrentSelection()
-			if(chk_archetypes.checked or chk_entities.checked) do
-				exportJson chk_archetypes.checked chk_entities.checked list
-		)else messageBox "Newtonsoft.Json.dll isn't loaded."
-	)
-	
-	on btn_json_import pressed do
-	(
-		if(Json_Assembly != undefined) then
-			importJson()
-		else messageBox "Newtonsoft.Json.dll isn't loaded."
-	)
-	
-	on btn_json_check pressed do
-	(
-		if(Json_Assembly != undefined) then
-			checkJson()
-		else messageBox "Newtonsoft.Json.dll isn't loaded."
 	)
 	
 	on btn_createmodel pressed do
