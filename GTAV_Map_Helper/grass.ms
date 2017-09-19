@@ -7,6 +7,7 @@ fn create_InstanceListItem obj face=(
 	local Color_x = random 0 255
 	local Color_y = random 0 255
 	local Color_z = random 0 255
+	local Scale_value = 48
 	local Ao = 255
 	local Pad_x = 0
 	local Pad_y = 0
@@ -32,6 +33,9 @@ fn create_InstanceListItem obj face=(
 	XElement_Color.SetAttributeValue XName_content "char_array"
 	XElement_Color.SetValue ("\n              " + (Color_x as string) + "\n              " + (Color_y as string) + "\n              " + (Color_z as string) + "\n            ")
 	XElement_Item2.Add XElement_Color
+	local XElement_Scale = dotNetObject "System.Xml.Linq.XElement" XName_Scale
+	XElement_Scale.SetAttributeValue XName_value Scale_value
+	XElement_Item2.Add XElement_Scale
 	local XElement_Ao = dotNetObject "System.Xml.Linq.XElement" XName_Ao
 	XElement_Ao.SetAttributeValue XName_value Ao
 	XElement_Item2.Add XElement_Ao
