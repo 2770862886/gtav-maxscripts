@@ -88,8 +88,20 @@ fn create_GrassInstanceListItem obj=(
 	local XElement_InstanceList= dotNetObject "System.Xml.Linq.XElement" XName_InstanceList
 	
 	/*uses faces of the object as item*/
+	
+	/* ALL FACES */
+	/*
 	local faceCount = obj.numfaces
 	for face = 1 to faceCount do
+	(
+		local InstanceList_Item = create_InstanceListItem obj face
+		XElement_InstanceList.Add InstanceList_Item
+	)
+	*/
+	
+	/*SELECTED FACES*/
+	local selected_faces = polyop.getFaceSelection obj
+	for face in selected_faces do
 	(
 		local InstanceList_Item = create_InstanceListItem obj face
 		XElement_InstanceList.Add InstanceList_Item
