@@ -5,7 +5,7 @@ catch(
 	messagebox "Impossible to load assembly Newtonsoft.Json.dll\nPlease check if Windows is locking the assembly Newtonsoft.Json.dll\nRight click on it and open Properties, then unlock it from its General tab.\nThen restart 3ds Max.\n\n Json features will be disabled." title:"GTA V Map Helper" 
 	)
 
-fileIn (scriptspath+"\\GTAV_Map_Helper\\gtav_formats.ms")
+fileIn (scriptspath+"\\GTAV_Map_Helper\\resources.ms")
 
 fn create_JObject_Archetype obj =(
 	local archetype = dotNetObject "Newtonsoft.Json.Linq.JObject"
