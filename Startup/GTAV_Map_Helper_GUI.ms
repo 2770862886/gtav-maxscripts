@@ -1,10 +1,10 @@
-fileIn (scriptspath+"\\GTAV_Map_Helper\\GIMS_shortcut.ms")
+fileIn (scriptspath+"\\GTAV_Map_Helper\\utility\\gims_shortcuts.ms")
 fileIn (scriptspath+"\\GTAV_Map_Helper\\ytyp.ms")
 fileIn (scriptspath+"\\GTAV_Map_Helper\\ymap.ms")
 
 utility GTAV_Map_Helper "GTA V Map Helper" width:162 height:420
 (	
-	group "GIMS EVO Shortcut"
+	group "GIMS EVO Shortcuts"
 	(
 		button 'btn_createmodel' "Create Model" width:140 align:#center
 		button 'btn_createmultimodels' "Create Multiple Models" width:140 align:#center
@@ -17,11 +17,15 @@ utility GTAV_Map_Helper "GTA V Map Helper" width:162 height:420
 		checkbox 'chk_ymap' ".ymap.xml"
 		button 'btn_gtav_settings' "Settings" width:140 align:#center
 		button 'btn_gtav_export' "Export" width:140 align:#center
-		button 'btn_water_export' "Water.xml" width:140 align:#center
-		button 'btn_grass_export' "GrassInstance" width:140 align:#center
 	)
 	
-	button 'btn_fivem' "FiveM Json" width:140 align:#center
+	group "Other"
+	(
+		button 'btn_water_export' "Water.xml" width:140 align:#center
+		button 'btn_grass_export' "Instanced Grass" width:140 align:#center
+		button 'btn_tools' "Tools" width:140 align:#center
+		button 'btn_fivem' "FiveM Json" width:140 align:#center
+	)
 	
 	on btn_gtav_settings pressed do
 	(
@@ -46,16 +50,17 @@ utility GTAV_Map_Helper "GTA V Map Helper" width:162 height:420
 	
 	on btn_grass_export pressed do
 	(
-		clearlistener()
-		list = getCurrentSelection()
-		actionMan.executeAction 0 "40472"
-		fileIn (scriptspath+"\\GTAV_Map_Helper\\grass.ms")
-		export_YMAP_grass list "Grass"
+		fileIn (scriptspath+"\\GTAV_Map_Helper\\gui\\grass_settings.ms")
+	)
+	
+	on btn_tools pressed do
+	(
+		fileIn (scriptspath+"\\GTAV_Map_Helper\\utility\\tools.ms")
 	)
 	
 	on btn_fivem pressed do
 	(
-		fileIn (scriptspath+"\\GTAV_Map_Helper\\fivem\\FiveM_Json.ms")
+		fileIn (scriptspath+"\\GTAV_Map_Helper\\fivem\\fivem_settings.ms")
 	)
 	
 	on btn_water_export pressed do

@@ -1,4 +1,4 @@
-rollout Grass_Instance "GrassInstance Settings" width:250 height:500
+rollout Grass_Instance "GrassInstance Ymap Exporter" width:250 height:500
 (
 	group "GrassInstance"
 	(
@@ -21,6 +21,17 @@ rollout Grass_Instance "GrassInstance Settings" width:250 height:500
 		spinner 'Instance_ColorR' "Color R" range:[0,255,0] type:#integer align:#center width:150
 		spinner 'Instance_ColorG' "Color G" range:[0,255,0] type:#integer align:#center width:150
 		spinner 'Instance_ColorB' "Color B" range:[0,255,0] type:#integer align:#center width:150
+	)
+	
+	button 'btn_grassymap_export' "Export .ymap.xml" width:140 align:#center
+	
+	on btn_grassymap_export pressed do
+	(
+		clearlistener()
+		list = getCurrentSelection()
+		actionMan.executeAction 0 "40472"
+		fileIn (scriptspath+"\\GTAV_Map_Helper\\grass.ms")
+		export_YMAP_grass list "Grass"
 	)
 )
 createdialog Grass_Instance
