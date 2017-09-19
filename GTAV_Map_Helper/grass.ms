@@ -19,6 +19,7 @@ fn create_InstanceListItem obj face=(
 	
 	local XElement_Item2 = dotNetObject "System.Xml.Linq.XElement" XName_Item
 	local XElement_Position = dotNetObject "System.Xml.Linq.XElement" XName_Position
+	XElement_Position.SetAttributeValue XName_content "short_array"
 	XElement_Position.SetValue ("\n              " + (int_batch_pos_x as string) + "\n              " + (int_batch_pos_y as string) + "\n              " + (int_batch_pos_z as string) + "\n            ")
 	XElement_Item2.Add XElement_Position
 	local XElement_NormalX = dotNetObject "System.Xml.Linq.XElement" XName_NormalX
@@ -28,12 +29,14 @@ fn create_InstanceListItem obj face=(
 	XElement_NormalY.SetAttributeValue XName_value NormalY
 	XElement_Item2.Add XElement_NormalY
 	local XElement_Color = dotNetObject "System.Xml.Linq.XElement" XName_Color
+	XElement_Color.SetAttributeValue XName_content "char_array"
 	XElement_Color.SetValue ("\n              " + (Color_x as string) + "\n              " + (Color_y as string) + "\n              " + (Color_z as string) + "\n            ")
 	XElement_Item2.Add XElement_Color
 	local XElement_Ao = dotNetObject "System.Xml.Linq.XElement" XName_Ao
 	XElement_Ao.SetAttributeValue XName_value Ao
 	XElement_Item2.Add XElement_Ao
 	local XElement_Pad = dotNetObject "System.Xml.Linq.XElement" XName_Pad
+	XElement_Pad.SetAttributeValue XName_content "char_array"
 	XElement_Pad.SetValue ("\n              " + (Pad_x as string) + "\n              " + (Pad_y as string) + "\n              " + (Pad_z as string) + "\n            ")
 	XElement_Item2.Add XElement_Pad
 	
