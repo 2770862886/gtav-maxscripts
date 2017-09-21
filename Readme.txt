@@ -13,8 +13,9 @@ Of course exported models have to be coherent with those used to generate the me
 
 InstancedGrass:
 Select your geometries and be sure they are of class Editable_Poly.
-Each geometry is used as batch and its selected polygons are used as positions for instances.
-I suggest to tesselate/turbosmooth/subdivide your geometry sample to increase polygons density, instances density in our case.
+Each selected Editable_Poly is used as a batch. The script uses its selected polygons as position for instances.
+Select your polygons for each object and click "Add Batch", repeat this for each object and customize the settings, when ready click "Export" to export the ymap.xml.
+I suggest to tesselate/turbosmooth/subdivide your geometry sample to increase polygons density and so the instances density.
 
 Water.xml:
 Work from Top View and create planes, they will be used as water blocks. 
