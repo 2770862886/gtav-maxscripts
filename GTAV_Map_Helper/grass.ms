@@ -1,5 +1,28 @@
 fileIn (scriptspath+"\\GTAV_Map_Helper\\xml.ms")
 
+fn get_SelectedFaces_Bound obj=(
+	local bbmax = [-8192,-8192,-8192]
+	local bbmin = [8192,8192,8192]
+	
+	local faces = for face in obj.selectedFaces collect face.index
+	for face in faces do
+	(
+		local vertices = polyop.getFaceVerts obj face
+		for vertex in vertices do
+		(
+			local vertex_position = polyop.getVert obj vertex
+			bbmax.x = amax bbmax.x vertex_position.x
+			bbmax.y = amax bbmax.y vertex_position.y
+			bbmax.z = amax bbmax.z vertex_position.z
+			bbmin.x = amin bbmin.x vertex_position.x
+			bbmin.y = amin bbmin.y vertex_position.y
+			bbmin.z = amin bbmin.z vertex_position.z
+		)
+	)
+	local batch = #(bbmin,bbmax)
+	return batch
+)
+
 fn create_InstanceListItem obj face=(
 	local FaceNormal = polyop.getFaceNormal obj face
 	local NormalX = (((FaceNormal.x +1)*0.5 * 255) as integer)
@@ -54,17 +77,21 @@ fn create_GrassInstanceListItem obj=(
 	local LodInstFadeRange = 0.75
 	local OrientToTerrain = 1.0
 	
+	local batch = get_SelectedFaces_Bound obj
+	local batchaabb_min = batch[1]
+	local batchaabb_max= batch[2]
+	
 	local XElement_Item = dotNetObject "System.Xml.Linq.XElement" XName_Item 
 	local XElement_BatchAABB = dotNetObject "System.Xml.Linq.XElement" XName_BatchAABB
 	local XElement_min = dotNetObject "System.Xml.Linq.XElement" XName_min
-	XElement_min.SetAttributeValue XName_x obj.min.x
-	XElement_min.SetAttributeValue XName_y obj.min.y
-	XElement_min.SetAttributeValue XName_z obj.min.z
+	XElement_min.SetAttributeValue XName_x batchaabb_min.x
+	XElement_min.SetAttributeValue XName_y batchaabb_min.y
+	XElement_min.SetAttributeValue XName_z batchaabb_min.z
 	XElement_min.SetAttributeValue XName_w 0
 	local XElement_max = dotNetObject "System.Xml.Linq.XElement" XName_max
-	XElement_max.SetAttributeValue XName_x obj.max.x
-	XElement_max.SetAttributeValue XName_y obj.max.y
-	XElement_max.SetAttributeValue XName_z obj.max.z
+	XElement_max.SetAttributeValue XName_x batchaabb_max.x
+	XElement_max.SetAttributeValue XName_y batchaabb_max.y
+	XElement_max.SetAttributeValue XName_z batchaabb_max.z
 	XElement_max.SetAttributeValue XName_w 0
 	XElement_BatchAABB.Add XElement_min
 	XElement_BatchAABB.Add XElement_max
@@ -103,7 +130,7 @@ fn create_GrassInstanceListItem obj=(
 	)
 	*/
 	
-	/*SELECTED FACES*/
+	/*ONLY SELECTED FACES*/
 	local selected_faces = polyop.getFaceSelection obj
 	for face in selected_faces do
 	(

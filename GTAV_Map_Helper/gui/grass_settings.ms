@@ -1,4 +1,4 @@
-rollout Grass_Instance "GrassInstance Ymap Exporter" width:250 height:500
+rollout Grass_Instance "GrassInstance Ymap Exporter" width:200 height:500
 (
 	group "GrassInstance"
 	(
@@ -12,17 +12,22 @@ rollout Grass_Instance "GrassInstance Ymap Exporter" width:250 height:500
 			"prop_grass_ca", "prop_grass_da", "prop_log_aa", "prop_log_ab", "prop_log_ac", "prop_log_ad", "prop_log_ae", "prop_log_af", "prop_saplin_001_b",
 			"prop_saplin_001_c", "prop_saplin_002_b", "prop_saplin_002_c", "prop_small_bushyba", "prop_tall_drygrass_aa", "prop_tall_grass_ba",
 			"prop_thindesertfiller_aa", "prop_weed_001_aa", "prop_weed_002_ba", "urbandryfrnds_01", "urbandrygrass_01", "urbangrnfrnds_01",
-			"urbangrngrass_01", "urbanweeds01", "urbanweeds01_l1", "urbanweeds02", "urbanweeds02_l1")
+			"urbangrngrass_01", "urbanweeds01", "urbanweeds01_l1", "urbanweeds02", "urbanweeds02_l1") align:#left width:150
 	)
 	
 	group "Instance"
 	(
-		spinner 'Instance_Scale' "Scale" range:[0,255,48] type:#integer align:#center width:150
-		spinner 'Instance_ColorR' "Color R" range:[0,255,0] type:#integer align:#center width:150
-		spinner 'Instance_ColorG' "Color G" range:[0,255,0] type:#integer align:#center width:150
-		spinner 'Instance_ColorB' "Color B" range:[0,255,0] type:#integer align:#center width:150
+		spinner 'Instance_Scale' "Scale:" range:[0,255,1] type:#integer align:#center width:55
+		spinner 'Instance_ColorR' "Color R:" range:[0,255,0] type:#integer align:#center width:55
+		spinner 'Instance_ColorG' "Color G:" range:[0,255,0] type:#integer align:#center width:55
+		spinner 'Instance_ColorB' "Color B:" range:[0,255,0] type:#integer align:#center width:55
+		spinner 'Instance_Ao' "Ao:" range:[0,255,255] type:#integer align:#center width:55
+		spinner 'Instance_PadX' "Pad X:" range:[0,255,0] type:#integer align:#center width:55
+		spinner 'Instance_PadY' "Pad Y:" range:[0,255,0] type:#integer align:#center width:55
+		spinner 'Instance_PadZ' "Pad Z:" range:[0,255,0] type:#integer align:#center width:55
 	)
 	
+	button 'btn_grassymap_addbatch' "Add Batch" width:140 align:#center
 	button 'btn_grassymap_export' "Export .ymap.xml" width:140 align:#center
 	
 	on btn_grassymap_export pressed do
