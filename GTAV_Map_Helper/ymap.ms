@@ -1,5 +1,4 @@
 fileIn (scriptspath+"\\GTAV_Map_Helper\\xml.ms")
-fileIn (scriptspath+"\\GTAV_Map_Helper\\grass.ms")
 
 fn create_CEntityDef obj=(
 	local XElement_CEntityDef = dotNetObject "System.Xml.Linq.XElement" XName_Item 
@@ -187,28 +186,6 @@ fn export_YMAP_entities objects_list filename =(
 			local entity = getEntity(obj)
 			local XElement_CEntityDef= create_CEntityDef entity
 			XElement_entities.Add XElement_CEntityDef
-		)
-		XDocument_YMAP.Save filePath
-	)
-)
-
-fn export_YMAP_grass objects_list filename =(
-	local filePath = getSaveFileName caption:"Save .ymap.xml file" filename:(filename+".ymap.xml") types:"XML Document (*.xml)"
-	if( filePath != undefined) then
-	( 	
-		format "YMAP GrassInstance EXPORTER: %\n\n" (filePath)
-		local XDocument_YMAP = create_YMAP filename selection.min selection.max /*(objects_list.min) (objects_list.max)*/
-		XElement_CMapData = XDocument_YMAP.Element XName_CMapData
-		XElement_instancedData = XElement_CMapData.Element XName_instancedData
-		XElement_GrassInstanceList = XElement_instancedData.Element XName_GrassInstanceList
-		for obj in objects_list do
-		(
-			if((classOf obj) == Editable_Poly) then
-			(
-				local GrassInstanceList_Item = create_GrassInstanceListItem(obj)
-				XElement_GrassInstanceList.Add GrassInstanceList_Item
-			)
-			else (format "% is not of class Editable_Poly, it will be skipped.\nExtents might be inaccurate.TO BE FIXED\n" (obj.name))
 		)
 		XDocument_YMAP.Save filePath
 	)

@@ -1,5 +1,15 @@
 fileIn (scriptspath+"\\GTAV_Map_Helper\\xml.ms")
 
+fn export_YmapGrass filename ymap =(
+	local filePath = getSaveFileName caption:"Save .ymap.xml file" filename:(filename+".ymap.xml") types:"XML Document (*.xml)"
+	if( filePath != undefined) then
+	( 	
+		format "YMAP GrassInstance EXPORTER: %\n\nExtents might be inaccurate.\n" (filePath)
+		local ymapfile = dotNetObject "System.Xml.Linq.XDocument" ymap
+		ymapfile.Save filePath
+	)
+)
+
 fn get_SelectedFaces_Bound obj=(
 	local bbmax = [-8192,-8192,-8192]
 	local bbmin = [8192,8192,8192]
@@ -23,18 +33,21 @@ fn get_SelectedFaces_Bound obj=(
 	return batch
 )
 
-fn create_InstanceListItem obj face=(
+fn create_InstanceListItem obj face instances_settings=(
 	local FaceNormal = polyop.getFaceNormal obj face
 	local NormalX = (((FaceNormal.x +1)*0.5 * 255) as integer)
 	local NormalY = (((FaceNormal.y +1)*0.5 * 255) as integer)
-	local Color_x = random 0 255
-	local Color_y = random 0 255
-	local Color_z = random 0 255
-	local Scale_value = 48
-	local Ao = 255
-	local Pad_x = 0
-	local Pad_y = 0
-	local Pad_z = 0
+	local Colors = instances_settings[2]
+	local Color_x = Colors[1] as integer
+	local Color_y = Colors[2] as integer
+	local Color_z = Colors[3] as integer
+	local Scale_value = instances_settings[1]
+	local Ao = instances_settings[3]
+	local Pad = instances_settings[4]
+	local Pad_x = Pad[1] as integer
+	local Pad_y = Pad[2] as integer
+	local Pad_z = Pad[3] as integer
+	
 	local world_pos = polyop.getFaceCenter obj face
 	local batch_pos = (world_pos - obj.min)/(obj.max-obj.min) * 65535 /*world_pos = ((batch_pos / 65535) * (obj.max-obj.min)) + obj.min*/
 	local int_batch_pos_x = batch_pos.x as integer
@@ -70,12 +83,13 @@ fn create_InstanceListItem obj face=(
 	return XElement_Item2
 )
 
-fn create_GrassInstanceListItem obj=(
-	local ScaleRange = [0.6,2.3,0.2]
-	local lodDist = 40
-	local LodFadeStartDist = 20.0
-	local LodInstFadeRange = 0.75
-	local OrientToTerrain = 1.0
+fn create_GrassInstanceListItem obj batch_settings instances_settings =(
+	local archetypeName = batch_settings[1]
+	local ScaleRange = batch_settings[2]
+	local lodDist = batch_settings[3]
+	local LodFadeStartDist = batch_settings[4]
+	local LodInstFadeRange = batch_settings[5]
+	local OrientToTerrain = batch_settings[6]
 	
 	local batch = get_SelectedFaces_Bound obj
 	local batchaabb_min = batch[1]
@@ -102,7 +116,7 @@ fn create_GrassInstanceListItem obj=(
 	XElement_ScaleRange.SetAttributeValue XName_z ScaleRange.z
 	XElement_Item.Add XElement_ScaleRange
 	local XElement_archetypeName = dotNetObject "System.Xml.Linq.XElement" XName_archetypeName
-	XElement_archetypeName.SetValue obj.name
+	XElement_archetypeName.SetValue archetypeName
 	XElement_Item.Add XElement_archetypeName
 	local XElement_lodDist = dotNetObject "System.Xml.Linq.XElement" XName_lodDist
 	XElement_lodDist.SetAttributeValue XName_value lodDist
@@ -134,7 +148,7 @@ fn create_GrassInstanceListItem obj=(
 	local selected_faces = polyop.getFaceSelection obj
 	for face in selected_faces do
 	(
-		local InstanceList_Item = create_InstanceListItem obj face
+		local InstanceList_Item = create_InstanceListItem obj face instances_settings
 		XElement_InstanceList.Add InstanceList_Item
 	)
 	
