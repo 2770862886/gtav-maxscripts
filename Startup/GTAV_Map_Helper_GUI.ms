@@ -21,6 +21,7 @@ utility GTAV_Map_Helper "GTA V Map Helper" width:162 height:420
 	
 	group "Other"
 	(
+		button 'btn_popzone_export' "popzone.ipl" width:140 align:#center
 		button 'btn_water_export' "Water.xml" width:140 align:#center
 		button 'btn_grass_export' "Instanced Grass" width:140 align:#center
 		button 'btn_tools' "Tools" width:140 align:#center
@@ -46,6 +47,11 @@ utility GTAV_Map_Helper "GTA V Map Helper" width:162 height:420
 			if( chk_ymap.checked) then
 				export_YMAP_entities list "Output"
 		)	
+	)
+	
+	on btn_popzone_export pressed do
+	(
+		fileIn (scriptspath+"\\GTAV_Map_Helper\\popzone.ms")
 	)
 	
 	on btn_grass_export pressed do
