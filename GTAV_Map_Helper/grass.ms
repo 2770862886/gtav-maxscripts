@@ -38,10 +38,12 @@ fn create_InstanceListItem obj face instances_settings=(
 	local NormalX = (((FaceNormal.x +1)*0.5 * 255) as integer)
 	local NormalY = (((FaceNormal.y +1)*0.5 * 255) as integer)
 	local Colors = instances_settings[2]
-	local Color_x = Colors[1] as integer
-	local Color_y = Colors[2] as integer
-	local Color_z = Colors[3] as integer
-	local Scale_value = instances_settings[1]
+	
+	if(Colors[1] == -1)then(local Color_x = random 0 255)else(local Color_x = Colors[1] as integer)
+	if(Colors[2] == -1)then(local Color_y = random 0 255)else(local Color_y = Colors[2] as integer)
+	if(Colors[3] == -1)then(local Color_z = random 0 255)else(local Color_z = Colors[3] as integer)
+	if(instances_settings[1] == -1)then(local Scale_value = random 1 255)else(local Scale_value = instances_settings[1])
+
 	local Ao = instances_settings[3]
 	local Pad = instances_settings[4]
 	local Pad_x = Pad[1] as integer

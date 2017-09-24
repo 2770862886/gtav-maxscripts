@@ -70,10 +70,10 @@ rollout Grass_Instance "GrassInstance Exporter (.ymap.xml)" width:248 height:700
 		if(Batch_LodInstFadeRange_random.checked)then(LodInstFadeRange = random 0 255)else(LodInstFadeRange = Batch_LodInstFadeRange.value)
 		if(Batch_OrientToTerrain_random.checked)then(OrientToTerrain = random 0 255)else(OrientToTerrain = Batch_OrientToTerrain.value)
 		
-		if(Instances_Scale_random.checked)then(InstanceScale = random 1 255)else(InstanceScale = Instances_Scale.value)
-		if(Instances_ColorR_random.checked)then(InstanceColorR = random 0 255)else(InstanceColorR = Instances_ColorR.value)
-		if(Instances_ColorG_random.checked)then(InstanceColorG = random 0 255)else(InstanceColorG = Instances_ColorG.value)
-		if(Instances_ColorB_random.checked)then(InstanceColorB = random 0 255)else(InstanceColorB = Instances_ColorB.value)
+		if(Instances_Scale_random.checked)then(InstanceScale = -1)else(InstanceScale = Instances_Scale.value)
+		if(Instances_ColorR_random.checked)then(InstanceColorR = -1)else(InstanceColorR = Instances_ColorR.value)
+		if(Instances_ColorG_random.checked)then(InstanceColorG = -1)else(InstanceColorG = Instances_ColorG.value)
+		if(Instances_ColorB_random.checked)then(InstanceColorB = -1)else(InstanceColorB = Instances_ColorB.value)
 		InstanceColor = [InstanceColorR,InstanceColorG,InstanceColorB]
 		InstanceAo = Instances_Ao.value
 		InstancePad = [Instances_PadX.value,Instances_PadY.value,Instances_PadZ.value]
