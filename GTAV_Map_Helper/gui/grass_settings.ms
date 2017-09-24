@@ -6,6 +6,10 @@ XDocument_YMAP = create_YMAP "Grass" [0,0,0] [0,0,0]
 XElement_CMapData = XDocument_YMAP.Element XName_CMapData
 XElement_contentFlags = XElement_CMapData.Element XName_contentFlags
 XElement_contentFlags.SetAttributeValue XName_value 1088
+XElement_physicsDictionaries = XElement_CMapData.Element XName_physicsDictionaries
+XElement_Item = dotNetObject "System.Xml.Linq.XElement" XName_Item
+XElement_Item.SetValue "v_proc1"
+XElement_physicsDictionaries.Add XElement_Item
 XElement_instancedData = XElement_CMapData.Element XName_instancedData
 XElement_GrassInstanceList = XElement_instancedData.Element XName_GrassInstanceList
 
@@ -101,6 +105,10 @@ rollout Grass_Instance "GrassInstance Exporter (.ymap.xml)" width:248 height:700
 		XElement_CMapData = XDocument_YMAP.Element XName_CMapData
 		XElement_contentFlags = XElement_CMapData.Element XName_contentFlags
 		XElement_contentFlags.SetAttributeValue XName_value 1088
+		XElement_physicsDictionaries = XElement_CMapData.Element XName_physicsDictionaries
+		XElement_Item = dotNetObject "System.Xml.Linq.XElement" XName_Item
+		XElement_Item.SetValue "v_proc1"
+		XElement_physicsDictionaries.Add XElement_Item
 		XElement_instancedData = XElement_CMapData.Element XName_instancedData
 		XElement_GrassInstanceList = XElement_instancedData.Element XName_GrassInstanceList
 	)
