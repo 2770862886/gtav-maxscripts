@@ -57,7 +57,7 @@ fn create_InstanceListItem obj face instances_settings=(
 	local int_batch_pos_z = batch_pos.z as integer
 	
 	local XElement_Item2 = dotNetObject "System.Xml.Linq.XElement" XName_Item
-	local XElement_Position = dotNetObject "System.Xml.Linq.XElement" XName_Position
+	local XElement_Position = dotNetObject "System.Xml.Linq.XElement" XName_Position2
 	XElement_Position.SetAttributeValue XName_content "short_array"
 	XElement_Position.SetValue ("\n              " + (int_batch_pos_x as string) + "\n              " + (int_batch_pos_y as string) + "\n              " + (int_batch_pos_z as string) + "\n            ")
 	XElement_Item2.Add XElement_Position
