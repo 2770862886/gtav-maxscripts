@@ -197,7 +197,7 @@ fn export_YMAP_entities objects_list filename =(
 )
 
 fn read_YMAP_entities=(
-	filePath = getOpenFileName caption:"Import .ymap.xml file" types:"XML Document (*.xml)"
+	local filePath = getOpenFileName caption:"Import .ymap.xml file" types:"XML Document (*.xml)"
 	
 	if(filePath != undefined) then
 	(
@@ -236,7 +236,6 @@ fn read_YMAP_entities=(
 			
 			local Entity = YmapEntityInfo EntityInfo_archetypeName:Entity_archetypeName EntityInfo_position:Entity_position EntityInfo_rotation:Entity_rotation EntityInfo_scaleXY:Entity_scaleXY EntityInfo_scaleZ:Entity_scaleZ
 			append EntityList Entity
-			format "%\n" (Entity)
 		)
 	)
 	return EntityList

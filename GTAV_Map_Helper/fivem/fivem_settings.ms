@@ -8,9 +8,9 @@ rollout FiveM_Json "FiveM .json" width:170 height:125
 
 	checkbox 'chk_archetypes' "Export Archetypes" 
 	checkbox 'chk_entities' "Export Entities"
-	button 'btn_json_export' "Export Json" width:150 align:#center
-	button 'btn_json_check' "Check Json" width:150 align:#center
-	button 'btn_json_import' "Import Json" width:150 align:#center
+	button 'btn_json_export' "Export .json" width:150 align:#center
+	button 'btn_json_check' "Check .json" width:150 align:#center
+	button 'btn_json_import' "Import .json" width:150 align:#center
 	
 	on btn_json_export pressed do
 	(

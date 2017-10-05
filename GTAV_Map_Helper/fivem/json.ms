@@ -1,7 +1,7 @@
 try(global Json_Assembly = dotNet.loadAssembly (scriptspath+"\\GTAV_Map_Helper\\fivem\\Newtonsoft.Json.dll"))
 catch( messagebox "Impossible to load assembly Newtonsoft.Json.dll\nPlease check if Windows is locking the assembly Newtonsoft.Json.dll\nRight click on it and open Properties, then unlock it from its General tab.\nThen restart 3ds Max.\n\n Json features will be disabled." title:"GTA V Map Helper" )
 
-struct entity(ENTposition, ENTrotation, ENTname)
+struct JsonEntityInfo(EntityInfo_position, EntityInfo_rotation, EntityInfo_name)
 
 fn create_JObject_Archetype obj =(
 	local Archetype_aabbmin = (in coordsys local obj.min)
@@ -68,45 +68,45 @@ fn create_JObject_Entity obj =(
 )
 
 fn readJson=(
-	filePath = getOpenFileName caption:"Import .Json file" types:"Newtonsoft (*.json)"
+	local filePath = getOpenFileName caption:"Import .Json file" types:"Newtonsoft (*.json)"
 			
 	if(filePath != undefined) then
 	(
 		format "JSON READER: %\n\n" (filePath)
-		streamReader  = dotnetObject "System.IO.StreamReader" filePath
-		jsonString = streamReader.ReadToEnd()
+		local streamReader  = dotnetObject "System.IO.StreamReader" filePath
+		local jsonString = streamReader.ReadToEnd()
 		streamReader.close()
-		importedJson=dotNetObject "Newtonsoft.Json.Linq.JObject"
+		local importedJson=dotNetObject "Newtonsoft.Json.Linq.JObject"
 		importedJson=importedJson.parse jsonString
 		
-		JEnumerable = importedJson.Item["entities"].Children()
-		enumerator = JEnumerable.GetEnumerator()
+		local JEnumerable = importedJson.Item["entities"].Children()
+		local Enumerator = JEnumerable.GetEnumerator()
 				
-		local entityList =#()
+		local EntityList =#()
 				
-		while enumerator.MoveNext() do
+		while Enumerator.MoveNext() do
 		(
-			iterEntity = dotNetObject "Newtonsoft.Json.Linq.JObject" enumerator.Current
-			JTokenArrayPos = iterEntity.GetValue "position"
-			JTokenArrayRot = iterEntity.GetValue "rotation"
-			JTokenName = iterEntity.GetValue "archetypeName"
+			local iterEntity = dotNetObject "Newtonsoft.Json.Linq.JObject" Enumerator.Current
+			local JTokenArrayPos = iterEntity.GetValue "position"
+			local JTokenArrayRot = iterEntity.GetValue "rotation"
+			local JTokenName = iterEntity.GetValue "archetypeName"
 					
-			JValuePosX = JTokenArrayPos.item(0)
-			JValuePosY = JTokenArrayPos.item(1)
-			JValuePosZ = JTokenArrayPos.item(2)
+			local JValuePosX = JTokenArrayPos.item(0)
+			local JValuePosY = JTokenArrayPos.item(1)
+			local JValuePosZ = JTokenArrayPos.item(2)
 					
-			JValueRotX = JTokenArrayRot.item(0)
-			JValueRotY = JTokenArrayRot.item(1)
-			JValueRotZ = JTokenArrayRot.item(2)
-			JValueRotW = JTokenArrayRot.item(3)
-			JValueName = JTokenName
+			local JValueRotX = JTokenArrayRot.item(0)
+			local JValueRotY = JTokenArrayRot.item(1)
+			local JValueRotZ = JTokenArrayRot.item(2)
+			local JValueRotW = JTokenArrayRot.item(3)
+			local JValueName = JTokenName
 					
-			PositionValue = [(JValuePosX.Value as float), (JValuePosY.Value as float), (JValuePosZ.Value as float)]
-			RotationValue = [(JValueRotX.Value as float), (JValueRotY.Value as float), (JValueRotZ.Value as float), (JValueRotW.Value as float)]
-			NameValue = JTokenName.Value
+			local PositionValue = [(JValuePosX.Value as float), (JValuePosY.Value as float), (JValuePosZ.Value as float)]
+			local RotationValue = [(JValueRotX.Value as float), (JValueRotY.Value as float), (JValueRotZ.Value as float), (JValueRotW.Value as float)]
+			local NameValue = JTokenName.Value
 					
-			local foundEntity = entity ENTposition:PositionValue ENTrotation:RotationValue ENTname:NameValue
-			append entityList foundEntity
+			local Entity = JsonEntityInfo EntityInfo_position:PositionValue EntityInfo_rotation:RotationValue EntityInfo_name:NameValue
+			append EntityList Entity
 		)
 	)
 	return entityList
@@ -176,8 +176,8 @@ fn checkJson=(
 	(
 		for a in entities_list do
 		(
-			if( getnodebyname(a.ENTname) == undefined ) do
-				appendifunique missing_list a.ENTname
+			if( getnodebyname(a.EntityInfo_name) == undefined ) do
+				appendifunique missing_list a.EntityInfo_name
 		)	
 		if(missing_list !=undefined and missing_list.count >0 )then
 		(
@@ -195,27 +195,27 @@ fn importJson=(
 	(
 		for a in entities_list do
 		(
-			if( getnodebyname(a.ENTname) != undefined )then
+			if( getnodebyname(a.EntityInfo_name) != undefined )then
 			(
-				if( finditem instances_list a.ENTname == 0 )then
+				if( finditem instances_list a.EntityInfo_name == 0 )then
 				(
-					format "FOUND: %\n" (a.ENTname)
-					append instances_list a.ENTname
-					selected_node = getnodebyname(a.ENTname)
-					selected_node.rotation = (inverse(quat a.ENTrotation.x a.ENTrotation.y a.ENTrotation.z a.ENTrotation.w))	
-					selected_node.pos = a.ENTposition
+					format "FOUND: %\n" (a.EntityInfo_name)
+					append instances_list a.EntityInfo_name
+					selected_node = getnodebyname(a.EntityInfo_name)
+					selected_node.rotation = (inverse(quat a.EntityInfo_rotation.x a.EntityInfo_rotation.y a.EntityInfo_rotation.z a.EntityInfo_rotation.w))	
+					selected_node.pos = a.EntityInfo_position
 				)
 				else
 				(
 					instanced_entity
-					format "FOUND: % (INSTANCE)\n" (a.ENTname)
-					selected_node = getnodebyname(a.ENTname)
+					format "FOUND: % (INSTANCE)\n" (a.EntityInfo_name)
+					selected_node = getnodebyname(a.EntityInfo_name)
 					maxOps.CloneNodes selected_node expandHierarchy:true cloneType:#instance newNodes:&instanced_entity
-					instanced_entity.rotation = (inverse(quat a.ENTrotation.x a.ENTrotation.y a.ENTrotation.z a.ENTrotation.w))
-					instanced_entity.pos = a.ENTposition
-					instanced_entity.name = (a.ENTname)
+					instanced_entity.rotation = (inverse(quat a.EntityInfo_rotation.x a.EntityInfo_rotation.y a.EntityInfo_rotation.z a.EntityInfo_rotation.w))
+					instanced_entity.pos = a.EntityInfo_position
+					instanced_entity.name = (a.EntityInfo_name)
 				)	
-			)else format "MISSING: %\n" (a.ENTname)
+			)else format "MISSING: %\n" (a.EntityInfo_name)
 		)
 	)
 )
