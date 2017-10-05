@@ -1,8 +1,6 @@
 fileIn (scriptspath+"\\GTAV_Map_Helper\\utility\\gims_shortcuts.ms")
-fileIn (scriptspath+"\\GTAV_Map_Helper\\ytyp.ms")
-fileIn (scriptspath+"\\GTAV_Map_Helper\\ymap.ms")
 
-utility GTAV_Map_Helper "GTA V Map Helper" width:162 height:420
+utility GTAV_Map_Helper "GTA V Map Scripts" width:162 height:420
 (	
 	group "GIMS EVO Shortcuts"
 	(
@@ -11,50 +9,38 @@ utility GTAV_Map_Helper "GTA V Map Helper" width:162 height:420
 		button 'btn_createcomposite' "Create Composite" width:140 align:#center
 	)
 	
-	group "GTA V" 
+	group "Main" 
 	(
-		checkbox 'chk_ytyp' ".ytyp.xml" 
-		checkbox 'chk_ymap' ".ymap.xml"
-		button 'btn_gtav_settings' "Settings" width:140 align:#center
-		button 'btn_gtav_export' "Export" width:140 align:#center
+		button 'btn_ytyp' "Ytyp" width:140 align:#center
+		button 'btn_ymap' "Ymap" width:140 align:#center
 	)
 	
 	group "Other"
 	(
-		button 'btn_popzone_export' "popzone.ipl" width:140 align:#center
-		button 'btn_water_export' "Water.xml" width:140 align:#center
-		button 'btn_grass_export' "Instanced Grass" width:140 align:#center
+		button 'btn_grass' "Instanced Grass" width:140 align:#center
+		button 'btn_popzone' "popzone.ipl" width:140 align:#center
+		button 'btn_water' "water.xml" width:140 align:#center
+		button 'btn_fivem' "FiveM (.json)" width:140 align:#center
 		button 'btn_tools' "Tools" width:140 align:#center
-		button 'btn_fivem' "FiveM Json" width:140 align:#center
+
 	)
 	
-	on btn_gtav_settings pressed do
+	on btn_ytyp pressed do
 	(
 		fileIn (scriptspath+"\\GTAV_Map_Helper\\gui\\ytyp_settings.ms")
+	)
+	
+	on btn_ymap pressed do
+	(
 		fileIn (scriptspath+"\\GTAV_Map_Helper\\gui\\ymap_settings.ms")
 	)
 	
-	on btn_gtav_export pressed do
-	(
-		if( chk_ytyp.checked or chk_ymap.checked ) then
-		(
-			clearlistener()
-			list = getCurrentSelection()
-			actionMan.executeAction 0 "40472"
-			
-			if( chk_ytyp.checked )then
-				export_YTYP list "Output"
-			if( chk_ymap.checked) then
-				export_YMAP_entities list "Output"
-		)	
-	)
-	
-	on btn_popzone_export pressed do
+	on btn_popzone pressed do
 	(
 		fileIn (scriptspath+"\\GTAV_Map_Helper\\popzone.ms")
 	)
 	
-	on btn_grass_export pressed do
+	on btn_grass pressed do
 	(
 		fileIn (scriptspath+"\\GTAV_Map_Helper\\gui\\grass_settings.ms")
 	)
@@ -69,7 +55,7 @@ utility GTAV_Map_Helper "GTA V Map Helper" width:162 height:420
 		fileIn (scriptspath+"\\GTAV_Map_Helper\\fivem\\fivem_settings.ms")
 	)
 	
-	on btn_water_export pressed do
+	on btn_water pressed do
 	(
 		fileIn (scriptspath+"\\GTAV_Map_Helper\\gui\\water_settings.ms")
 	)

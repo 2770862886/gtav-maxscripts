@@ -1,5 +1,4 @@
 DotNet.LoadAssembly "System.Xml.Linq"
-fileIn (scriptspath+"\\GTAV_Map_Helper\\resources.ms")
 Class_XName = dotnetClass "System.Xml.Linq.XName"
 
 XName_type = Class_XName.get "type"

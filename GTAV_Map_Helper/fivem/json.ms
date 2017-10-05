@@ -1,32 +1,35 @@
-try( 
-	global Json_Assembly = dotNet.loadAssembly (scriptspath+"\\GTAV_Map_Helper\\fivem\\Newtonsoft.Json.dll")
-	)
-catch( 
-	messagebox "Impossible to load assembly Newtonsoft.Json.dll\nPlease check if Windows is locking the assembly Newtonsoft.Json.dll\nRight click on it and open Properties, then unlock it from its General tab.\nThen restart 3ds Max.\n\n Json features will be disabled." title:"GTA V Map Helper" 
-	)
+try(global Json_Assembly = dotNet.loadAssembly (scriptspath+"\\GTAV_Map_Helper\\fivem\\Newtonsoft.Json.dll"))
+catch( messagebox "Impossible to load assembly Newtonsoft.Json.dll\nPlease check if Windows is locking the assembly Newtonsoft.Json.dll\nRight click on it and open Properties, then unlock it from its General tab.\nThen restart 3ds Max.\n\n Json features will be disabled." title:"GTA V Map Helper" )
 
-fileIn (scriptspath+"\\GTAV_Map_Helper\\resources.ms")
+struct entity(ENTposition, ENTrotation, ENTname)
 
 fn create_JObject_Archetype obj =(
+	local Archetype_aabbmin = (in coordsys local obj.min)
+	local Archetype_aabbmax = (in coordsys local obj.max)
+	local Archetype_centroid = (Archetype_aabbmax + Archetype_aabbmin)/2
+	local Archetype_radius = ((distance Archetype_aabbmax Archetype_aabbmin) /2 )
+	local Archetype_txdName = (obj.name+"_ytd")
+	local Archetype_Name = obj.name
+	
 	local archetype = dotNetObject "Newtonsoft.Json.Linq.JObject"
 	local JArray_aabbmin = dotNetObject "Newtonsoft.Json.Linq.JArray"
 	local JArray_aabbmax = dotNetObject "Newtonsoft.Json.Linq.JArray"
 	local JArray_centroid = dotNetObject "Newtonsoft.Json.Linq.JArray"
-	JArray_aabbmin.Add obj.aabbMin.x
-	JArray_aabbmin.Add obj.aabbMin.y
-	JArray_aabbmin.Add obj.aabbMin.z
-	JArray_aabbmax.Add obj.aabbMax.x
-	JArray_aabbmax.Add obj.aabbMax.y
-	JArray_aabbmax.Add obj.aabbMax.z
-	JArray_centroid.Add obj.centroid.x 
-	JArray_centroid.Add obj.centroid.y
-	JArray_centroid.Add obj.centroid.z
-	local JProperty_radius = dotNetObject "Newtonsoft.Json.Linq.JProperty" "radius" obj.radius
+	JArray_aabbmin.Add Archetype_aabbmin.x
+	JArray_aabbmin.Add Archetype_aabbmin.y
+	JArray_aabbmin.Add Archetype_aabbmin.z
+	JArray_aabbmax.Add Archetype_aabbmax.x
+	JArray_aabbmax.Add Archetype_aabbmax.y
+	JArray_aabbmax.Add Archetype_aabbmax.z
+	JArray_centroid.Add Archetype_centroid.x 
+	JArray_centroid.Add Archetype_centroid.y
+	JArray_centroid.Add Archetype_centroid.z
+	local JProperty_radius = dotNetObject "Newtonsoft.Json.Linq.JProperty" "radius" Archetype_radius
 	local JProperty_aabbmin = dotNetObject "Newtonsoft.Json.Linq.JProperty" "aabbMin" JArray_aabbmin
 	local JProperty_aabbmax = dotNetObject "Newtonsoft.Json.Linq.JProperty" "aabbMax" JArray_aabbmax
 	local JProperty_centroid = dotNetObject "Newtonsoft.Json.Linq.JProperty" "centroid" JArray_centroid
-	local JProperty_txdName = dotNetObject "Newtonsoft.Json.Linq.JProperty" "txdName" obj.txdName
-	local JProperty_archetypeName = dotNetObject "Newtonsoft.Json.Linq.JProperty" "archetypeName" obj.name
+	local JProperty_txdName = dotNetObject "Newtonsoft.Json.Linq.JProperty" "txdName" Archetype_txdName
+	local JProperty_archetypeName = dotNetObject "Newtonsoft.Json.Linq.JProperty" "archetypeName" Archetype_name
 	archetype.Add JProperty_aabbmin
 	archetype.Add JProperty_aabbmax
 	archetype.Add JProperty_centroid
@@ -37,22 +40,26 @@ fn create_JObject_Archetype obj =(
 )
 	
 fn create_JObject_Entity obj =(
+	local Entity_name = obj.name
+	local Entity_position = (in coordsys world obj.pos)
+	local Entity_rotation = inverse(in coordsys world obj.rotation)
+	
 	local entity = dotNetObject "Newtonsoft.Json.Linq.JObject"	
 	local JArray_position = dotNetObject"Newtonsoft.Json.Linq.JArray"
 	local JArray_rotation = dotNetObject"Newtonsoft.Json.Linq.JArray"
 	local Class_Guid = dotNetClass "System.Guid"
 	local Guid_Object = Class_Guid.NewGuid()
-	JArray_position.Add obj.ENTposition.x
-	JArray_position.Add obj.ENTposition.y
-	JArray_position.Add obj.ENTposition.z
-	JArray_rotation.Add obj.ENTrotation.x
-	JArray_rotation.Add obj.ENTrotation.y
-	JArray_rotation.Add obj.ENTrotation.z
-	JArray_rotation.Add obj.ENTrotation.w
+	JArray_position.Add Entity_position.x
+	JArray_position.Add Entity_position.y
+	JArray_position.Add Entity_position.z
+	JArray_rotation.Add Entity_rotation.x
+	JArray_rotation.Add Entity_rotation.y
+	JArray_rotation.Add Entity_rotation.z
+	JArray_rotation.Add Entity_rotation.w
 	local JProperty_rotation = dotNetObject "Newtonsoft.Json.Linq.JProperty" "rotation" JArray_rotation
 	local JProperty_position = dotNetObject "Newtonsoft.Json.Linq.JProperty" "position" JArray_position
 	local JProperty_guid = dotNetObject "Newtonsoft.Json.Linq.JProperty" "guid" (Guid_Object.ToString(""))
-	local JProperty_archetypeName = dotNetObject "Newtonsoft.Json.Linq.JProperty" "archetypeName" obj.ENTname			
+	local JProperty_archetypeName = dotNetObject "Newtonsoft.Json.Linq.JProperty" "archetypeName" Entity_name		
 	entity.Add JProperty_position
 	entity.Add JProperty_rotation
 	entity.Add JProperty_guid
@@ -128,11 +135,10 @@ fn exportJson check_archetypes check_entities objects_list=(
 			(
 				if((superclassOf obj) == GeometryClass) then
 				(	
-					local archetype = getArchetype(obj)
-					if(finditem archetypes_list archetype.name == 0) then
+					if(finditem archetypes_list obj.name == 0) then
 					(
-						append archetypes_list archetype.name
-						local JObject_archetype = create_JObject_Archetype archetype
+						append archetypes_list obj.name
+						local JObject_archetype = create_JObject_Archetype obj
 						JArray_archetypes.Add JObject_archetype
 					)else (format "Duplicated archetype with the name % found, it will be skipped.(Is this an instance?)\n" (obj.name))
 				)
@@ -140,8 +146,7 @@ fn exportJson check_archetypes check_entities objects_list=(
 			)
 				if check_entities do
 				(
-					local entity = getEntity(obj)
-					local JObject_Entity = create_JObject_Entity entity
+					local JObject_Entity = create_JObject_Entity obj
 					JArray_entities.Add JObject_Entity
 				)		
 		)

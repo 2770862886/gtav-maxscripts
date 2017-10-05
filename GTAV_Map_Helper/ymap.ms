@@ -1,10 +1,14 @@
 fileIn (scriptspath+"\\GTAV_Map_Helper\\xml.ms")
 
 fn create_CEntityDef obj=(
+	local CEntityDef_name = obj.name
+	local CEntityDef_position = (in coordsys world obj.pos)
+	local CEntityDef_rotation = inverse(in coordsys world obj.rotation)
+	
 	local XElement_CEntityDef = dotNetObject "System.Xml.Linq.XElement" XName_Item 
 	XElement_CEntityDef.SetAttributeValue XName_type "CEntityDef"
 	local XElement_archetypeName = dotNetObject "System.Xml.Linq.XElement" XName_archetypeName
-	XElement_archetypeName.SetValue obj.ENTname
+	XElement_archetypeName.SetValue CEntityDef_name
 	XElement_CEntityDef.Add XElement_archetypeName
 	local XElement_flags = dotNetObject "System.Xml.Linq.XElement" XName_flags
 	XElement_flags.SetAttributeValue XName_value 0
@@ -13,15 +17,15 @@ fn create_CEntityDef obj=(
 	XElement_guid.SetAttributeValue XName_value (random 1 2147483647)
 	XElement_CEntityDef.Add XElement_guid
 	local XElement_position = dotNetObject "System.Xml.Linq.XElement" XName_position
-	XElement_position.SetAttributeValue XName_x obj.ENTposition.x
-	XElement_position.SetAttributeValue XName_y obj.ENTposition.y
-	XElement_position.SetAttributeValue XName_z obj.ENTposition.z
+	XElement_position.SetAttributeValue XName_x CEntityDef_position.x
+	XElement_position.SetAttributeValue XName_y CEntityDef_position.y
+	XElement_position.SetAttributeValue XName_z CEntityDef_position.z
 	XElement_CEntityDef.Add XElement_position
 	local XElement_rotation = dotNetObject "System.Xml.Linq.XElement" XName_rotation
-	XElement_rotation.SetAttributeValue XName_x obj.ENTrotation.x
-	XElement_rotation.SetAttributeValue XName_y obj.ENTrotation.y
-	XElement_rotation.SetAttributeValue XName_z obj.ENTrotation.z
-	XElement_rotation.SetAttributeValue XName_w obj.ENTrotation.w
+	XElement_rotation.SetAttributeValue XName_x CEntityDef_rotation.x
+	XElement_rotation.SetAttributeValue XName_y CEntityDef_rotation.y
+	XElement_rotation.SetAttributeValue XName_z CEntityDef_rotation.z
+	XElement_rotation.SetAttributeValue XName_w CEntityDef_rotation.w
 	XElement_CEntityDef.Add XElement_rotation
 	local XElement_scaleXY = dotNetObject "System.Xml.Linq.XElement" XName_scaleXY
 	XElement_scaleXY.SetAttributeValue XName_value 1
@@ -178,13 +182,12 @@ fn export_YMAP_entities objects_list filename =(
 	if( filePath != undefined) then
 	( 	
 		format "YMAP EXPORTER: %\n\n" (filePath)
-		local XDocument_YMAP = create_YMAP filename selection.min selection.max /*(objects_list.min) (objects_list.max)*/
+		local XDocument_YMAP = create_YMAP filename (selection.min) (selection.max)
 		XElement_CMapData = XDocument_YMAP.Element XName_CMapData
 		XElement_entities = XElement_CMapData.Element XName_entities
 		for obj in objects_list do
 		(
-			local entity = getEntity(obj)
-			local XElement_CEntityDef= create_CEntityDef entity
+			local XElement_CEntityDef= create_CEntityDef obj
 			XElement_entities.Add XElement_CEntityDef
 		)
 		XDocument_YMAP.Save filePath

@@ -1,6 +1,9 @@
 fileIn (scriptspath+"\\GTAV_Map_Helper\\grass.ms")
 fileIn (scriptspath+"\\GTAV_Map_Helper\\ymap.ms")
 
+clearlistener()
+actionMan.executeAction 0 "40472"
+format "Instanced Grass Ymap\n\nHow to use the script:\nCustomize your setting for both batches and instances.\nSelect groups of polygons and click 'Add Batch', each polygon will be used as position for an instance.\nWhen you have finished just export the .ymap.xml file.\nI suggest to use the terrain mesh as reference and edit its topology a bit like adding a subdivide modifier to increase the density of polygons, which will increase the density of grass you can have.\n"
 
 XDocument_YMAP = create_YMAP "Grass" [0,0,0] [0,0,0]
 XElement_CMapData = XDocument_YMAP.Element XName_CMapData
@@ -94,8 +97,6 @@ rollout Grass_Instance "GrassInstance Exporter (.ymap.xml)" width:248 height:700
 	)
 	on btn_grassymap_export pressed do
 	(
-		clearlistener()
-		actionMan.executeAction 0 "40472"
 		export_YmapGrass "Grass" XDocument_YMAP
 	)
 	

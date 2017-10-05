@@ -1,10 +1,17 @@
 fileIn (scriptspath+"\\GTAV_Map_Helper\\xml.ms")
 
 fn create_CBaseArchetypeDef obj=(
+	local CBaseArchetypeDef_aabbmin = (in coordsys local obj.min)
+	local CBaseArchetypeDef_aabbmax = (in coordsys local obj.max)
+	local CBaseArchetypeDef_centroid = (CBaseArchetypeDef_aabbmax + CBaseArchetypeDef_aabbmin)/2
+	local CBaseArchetypeDef_radius = ((distance CBaseArchetypeDef_aabbmax CBaseArchetypeDef_aabbmin) /2 )
+	local CBaseArchetypeDef_txdName = (obj.name+"_ytd")
+	local CBaseArchetypeDef_name = obj.name
+	
 	local XElement_CBaseArchetypeDef = dotNetObject "System.Xml.Linq.XElement" XName_Item 
 	XElement_CBaseArchetypeDef.SetAttributeValue XName_type "CBaseArchetypeDef"
 	local XElement_lodDist = dotNetObject "System.Xml.Linq.XElement" XName_lodDist
-	XElement_lodDist.SetAttributeValue XName_value (obj.radius+100)
+	XElement_lodDist.SetAttributeValue XName_value ((CBaseArchetypeDef_radius*1.5)+100)
 	XElement_CBaseArchetypeDef.Add XElement_lodDist
 	local XElement_flags = dotNetObject "System.Xml.Linq.XElement" XName_flags
 	XElement_flags.SetAttributeValue XName_value 0
@@ -13,31 +20,31 @@ fn create_CBaseArchetypeDef obj=(
 	XElement_specialAttribute.SetAttributeValue XName_value 0
 	XElement_CBaseArchetypeDef.Add XElement_specialAttribute
 	local XElement_bbMin = dotNetObject "System.Xml.Linq.XElement" XName_bbMin
-	XElement_bbMin.SetAttributeValue XName_x obj.aabbmin.x
-	XElement_bbMin.SetAttributeValue XName_y obj.aabbmin.y
-	XElement_bbMin.SetAttributeValue XName_z obj.aabbmin.z
+	XElement_bbMin.SetAttributeValue XName_x CBaseArchetypeDef_aabbmin.x
+	XElement_bbMin.SetAttributeValue XName_y CBaseArchetypeDef_aabbmin.y
+	XElement_bbMin.SetAttributeValue XName_z CBaseArchetypeDef_aabbmin.z
 	XElement_CBaseArchetypeDef.Add XElement_bbMin
 	local XElement_bbMax = dotNetObject "System.Xml.Linq.XElement" XName_bbMax
-	XElement_bbMax.SetAttributeValue XName_x obj.aabbmax.x
-	XElement_bbMax.SetAttributeValue XName_y obj.aabbmax.y
-	XElement_bbMax.SetAttributeValue XName_z obj.aabbmax.z
+	XElement_bbMax.SetAttributeValue XName_x CBaseArchetypeDef_aabbmax.x
+	XElement_bbMax.SetAttributeValue XName_y CBaseArchetypeDef_aabbmax.y
+	XElement_bbMax.SetAttributeValue XName_z CBaseArchetypeDef_aabbmax.z
 	XElement_CBaseArchetypeDef.Add XElement_bbMax
 	local XElement_bsCentre = dotNetObject "System.Xml.Linq.XElement" XName_bsCentre
-	XElement_bsCentre.SetAttributeValue XName_x obj.centroid.x
-	XElement_bsCentre.SetAttributeValue XName_y obj.centroid.y
-	XElement_bsCentre.SetAttributeValue XName_z obj.centroid.z
+	XElement_bsCentre.SetAttributeValue XName_x CBaseArchetypeDef_centroid.x
+	XElement_bsCentre.SetAttributeValue XName_y CBaseArchetypeDef_centroid.y
+	XElement_bsCentre.SetAttributeValue XName_z CBaseArchetypeDef_centroid.z
 	XElement_CBaseArchetypeDef.Add XElement_bsCentre
 	local XElement_bsRadius = dotNetObject "System.Xml.Linq.XElement" XName_bsRadius
-	XElement_bsRadius.SetAttributeValue XName_value obj.radius
+	XElement_bsRadius.SetAttributeValue XName_value CBaseArchetypeDef_radius
 	XElement_CBaseArchetypeDef.Add XElement_bsRadius
 	local XElement_hdTextureDist = dotNetObject "System.Xml.Linq.XElement" XName_hdTextureDist
-	XElement_hdTextureDist.SetAttributeValue XName_value (obj.radius+100)
+	XElement_hdTextureDist.SetAttributeValue XName_value (CBaseArchetypeDef_radius+100)
 	XElement_CBaseArchetypeDef.Add XElement_hdTextureDist
 	local XElement_name = dotNetObject "System.Xml.Linq.XElement" XName_name
-	XElement_name.SetValue obj.name
+	XElement_name.SetValue CBaseArchetypeDef_name
 	XElement_CBaseArchetypeDef.Add XElement_name
 	local XElement_textureDictionary = dotNetObject "System.Xml.Linq.XElement" XName_textureDictionary
-	XElement_textureDictionary.SetValue obj.txdName
+	XElement_textureDictionary.SetValue CBaseArchetypeDef_txdName
 	XElement_CBaseArchetypeDef.Add XElement_textureDictionary
 	local XElement_clipDictionary = dotNetObject "System.Xml.Linq.XElement" XName_clipDictionary
 	XElement_CBaseArchetypeDef.Add XElement_clipDictionary
@@ -49,7 +56,7 @@ fn create_CBaseArchetypeDef obj=(
 	XElement_assetType.SetValue "ASSET_TYPE_DRAWABLE"
 	XElement_CBaseArchetypeDef.Add XElement_assetType
 	local XElement_assetName = dotNetObject "System.Xml.Linq.XElement" XName_assetName
-	XElement_assetName.SetValue obj.name
+	XElement_assetName.SetValue CBaseArchetypeDef_name
 	XElement_CBaseArchetypeDef.Add XElement_assetName
 	local XElement_extensions = dotNetObject "System.Xml.Linq.XElement" XName_extensions
 	XElement_CBaseArchetypeDef.Add XElement_extensions
@@ -91,12 +98,11 @@ fn export_YTYP objects_list filename=(
 		(
 			if((superclassOf obj) == GeometryClass) then
 			(
-				local archetype = getArchetype(obj)
-				if(finditem archetypes_list archetype.name == 0) then
+				if(finditem archetypes_list obj.name == 0) then
 				(
-					local XElement_CBaseArchetypeDef = create_CBaseArchetypeDef archetype
+					local XElement_CBaseArchetypeDef = create_CBaseArchetypeDef obj
 					XElement_archetypes.Add XElement_CBaseArchetypeDef
-					append archetypes_list archetype.name
+					append archetypes_list obj.name
 				)
 				else (format "Duplicated archetype with the name % found, it will be skipped.(Is this an instance?)\n" (obj.name))
 			)
