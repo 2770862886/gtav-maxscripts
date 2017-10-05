@@ -68,13 +68,11 @@ fn create_JObject_Entity obj =(
 )
 
 fn readJson=(
-	clearlistener()
 	filePath = getOpenFileName caption:"Import .Json file" types:"Newtonsoft (*.json)"
 			
 	if(filePath != undefined) then
 	(
-		actionMan.executeAction 0 "40472"
-		format "JSON IMPORTER %\n\n" (filePath)
+		format "JSON READER: %\n\n" (filePath)
 		streamReader  = dotnetObject "System.IO.StreamReader" filePath
 		jsonString = streamReader.ReadToEnd()
 		streamReader.close()
@@ -115,12 +113,10 @@ fn readJson=(
 )
 
 fn exportJson check_archetypes check_entities objects_list=(
-	clearlistener()
 	local filePath = getSaveFileName caption:"Save .json file" filename:"Output.json" types:"Newtonsoft (*.json)"
 	
 	if( filePath != undefined) then
 	(
-		actionMan.executeAction 0 "40472"
 		format "JSON EXPORTER: %\n\n" (filePath)
 		local JObject = dotNetObject "Newtonsoft.Json.Linq.JObject"
 		local JProperty_schema = dotNetObject "Newtonsoft.Json.Linq.JProperty" "$schema" "schema.json"
@@ -212,14 +208,14 @@ fn importJson=(
 				else
 				(
 					instanced_entity
-					format "INSTANCE FOUND: %\n" (a.ENTname)
+					format "FOUND: % (INSTANCE)\n" (a.ENTname)
 					selected_node = getnodebyname(a.ENTname)
 					maxOps.CloneNodes selected_node expandHierarchy:true cloneType:#instance newNodes:&instanced_entity
 					instanced_entity.rotation = (inverse(quat a.ENTrotation.x a.ENTrotation.y a.ENTrotation.z a.ENTrotation.w))
 					instanced_entity.pos = a.ENTposition
-					instanced_entity.name = (a.ENTname+"_INSTANCE")
+					instanced_entity.name = (a.ENTname)
 				)	
-			)else format "----- MISSING: %\n" (a.ENTname)
+			)else format "MISSING: %\n" (a.ENTname)
 		)
 	)
 )

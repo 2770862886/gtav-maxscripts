@@ -193,3 +193,14 @@ fn export_YMAP_entities objects_list filename =(
 		XDocument_YMAP.Save filePath
 	)
 )
+
+fn read_YMAP_entities=(
+	filePath = getOpenFileName caption:"Import .ymap.xml file" types:"XML Document (*.xml)"
+	
+	if(filePath != undefined) then
+	(
+		format "YMAP READER: %\n\n" (filePath)
+		
+	)
+	
+)

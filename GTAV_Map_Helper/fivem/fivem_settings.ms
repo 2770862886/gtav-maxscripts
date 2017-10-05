@@ -1,6 +1,9 @@
 fileIn (scriptspath+"\\GTAV_Map_Helper\\fivem\\json.ms")
 
-rollout FiveM_Json "FiveM .json Exporter" width:170 height:125
+clearlistener()
+actionMan.executeAction 0 "40472"
+format "FiveM .json Scripts\n\nHow to use the script:\nEXPORT: Select all the geometries you want to export, choose your settings and click on Export to generate the .json file.\nCHECK: Reads a .json file and checks if each object with given archetypeName exists in the scene.\nIMPORT: Reads a .json file and moves/rotates each object according to the entities array.\n\n"
+rollout FiveM_Json "FiveM .json" width:170 height:125
 (	
 
 	checkbox 'chk_archetypes' "Export Archetypes" 
