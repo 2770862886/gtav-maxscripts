@@ -34,7 +34,12 @@ rollout YMAP_Settings "YMAP Settings" width:250 height:500
 	
 	on btn_ymap_check pressed do
 	(
-		
+		check_YMAP_entities()
+	)
+	
+	on btn_ymap_import pressed do
+	(
+		import_YMAP_entities()
 	)
 )
 createdialog YMAP_Settings

@@ -1,5 +1,7 @@
 fileIn (scriptspath+"\\GTAV_Map_Helper\\xml.ms")
 
+struct YmapEntityInfo(EntityInfo_archetypeName,EntityInfo_position,EntityInfo_rotation,EntityInfo_scaleXY,EntityInfo_scaleZ)
+
 fn create_CEntityDef obj=(
 	local CEntityDef_name = obj.name
 	local CEntityDef_position = (in coordsys world obj.pos)
@@ -201,6 +203,94 @@ fn read_YMAP_entities=(
 	(
 		format "YMAP READER: %\n\n" (filePath)
 		
+		local XmlDocument_YMAP = dotNetObject "System.Xml.XmlDocument"
+		XmlDocument_YMAP.Load(filePath)
+		local XmlElement_entities = XmlDocument_YMAP.SelectNodes("descendant::CMapData/entities/Item")
+		local Enumerator = XmlElement_entities.GetEnumerator()
+		
+		local EntityList =#()
+				
+		while Enumerator.MoveNext() do
+		(
+			local CurrentEntity = dotNetObject "System.Xml.XmlElement" Enumerator.Current
+			local Entity_archetypeName = CurrentEntity.Item["archetypeName"].InnerText
+			
+			local Entity_positionNode = CurrentEntity.Item["position"]
+			local Entity_position_x = (Entity_positionNode.GetAttribute("x") as float)
+			local Entity_position_y = (Entity_positionNode.GetAttribute("y") as float)
+			local Entity_position_z = (Entity_positionNode.GetAttribute("z") as float)
+			local Entity_position = [Entity_position_x,Entity_position_y,Entity_position_z]
+			
+			local Entity_rotationNode = CurrentEntity.Item["rotation"]
+			local Entity_rotation_x = (Entity_rotationNode.GetAttribute("x") as float)
+			local Entity_rotation_y = (Entity_rotationNode.GetAttribute("y") as float)
+			local Entity_rotation_z = (Entity_rotationNode.GetAttribute("z") as float)
+			local Entity_rotation_w = (Entity_rotationNode.GetAttribute("w") as float)
+			local Entity_rotation = [Entity_rotation_x,Entity_rotation_y,Entity_rotation_z,Entity_rotation_w]
+			
+			local Entity_scaleXYNode = CurrentEntity.Item["scaleXY"]
+			local Entity_scaleXY = (Entity_scaleXYNode.GetAttribute("value") as float)
+			
+			local Entity_scaleZNode = CurrentEntity.Item["scaleZ"]
+			local Entity_scaleZ = (Entity_scaleZNode.GetAttribute("value") as float)
+			
+			local Entity = YmapEntityInfo EntityInfo_archetypeName:Entity_archetypeName EntityInfo_position:Entity_position EntityInfo_rotation:Entity_rotation EntityInfo_scaleXY:Entity_scaleXY EntityInfo_scaleZ:Entity_scaleZ
+			append EntityList Entity
+			format "%\n" (Entity)
+		)
 	)
-	
+	return EntityList
+)
+
+fn check_YMAP_entities=(
+	local entities_list = read_YMAP_entities()
+	local missing_list = #()
+	if(entities_list != undefined and entities_list.count > 0) then
+	(
+		for a in entities_list do
+		(
+			if( getnodebyname(a.EntityInfo_archetypeName) == undefined ) do
+				appendifunique missing_list a.EntityInfo_archetypeName
+		)	
+		if(missing_list !=undefined and missing_list.count >0 )then
+		(
+			for b in missing_list do
+				format "MISSING: %\n" (b)
+		) else format "No entity missing in scene!\n"
+	)else format "The .ymap.xml file doesn't contain any entity.\n"
+)
+
+fn import_YMAP_entities=(
+	local entities_list = read_YMAP_entities()
+	local instances_list = #()
+			
+	if(entities_list != undefined and entities_list.count > 0) then
+	(
+		for a in entities_list do
+		(
+			if( getnodebyname(a.EntityInfo_archetypeName) != undefined )then
+			(
+				if( finditem instances_list a.EntityInfo_archetypeName == 0 )then
+				(
+					format "FOUND: %\n" (a.EntityInfo_archetypeName)
+					append instances_list a.EntityInfo_archetypeName
+					selected_node = getnodebyname(a.EntityInfo_archetypeName)
+					selected_node.scale = [a.EntityInfo_scaleXY,a.EntityInfo_scaleXY,a.EntityInfo_scaleZ]
+					selected_node.rotation = (inverse(quat a.EntityInfo_rotation.x a.EntityInfo_rotation.y a.EntityInfo_rotation.z a.EntityInfo_rotation.w))	
+					selected_node.pos = a.EntityInfo_position
+				)
+				else
+				(
+					instanced_entity
+					format "FOUND: % (INSTANCE)\n" (a.EntityInfo_archetypeName)
+					selected_node = getnodebyname(a.EntityInfo_archetypeName)
+					maxOps.CloneNodes selected_node expandHierarchy:true cloneType:#instance newNodes:&instanced_entity
+					instanced_entity.scale = [a.EntityInfo_scaleXY,a.EntityInfo_scaleXY,a.EntityInfo_scaleZ]
+					instanced_entity.rotation = (inverse(quat a.EntityInfo_rotation.x a.EntityInfo_rotation.y a.EntityInfo_rotation.z a.EntityInfo_rotation.w))	
+					instanced_entity.pos = a.EntityInfo_position
+					instanced_entity.name = (a.EntityInfo_archetypeName)
+				)	
+			)else format "MISSING: %\n" (a.EntityInfo_archetypeName)
+		)
+	)
 )

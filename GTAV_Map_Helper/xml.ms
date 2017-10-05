@@ -1,3 +1,4 @@
+DotNet.LoadAssembly "System.Xml"
 DotNet.LoadAssembly "System.Xml.Linq"
 Class_XName = dotnetClass "System.Xml.Linq.XName"
 
