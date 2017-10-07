@@ -1,10 +1,11 @@
+try(destroyDialog Ytyp_Rollout )catch()
 fileIn (scriptspath+"\\GTAV_Map_Helper\\ytyp.ms")
 
 clearlistener()
 actionMan.executeAction 0 "40472"
 format "Ytyp Script\n\nHow to use the script:\nSelect all the geometries you want to export and click on Export to generate the .ytyp.xml file.\n"
 
-rollout YTYP_Settings "YTYP Settings" width:250 height:500
+rollout Ytyp_Rollout "Ytyp Scripts" width:250 height:500
 (
 	/*
 	group "CMapTypes"
@@ -38,4 +39,4 @@ rollout YTYP_Settings "YTYP Settings" width:250 height:500
 		else (format "YTYP Exporter: Selection is empty.\n")
 	)
 )
-createdialog YTYP_Settings
+createdialog Ytyp_Rollout

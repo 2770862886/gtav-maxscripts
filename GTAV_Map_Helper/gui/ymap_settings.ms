@@ -1,10 +1,11 @@
+try(destroyDialog Ymap_Rollout )catch()
 fileIn (scriptspath+"\\GTAV_Map_Helper\\ymap.ms")
 
 clearlistener()
 actionMan.executeAction 0 "40472"
 format "Ymap Script\n\nHow to use the script:\nEXPORT: Select all the geometries you want to export, choose your settings and click on Export to generate the .ymap.xml file.\nCHECK: Reads all the entities from a .ymap.xml file and checks if each object with given archetypeName exists in the scene.\nIMPORT: Reads a .ymap.xml file and moves/rotates/scales each object according to the entities array.\n\n"
 
-rollout YMAP_Settings "YMAP Settings" width:250 height:500
+rollout Ymap_Rollout "Ymap Scripts" width:250 height:500
 (
 	/*
 	group "CMapData"
@@ -42,4 +43,4 @@ rollout YMAP_Settings "YMAP Settings" width:250 height:500
 		import_YMAP_entities()
 	)
 )
-createdialog YMAP_Settings
+createdialog Ymap_Rollout
