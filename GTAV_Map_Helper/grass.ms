@@ -10,14 +10,14 @@ fn export_YmapGrass filename ymap =(
 	)
 )
 
-fn get_SelectedFaces_Bound obj=(
+fn get_SelectedFaces_Bound obj faces =(
 	local bbmax = [-8192,-8192,-8192]
 	local bbmin = [8192,8192,8192]
 	
-	local faces = for face in obj.selectedFaces collect face.index
-	for face in faces do
+	--local indices = for face in faces collect face.index
+	for index in faces do
 	(
-		local vertices = polyop.getFaceVerts obj face
+		local vertices = polyop.getFaceVerts obj index
 		for vertex in vertices do
 		(
 			local vertex_position = polyop.getVert obj vertex
@@ -85,7 +85,7 @@ fn create_InstanceListItem batch obj face instances_settings=(
 	return XElement_Item2
 )
 
-fn create_GrassInstanceListItem obj batch_settings instances_settings =(
+fn create_GrassInstanceListItem obj faces batch_settings instances_settings =(
 	local archetypeName = batch_settings[1]
 	local ScaleRange = batch_settings[2]
 	local lodDist = batch_settings[3]
@@ -93,7 +93,7 @@ fn create_GrassInstanceListItem obj batch_settings instances_settings =(
 	local LodInstFadeRange = batch_settings[5]
 	local OrientToTerrain = batch_settings[6]
 	
-	local batch = get_SelectedFaces_Bound obj
+	local batch = get_SelectedFaces_Bound obj faces
 	local batchaabb_min = batch[1]
 	local batchaabb_max= batch[2]
 	
@@ -134,21 +134,7 @@ fn create_GrassInstanceListItem obj batch_settings instances_settings =(
 	XElement_Item.Add XElement_OrientToTerrain
 	local XElement_InstanceList= dotNetObject "System.Xml.Linq.XElement" XName_InstanceList
 	
-	/*uses faces of the object as item*/
-	
-	/* ALL FACES */
-	/*
-	local faceCount = obj.numfaces
-	for face = 1 to faceCount do
-	(
-		local InstanceList_Item = create_InstanceListItem obj face
-		XElement_InstanceList.Add InstanceList_Item
-	)
-	*/
-	
-	/*ONLY SELECTED FACES*/
-	local selected_faces = polyop.getFaceSelection obj
-	for face in selected_faces do
+	for face in faces do
 	(
 		local InstanceList_Item = create_InstanceListItem batch obj face instances_settings
 		XElement_InstanceList.Add InstanceList_Item

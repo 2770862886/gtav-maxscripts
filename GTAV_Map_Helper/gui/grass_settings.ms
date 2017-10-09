@@ -90,7 +90,8 @@ rollout GrassInstance_Rollout "GrassInstance Scripts" width:248 height:700
 		(
 			if((classOf obj) == Editable_Poly) then
 			(
-				local GrassInstanceList_Item = create_GrassInstanceListItem obj batch_settings instances_settings
+				local selected_faces = polyop.getFaceSelection obj
+				local GrassInstanceList_Item = create_GrassInstanceListItem obj selected_faces batch_settings instances_settings
 				XElement_GrassInstanceList.Add GrassInstanceList_Item
 			)
 			else (format "% is not of class Editable_Poly, it will be skipped.\n" (obj.name))
