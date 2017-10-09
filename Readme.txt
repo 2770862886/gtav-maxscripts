@@ -48,5 +48,6 @@ Because of its early state, I remember that you have to manually edit some prope
 This tool was initially made to help creating custom maps for GTADrifting server for FiveM.
 
 People I would thanks:
+dexyfex
 3Doomer
 Those 2 guys who keeps blaming what I don't do. <3

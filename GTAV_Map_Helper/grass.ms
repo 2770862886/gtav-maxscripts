@@ -33,7 +33,7 @@ fn get_SelectedFaces_Bound obj=(
 	return batch
 )
 
-fn create_InstanceListItem obj face instances_settings=(
+fn create_InstanceListItem batch obj face instances_settings=(
 	local FaceNormal = polyop.getFaceNormal obj face
 	local NormalX = (((FaceNormal.x +1)*0.5 * 255) as integer)
 	local NormalY = (((FaceNormal.y +1)*0.5 * 255) as integer)
@@ -51,7 +51,7 @@ fn create_InstanceListItem obj face instances_settings=(
 	local Pad_z = Pad[3] as integer
 	
 	local world_pos = polyop.getFaceCenter obj face
-	local batch_pos = (world_pos - obj.min)/(obj.max-obj.min) * 65535 /*world_pos = ((batch_pos / 65535) * (obj.max-obj.min)) + obj.min*/
+	local batch_pos = (world_pos - batch[1])/(batch[2]-batch[1]) * 65535 /*world_pos = ((batch_pos / 65535) * (obj.max-obj.min)) + obj.min*/
 	local int_batch_pos_x = batch_pos.x as integer
 	local int_batch_pos_y = batch_pos.y as integer
 	local int_batch_pos_z = batch_pos.z as integer
@@ -150,7 +150,7 @@ fn create_GrassInstanceListItem obj batch_settings instances_settings =(
 	local selected_faces = polyop.getFaceSelection obj
 	for face in selected_faces do
 	(
-		local InstanceList_Item = create_InstanceListItem obj face instances_settings
+		local InstanceList_Item = create_InstanceListItem batch obj face instances_settings
 		XElement_InstanceList.Add InstanceList_Item
 	)
 	
