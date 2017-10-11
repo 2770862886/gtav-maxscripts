@@ -1,6 +1,32 @@
 fileIn (scriptspath+"\\GTAV_Map_Helper\\xml.ms")
 
-struct YmapEntityInfo(EntityInfo_archetypeName,EntityInfo_position,EntityInfo_rotation,EntityInfo_scaleXY,EntityInfo_scaleZ)
+struct CMapData__Extents
+(
+	streamingExtentsMin,
+	streamingExtentsMax,
+	entitiesExtentsMin,
+	entitiesExtentsMax
+)
+
+struct CEntityDef
+(
+	archetypeName,
+	flags,
+	guid,
+	_position,
+	_rotation,
+	scaleXY,
+	scaleZ,parentIndex,
+	lodDist,
+	childLodDist,
+	lodLevel,
+	numChildren,
+	priorityLevel,
+	extensions,
+	ambientOcclusionMultiplier,
+	artificialAmbientOcclusion,
+	tintValue
+)
 
 fn create_CEntityDef obj=(
 	local CEntityDef_name = obj.name
@@ -196,100 +222,220 @@ fn export_YMAP_entities objects_list filename =(
 	)
 )
 
-fn read_YMAP_entities=(
+fn ReadEntitiesFromYmap = 
+(
 	local filePath = getOpenFileName caption:"Import .ymap.xml file" types:"XML Document (*.xml)"
 	
 	if(filePath != undefined) then
 	(
 		format "YMAP READER: %\n\n" (filePath)
 		
-		local XmlDocument_YMAP = dotNetObject "System.Xml.XmlDocument"
-		XmlDocument_YMAP.Load(filePath)
-		local XmlElement_entities = XmlDocument_YMAP.SelectNodes("descendant::CMapData/entities/Item")
+		local XmlDocument_Ymap = dotNetObject "System.Xml.XmlDocument"
+		XmlDocument_Ymap.Load(filePath)
+		local XmlElement_entities = XmlDocument_Ymap.SelectNodes("descendant::CMapData/entities/Item")
 		local Enumerator = XmlElement_entities.GetEnumerator()
 		
-		local EntityList =#()
+		local entities =#()
 				
 		while Enumerator.MoveNext() do
 		(
-			local CurrentEntity = dotNetObject "System.Xml.XmlElement" Enumerator.Current
-			local Entity_archetypeName = CurrentEntity.Item["archetypeName"].InnerText
+			local XmlElement_CEntityDef = dotNetObject "System.Xml.XmlElement" Enumerator.Current
+			local type = XmlElement_CEntityDef.GetAttribute("type")
 			
-			local Entity_positionNode = CurrentEntity.Item["position"]
-			local Entity_position_x = (Entity_positionNode.GetAttribute("x") as float)
-			local Entity_position_y = (Entity_positionNode.GetAttribute("y") as float)
-			local Entity_position_z = (Entity_positionNode.GetAttribute("z") as float)
-			local Entity_position = [Entity_position_x,Entity_position_y,Entity_position_z]
-			
-			local Entity_rotationNode = CurrentEntity.Item["rotation"]
-			local Entity_rotation_x = (Entity_rotationNode.GetAttribute("x") as float)
-			local Entity_rotation_y = (Entity_rotationNode.GetAttribute("y") as float)
-			local Entity_rotation_z = (Entity_rotationNode.GetAttribute("z") as float)
-			local Entity_rotation_w = (Entity_rotationNode.GetAttribute("w") as float)
-			local Entity_rotation = [Entity_rotation_x,Entity_rotation_y,Entity_rotation_z,Entity_rotation_w]
-			
-			local Entity_scaleXYNode = CurrentEntity.Item["scaleXY"]
-			local Entity_scaleXY = (Entity_scaleXYNode.GetAttribute("value") as float)
-			
-			local Entity_scaleZNode = CurrentEntity.Item["scaleZ"]
-			local Entity_scaleZ = (Entity_scaleZNode.GetAttribute("value") as float)
-			
-			local Entity = YmapEntityInfo EntityInfo_archetypeName:Entity_archetypeName EntityInfo_position:Entity_position EntityInfo_rotation:Entity_rotation EntityInfo_scaleXY:Entity_scaleXY EntityInfo_scaleZ:Entity_scaleZ
-			append EntityList Entity
+			if(type == "CEntityDef")then
+			(
+				local archetypeName = XmlElement_CEntityDef.Item["archetypeName"].InnerText
+				local flags = XmlElement_CEntityDef.Item["flags"].GetAttribute("value")
+				local guid = XmlElement_CEntityDef.Item["guid"].GetAttribute("value")
+	
+				local XmlElement_position = XmlElement_CEntityDef.Item["position"]
+				local position_x = XmlElement_position.GetAttribute("x") as float
+				local position_y = XmlElement_position.GetAttribute("y") as float
+				local position_z = XmlElement_position.GetAttribute("z") as float
+				local _position = [position_x,position_y,position_z]
+				
+				local XmlElement_rotation = XmlElement_CEntityDef.Item["rotation"]
+				local rotation_x = XmlElement_rotation.GetAttribute("x") as float
+				local rotation_y = XmlElement_rotation.GetAttribute("y") as float
+				local rotation_z = XmlElement_rotation.GetAttribute("z") as float
+				local rotation_w = XmlElement_rotation.GetAttribute("w") as float
+				local _rotation = quat rotation_x rotation_y rotation_z rotation_w
+				
+				local scaleXY = XmlElement_CEntityDef.Item["scaleXY"].GetAttribute("value") as float
+				local scaleZ = XmlElement_CEntityDef.Item["scaleZ"].GetAttribute("value") as float
+				local parentIndex = XmlElement_CEntityDef.Item["parentIndex"].GetAttribute("value")
+				local lodDist = XmlElement_CEntityDef.Item["lodDist"].GetAttribute("value")
+				local childLodDist = XmlElement_CEntityDef.Item["childLodDist"].GetAttribute("value")
+				local lodLevel = XmlElement_CEntityDef.Item["lodLevel"].InnerText
+				local numChildren = XmlElement_CEntityDef.Item["numChildren"].GetAttribute("value")
+				local priorityLevel = XmlElement_CEntityDef.Item["priorityLevel"].InnerText
+				local extensions = #() --NOT SUPPORTED
+				local ambientOcclusionMultiplier = XmlElement_CEntityDef.Item["ambientOcclusionMultiplier"].GetAttribute("value")
+				local artificialAmbientOcclusion = XmlElement_CEntityDef.Item["artificialAmbientOcclusion"].GetAttribute("value")
+				local tintValue = XmlElement_CEntityDef.Item["tintValue"].GetAttribute("value")
+	
+				local Entity = CEntityDef archetypeName:archetypeName flags:flags guid:guid _position:_position _rotation:_rotation scaleXY:scaleXY scaleZ:scaleZ parentIndex:parentIndex lodDist:lodDist childLodDist:childLodDist lodLevel:lodLevel numChildren:numChildren priorityLevel:priorityLevel extensions:extensions ambientOcclusionMultiplier:ambientOcclusionMultiplier artificialAmbientOcclusion:artificialAmbientOcclusion tintValue:tintValue
+				append entities Entity
+			)else
+			(
+				format "Skipped unsupported %\n" (type)
+			)
 		)
 	)
-	return EntityList
+	return entities
 )
 
-fn check_YMAP_entities=(
-	local entities_list = read_YMAP_entities()
-	local missing_list = #()
-	if(entities_list != undefined and entities_list.count > 0) then
+fn CheckEntitiesFromYmap =
+(
+	local entities = ReadEntitiesFromYmap()
+	local missing = #()
+	if(entities != undefined and entities.count > 0) then
 	(
-		for a in entities_list do
+		for entity in entities do
 		(
-			if( getnodebyname(a.EntityInfo_archetypeName) == undefined ) do
-				appendifunique missing_list a.EntityInfo_archetypeName
+			if( getnodebyname(entity.archetypeName) == undefined ) do
+				appendifunique missing entity.archetypeName
 		)	
-		if(missing_list !=undefined and missing_list.count >0 )then
+		if(missing !=undefined and missing.count >0 )then
 		(
-			for b in missing_list do
-				format "MISSING: %\n" (b)
+			for item in missing do
+				format "MISSING: %\n" (item)
 		) else format "No entity missing in scene!\n"
 	)else format "The .ymap.xml file doesn't contain any entity.\n"
 )
 
-fn import_YMAP_entities=(
-	local entities_list = read_YMAP_entities()
-	local instances_list = #()
+--TODO: CASE SCENE HAS MULTIPLE OBJECTS WITH SAME NAME
+fn MoveObjectsByYmap =
+(
+	local entities = ReadEntitiesFromYmap()
+	local instances = #()
 			
-	if(entities_list != undefined and entities_list.count > 0) then
+	if(entities != undefined and entities.count > 0) then
 	(
-		for a in entities_list do
+		for entity in entities do
 		(
-			if( getnodebyname(a.EntityInfo_archetypeName) != undefined )then
+			if( getnodebyname(entity.archetypeName) != undefined )then
 			(
-				if( finditem instances_list a.EntityInfo_archetypeName == 0 )then
+				if( finditem instances entity.archetypeName == 0 )then
 				(
-					format "FOUND: %\n" (a.EntityInfo_archetypeName)
-					append instances_list a.EntityInfo_archetypeName
-					selected_node = getnodebyname(a.EntityInfo_archetypeName)
-					selected_node.scale = [a.EntityInfo_scaleXY,a.EntityInfo_scaleXY,a.EntityInfo_scaleZ]
-					selected_node.rotation = (inverse(quat a.EntityInfo_rotation.x a.EntityInfo_rotation.y a.EntityInfo_rotation.z a.EntityInfo_rotation.w))	
-					selected_node.pos = a.EntityInfo_position
+					format "FOUND: %\n" (entity.archetypeName)
+					append instances entity.archetypeName
+					selected_node = getnodebyname(entity.archetypeName)
+					selected_node.scale = [entity.scaleXY,entity.scaleXY,entity.scaleZ]
+					selected_node.rotation = (inverse(entity._rotation))	
+					selected_node.pos = entity._position
 				)
 				else
 				(
 					instanced_entity
-					format "FOUND: % (INSTANCE)\n" (a.EntityInfo_archetypeName)
-					selected_node = getnodebyname(a.EntityInfo_archetypeName)
+					format "FOUND: % (INSTANCE)\n" (entity.archetypeName)
+					selected_node = getnodebyname(entity.archetypeName)
 					maxOps.CloneNodes selected_node expandHierarchy:true cloneType:#instance newNodes:&instanced_entity
-					instanced_entity.scale = [a.EntityInfo_scaleXY,a.EntityInfo_scaleXY,a.EntityInfo_scaleZ]
-					instanced_entity.rotation = (inverse(quat a.EntityInfo_rotation.x a.EntityInfo_rotation.y a.EntityInfo_rotation.z a.EntityInfo_rotation.w))	
-					instanced_entity.pos = a.EntityInfo_position
-					instanced_entity.name = (a.EntityInfo_archetypeName)
+					instanced_entity.scale = [entity.scaleXY,entity.scaleXY,entity.scaleZ]
+					instanced_entity.rotation = (inverse(entity._rotation))	
+					instanced_entity.pos = entity._position
+					instanced_entity.name = entity.archetypeName
 				)	
-			)else format "MISSING: %\n" (a.EntityInfo_archetypeName)
+			)else format "MISSING: %\n" (entity.archetypeName)
 		)
 	)
+)
+
+--TESTING STUFFS
+fn WriteEmptyYmap filename =
+(
+	local XmlDocument = dotNetObject "System.Xml.XmlDocument"
+	XmlDocument.appendChild (XmlDocument.CreateXmlDeclaration "1.0" "utf-8" "no")
+	local XmlElement_CMapData = XmlDocument.CreateElement "CMapData"
+	
+	local XmlElement_name = XmlDocument.CreateElement "name"
+	XmlElement_name.InnerText = filename
+	XmlElement_CMapData.appendChild XmlElement_name
+	XmlElement_CMapData.appendChild (XmlDocument.CreateElement "parent")
+	local XmlElement_flags = XmlDocument.CreateElement "flags"
+	XmlElement_flags.SetAttribute "value" "0"
+	XmlElement_CMapData.appendChild XmlElement_flags
+	local XmlElement_contentFlags = XmlDocument.CreateElement "contentFlags"
+	XmlElement_contentFlags.SetAttribute "value" "0"
+	XmlElement_CMapData.appendChild XmlElement_contentFlags
+	local XmlElement_streamingExtentsMin = XmlDocument.CreateElement "streamingExtentsMin"
+	XmlElement_streamingExtentsMin.SetAttribute "x" "0"
+	XmlElement_streamingExtentsMin.SetAttribute "y" "0"
+	XmlElement_streamingExtentsMin.SetAttribute "z" "0"
+	XmlElement_CMapData.appendChild XmlElement_streamingExtentsMin
+	local XmlElement_streamingExtentsMax = XmlDocument.CreateElement "streamingExtentsMax"
+	XmlElement_streamingExtentsMax.SetAttribute "x" "0"
+	XmlElement_streamingExtentsMax.SetAttribute "y" "0"
+	XmlElement_streamingExtentsMax.SetAttribute "z" "0"
+	XmlElement_CMapData.appendChild XmlElement_streamingExtentsMax
+	local XmlElement_entitiesExtentsMin = XmlDocument.CreateElement "entitiesExtentsMin"
+	XmlElement_entitiesExtentsMin.SetAttribute "x" "0"
+	XmlElement_entitiesExtentsMin.SetAttribute "y" "0"
+	XmlElement_entitiesExtentsMin.SetAttribute "z" "0"
+	XmlElement_CMapData.appendChild XmlElement_entitiesExtentsMin
+	local XmlElement_entitiesExtentsMax = XmlDocument.CreateElement "entitiesExtentsMax"
+	XmlElement_entitiesExtentsMax.SetAttribute "x" "0"
+	XmlElement_entitiesExtentsMax.SetAttribute "y" "0"
+	XmlElement_entitiesExtentsMax.SetAttribute "z" "0"
+	XmlElement_CMapData.appendChild XmlElement_entitiesExtentsMax
+	XmlElement_CMapData.appendChild (XmlDocument.CreateElement "entities")
+	XmlElement_CMapData.appendChild (XmlDocument.CreateElement "containerLods")
+	XmlElement_CMapData.appendChild (XmlDocument.CreateElement "boxOccluders")
+	XmlElement_CMapData.appendChild (XmlDocument.CreateElement "occludeModels")
+	XmlElement_CMapData.appendChild (XmlDocument.CreateElement "physicsDictionaries")
+
+	local XmlElement_instancedData = XmlDocument.CreateElement "instancedData"
+	XmlElement_instancedData.appendChild (XmlDocument.CreateElement "ImapLink")
+	XmlElement_instancedData.appendChild (XmlDocument.CreateElement "PropInstanceList")
+	XmlElement_instancedData.appendChild (XmlDocument.CreateElement "GrassInstanceList")
+	XmlElement_CMapData.appendChild XmlElement_instancedData
+
+	XmlElement_CMapData.appendChild (XmlDocument.CreateElement "timeCycleModifiers")
+	XmlElement_CMapData.appendChild (XmlDocument.CreateElement "carGenerators")
+
+	local XmlElement_LODLightsSOA = XmlDocument.CreateElement "LODLightsSOA"
+	XmlElement_LODLightsSOA.appendChild (XmlDocument.CreateElement "direction")
+	XmlElement_LODLightsSOA.appendChild (XmlDocument.CreateElement "falloff")
+	XmlElement_LODLightsSOA.appendChild (XmlDocument.CreateElement "falloffExponent")
+	XmlElement_LODLightsSOA.appendChild (XmlDocument.CreateElement "timeAndStateFlags")
+	XmlElement_LODLightsSOA.appendChild (XmlDocument.CreateElement "hash")
+	XmlElement_LODLightsSOA.appendChild (XmlDocument.CreateElement "coneInnerAngle")
+	XmlElement_LODLightsSOA.appendChild (XmlDocument.CreateElement "coneOuterAngleOrCapExt")
+	XmlElement_LODLightsSOA.appendChild (XmlDocument.CreateElement "coronaIntensity")
+	XmlElement_CMapData.appendChild XmlElement_LODLightsSOA
+
+	local XmlElement_DistantLODLightsSOA = XmlDocument.CreateElement "DistantLODLightsSOA"
+	XmlElement_DistantLODLightsSOA.appendChild (XmlDocument.CreateElement "position")
+	XmlElement_DistantLODLightsSOA.appendChild (XmlDocument.CreateElement "RGBI")
+	local XmlElement_numStreetLights = XmlDocument.CreateElement "numStreetLights"
+	XmlElement_numStreetLights.SetAttribute "value" "0"
+	XmlElement_DistantLODLightsSOA.appendChild XmlElement_numStreetLights
+	local XmlElement_category = XmlDocument.CreateElement "category"
+	XmlElement_category.SetAttribute "value" "0"
+	XmlElement_DistantLODLightsSOA.appendChild XmlElement_category
+	XmlElement_CMapData.appendChild XmlElement_DistantLODLightsSOA
+
+	local XmlElement_block = XmlDocument.CreateElement "block"
+	local XmlElement_version = XmlDocument.CreateElement "version"
+	XmlElement_version.SetAttribute "value" "0"
+	XmlElement_block.appendChild XmlElement_version
+	local XmlElement_blockflags = XmlDocument.CreateElement "flags"
+	XmlElement_blockflags.SetAttribute "value" "0"
+	XmlElement_block.appendChild XmlElement_blockflags
+	local XmlElement_blockname = XmlDocument.CreateElement "name"
+	XmlElement_blockname.InnerText = filename
+	XmlElement_block.appendChild XmlElement_blockname
+	local XmlElement_exportedBy = XmlDocument.CreateElement "exportedBy"
+	XmlElement_exportedBy.InnerText = "Neos7's Maxscript"
+	XmlElement_block.appendChild XmlElement_exportedBy
+	local XmlElement_owner = XmlDocument.CreateElement "owner"
+	XmlElement_owner.InnerText = sysInfo.username
+	XmlElement_block.appendChild XmlElement_owner
+	local XmlElement_time = XmlDocument.CreateElement "time"
+	XmlElement_time.InnerText = localtime
+	XmlElement_block.appendChild XmlElement_time
+	XmlElement_CMapData.appendChild XmlElement_block
+
+	XmlDocument.appendChild XmlElement_CMapData
+	return XmlDocument
 )

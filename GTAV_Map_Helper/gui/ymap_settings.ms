@@ -35,12 +35,12 @@ rollout Ymap_Rollout "Ymap Scripts" width:250 height:500
 	
 	on btn_ymap_check pressed do
 	(
-		check_YMAP_entities()
+		CheckEntitiesFromYmap()
 	)
 	
 	on btn_ymap_import pressed do
 	(
-		import_YMAP_entities()
+		MoveObjectsByYmap()
 	)
 )
 createdialog Ymap_Rollout

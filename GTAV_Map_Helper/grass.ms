@@ -114,14 +114,6 @@ fn WriteXML InstancedMapData =
 	return XmlDoc
 )
 
-struct CMapData__Extents
-(
-	streamingExtentsMin,
-	streamingExtentsMax,
-	entitiesExtentsMin,
-	entitiesExtentsMax
-)
-
 struct rage__fwInstancedMapData
 (
     ImapLink,
