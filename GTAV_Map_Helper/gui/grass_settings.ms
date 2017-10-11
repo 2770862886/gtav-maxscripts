@@ -1,21 +1,11 @@
 try(destroyDialog GrassInstance_Rollout )catch()
 fileIn (scriptspath+"\\GTAV_Map_Helper\\grass.ms")
-fileIn (scriptspath+"\\GTAV_Map_Helper\\ymap.ms")
 
 clearlistener()
 actionMan.executeAction 0 "40472"
 format "Instanced Grass Ymap\n\nHow to use the script:\nCustomize your setting for both batches and instances.\nSelect groups of polygons and click 'Add Batch', each polygon will be used as position for an instance.\nWhen you have finished just export the .ymap.xml file.\nI suggest to use the terrain mesh as reference and increase the density of polygons.\n"
 
-XDocument_YMAP = create_YMAP "Grass" [0,0,0] [0,0,0]
-XElement_CMapData = XDocument_YMAP.Element XName_CMapData
-XElement_contentFlags = XElement_CMapData.Element XName_contentFlags
-XElement_contentFlags.SetAttributeValue XName_value 1088
-XElement_physicsDictionaries = XElement_CMapData.Element XName_physicsDictionaries
-XElement_Item = dotNetObject "System.Xml.Linq.XElement" XName_Item
-XElement_Item.SetValue "v_proc1"
-XElement_physicsDictionaries.Add XElement_Item
-XElement_instancedData = XElement_CMapData.Element XName_instancedData
-XElement_GrassInstanceList = XElement_instancedData.Element XName_GrassInstanceList
+GrassInstanceList = #()
 
 rollout GrassInstance_Rollout "GrassInstance Scripts" width:248 height:700
 (
@@ -78,42 +68,34 @@ rollout GrassInstance_Rollout "GrassInstance Scripts" width:248 height:700
 		if(Instances_ColorR_random.checked)then(InstanceColorR = -1)else(InstanceColorR = Instances_ColorR.value)
 		if(Instances_ColorG_random.checked)then(InstanceColorG = -1)else(InstanceColorG = Instances_ColorG.value)
 		if(Instances_ColorB_random.checked)then(InstanceColorB = -1)else(InstanceColorB = Instances_ColorB.value)
-		InstanceColor = [InstanceColorR,InstanceColorG,InstanceColorB]
+		InstanceColor = #(InstanceColorR,InstanceColorG,InstanceColorB)
 		InstanceAo = Instances_Ao.value
-		InstancePad = [Instances_PadX.value,Instances_PadY.value,Instances_PadZ.value]
+		InstancePad = #(Instances_PadX.value,Instances_PadY.value,Instances_PadZ.value)
 		
-		batch_settings = #(archetypeName,[ScaleRangeX,ScaleRangeY,ScaleRangeZ],lodDist,LodFadeStartDist,LodInstFadeRange,OrientToTerrain)
-		instances_settings = #(InstanceScale,InstanceColor,InstanceAo,InstancePad)
+		BatchSettings = #([ScaleRangeX,ScaleRangeY,ScaleRangeZ],archetypeName,lodDist,LodFadeStartDist,LodInstFadeRange,OrientToTerrain)
+		InstanceSettings = #(InstanceScale,InstanceColor,InstanceAo,InstancePad)
 		
 		list = getCurrentSelection()
 		for obj in list do
 		(
 			if((classOf obj) == Editable_Poly) then
 			(
-				local selected_faces = polyop.getFaceSelection obj
-				local GrassInstanceList_Item = create_GrassInstanceListItem obj selected_faces batch_settings instances_settings
-				XElement_GrassInstanceList.Add GrassInstanceList_Item
+				local faces = polyop.getFaceSelection obj
+				local Batch = GrassInstanceListFromFaces obj faces BatchSettings InstanceSettings
+				append GrassInstanceList Batch
 			)
 			else (format "% is not of class Editable_Poly, it will be skipped.\n" (obj.name))
 		)
 	)
 	on btn_grassymap_export pressed do
 	(
-		export_YmapGrass "Grass" XDocument_YMAP
+		local InstancedData = rage__fwInstancedMapData ImapLink:undefined PropInstanceList:undefined GrassInstanceList:GrassInstanceList
+		ExportYmapGrass "Grass" InstancedData
 	)
 	
 	on btn_grassymap_restart pressed do
 	(
-		XDocument_YMAP = create_YMAP "Grass" [0,0,0] [0,0,0]
-		XElement_CMapData = XDocument_YMAP.Element XName_CMapData
-		XElement_contentFlags = XElement_CMapData.Element XName_contentFlags
-		XElement_contentFlags.SetAttributeValue XName_value 1088
-		XElement_physicsDictionaries = XElement_CMapData.Element XName_physicsDictionaries
-		XElement_Item = dotNetObject "System.Xml.Linq.XElement" XName_Item
-		XElement_Item.SetValue "v_proc1"
-		XElement_physicsDictionaries.Add XElement_Item
-		XElement_instancedData = XElement_CMapData.Element XName_instancedData
-		XElement_GrassInstanceList = XElement_instancedData.Element XName_GrassInstanceList
+		GrassInstanceList = #()
 	)
 )
 createdialog GrassInstance_Rollout
