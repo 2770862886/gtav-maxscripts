@@ -1,4 +1,5 @@
 fileIn (scriptspath+"\\GTAV_Map_Helper\\xml.ms")
+rnd = dotNetObject "System.Random"
 
 struct CMapData__Extents
 (
@@ -310,10 +311,11 @@ fn CreateCMapData settings =
 )
 
 fn EntityFromGeometry obj settings =
-(
+(	
 	local archetypeName = obj.name
 	local flags = settings[1]
-	local guid = random 1 4294967295
+	--local guid = random 1 4294967295
+	local guid = rnd.Next()
 	local _position = (in coordsys world obj.pos)
 	local _rotation = inverse(in coordsys world obj.rotation)
 	local scaleXY = 1
