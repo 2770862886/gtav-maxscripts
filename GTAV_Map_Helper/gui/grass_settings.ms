@@ -45,7 +45,7 @@ rollout GrassInstance_Rollout "GrassInstance Scripts" width:248 height:700
 	
 	button 'btn_grassymap_addbatch' "Add Batch" pos:[8,608] width:232 height:21 align:#left
 	button 'btn_grassymap_export' "Export .ymap.xml" pos:[8,640] width:232 height:21 align:#left
-	button 'btn_grassymap_restart' "Restart" pos:[8,672] width:232 height:21 align:#left
+	button 'btn_grassymap_reset' "Reset" pos:[8,672] width:232 height:21 align:#left
 
 	on btn_grassymap_addbatch pressed do
 	(
@@ -89,11 +89,26 @@ rollout GrassInstance_Rollout "GrassInstance Scripts" width:248 height:700
 	)
 	on btn_grassymap_export pressed do
 	(
-		local InstancedData = rage__fwInstancedMapData ImapLink:undefined PropInstanceList:undefined GrassInstanceList:GrassInstanceList
-		ExportYmapGrass "Grass" InstancedData
+		if(GrassInstanceList != undefined and GrassInstanceList.count > 0)then
+		(
+			local CMapDataSettings = #("instancedData","",0,0)
+			local instancedData = rage__fwInstancedMapData ImapLink:undefined PropInstanceList:undefined GrassInstanceList:GrassInstanceList
+			local Extents = instancedData.GetExtents()
+			
+			local CMapData = CreateCMapData CMapDataSettings
+			CMapData.instancedData = instancedData
+			CMapData.contentFlags = 1088
+			append (CMapData.physicsDictionaries) "v_proc1"
+			CMapData.streamingExtentsMin = Extents.streamingExtentsMin
+			CMapData.streamingExtentsMax = Extents.streamingExtentsMax
+			CMapData.entitiesExtentsMin = Extents.entitiesExtentsMin
+			CMapData.entitiesExtentsMax = Extents.entitiesExtentsMax
+			ExportYmap CMapData
+		)else(format "YMAP Exporter: GrassInstanceList array is empty.\n")
+		
 	)
 	
-	on btn_grassymap_restart pressed do
+	on btn_grassymap_reset pressed do
 	(
 		GrassInstanceList = #()
 	)

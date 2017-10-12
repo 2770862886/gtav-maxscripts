@@ -1,155 +1,150 @@
---fileIn (scriptspath+"\\GTAV_Map_Helper\\xml.ms")
 fileIn (scriptspath+"\\GTAV_Map_Helper\\ymap.ms")
-
-fn WriteXML InstancedMapData = 
-(
-	XmlDoc = dotNetObject "System.Xml.XmlDocument"
-	
-	XmlNode_instancedData = XmlDoc.CreateElement "instancedData"
-	XmlDoc.appendChild XmlNode_instancedData
-	
-	XmlNode_ImapLink = XmlDoc.CreateElement "ImapLink"
-	XmlNode_PropInstanceList = XmlDoc.CreateElement "PropInstanceList"
-	XmlNode_GrassInstanceList = XmlDoc.CreateElement "GrassInstanceList"
-	
-	XmlNode_instancedData.appendChild XmlNode_ImapLink
-	XmlNode_instancedData.appendChild XmlNode_PropInstanceList
-
-	for Item in InstancedMapData.GrassInstanceList do
-	(
-		XmlNode_Item = XmlDoc.CreateElement "Item"
-
-		XmlNode_BatchAABB = XmlDoc.CreateElement "BatchAABB"
-		XmlNode_min = XmlDoc.CreateElement "min"
-		XmlNode_min.SetAttribute "x" (Item.BatchAABB._min.x as string)
-		XmlNode_min.SetAttribute "y" (Item.BatchAABB._min.y as string)
-		XmlNode_min.SetAttribute "z" (Item.BatchAABB._min.z as string)
-		XmlNode_min.SetAttribute "w" (Item.BatchAABB._min.w as string)
-		XmlNode_max = XmlDoc.CreateElement "max"
-		XmlNode_max.SetAttribute "x" (Item.BatchAABB._max.x as string)
-		XmlNode_max.SetAttribute "y" (Item.BatchAABB._max.y as string)
-		XmlNode_max.SetAttribute "z" (Item.BatchAABB._max.z as string)
-		XmlNode_max.SetAttribute "w" (Item.BatchAABB._max.w as string)
-
-		XmlNode_BatchAABB.appendChild XmlNode_min
-		XmlNode_BatchAABB.appendChild XmlNode_max
-		XmlNode_Item.appendChild XmlNode_BatchAABB
-
-		XmlNode_ScaleRange = XmlDoc.CreateElement "ScaleRange"
-		XmlNode_ScaleRange.SetAttribute "x" (Item.ScaleRange.x as string)
-		XmlNode_ScaleRange.SetAttribute "y" (Item.ScaleRange.y as string)
-		XmlNode_ScaleRange.SetAttribute "z" (Item.ScaleRange.z as string)
-		XmlNode_Item.appendChild XmlNode_ScaleRange
-
-		XmlNode_archetypeName = XmlDoc.CreateElement "archetypeName"
-		XmlNode_archetypeName.InnerText = Item.archetypeName
-		XmlNode_Item.appendChild XmlNode_archetypeName
-
-		XmlNode_lodDist = XmlDoc.CreateElement "lodDist"
-		XmlNode_lodDist.SetAttribute "value" (Item.lodDist as string)
-		XmlNode_Item.appendChild XmlNode_lodDist
-
-		XmlNode_LodFadeStartDist = XmlDoc.CreateElement "LodFadeStartDist"
-		XmlNode_LodFadeStartDist.SetAttribute "value" (Item.LodFadeStartDist as string)
-		XmlNode_Item.appendChild XmlNode_LodFadeStartDist
-
-		XmlNode_LodInstFadeRange = XmlDoc.CreateElement "LodInstFadeRange"
-		XmlNode_LodInstFadeRange.SetAttribute "value" (Item.LodInstFadeRange as string)
-		XmlNode_Item.appendChild XmlNode_LodInstFadeRange
-
-		XmlNode_OrientToTerrain = XmlDoc.CreateElement "OrientToTerrain"
-		XmlNode_OrientToTerrain.SetAttribute "value" (Item.OrientToTerrain as string)
-		XmlNode_Item.appendChild XmlNode_OrientToTerrain
-
-		XmlNode_InstanceList = XmlDoc.CreateElement "InstanceList"
-		
-		for InstanceItem in Item.InstanceList do
-		(
-			local PositionValue = ("\n              " + (InstanceItem.Position[1] as string) + "\n              " + (InstanceItem.Position[2] as string) + "\n              " + (InstanceItem.Position[3] as string) + "\n            ")
-			local ColorValue = ("\n              " + (InstanceItem._Color[1] as string) + "\n              " + (InstanceItem._Color[2] as string) + "\n              " + (InstanceItem._Color[3] as string) + "\n            ")
-			local PadValue = ("\n              " + (InstanceItem.Pad[1] as string) + "\n              " + (InstanceItem.Pad[2] as string) + "\n              " + (InstanceItem.Pad[3] as string) + "\n            ")	
-
-			XmlNode_InstanceItem = XmlDoc.CreateElement "Item"
-
-			XmlNode_Position = XmlDoc.CreateElement "Position"
-			XmlNode_Position.SetAttribute "content" "short_array"
-			XmlNode_Position.InnerText = PositionValue
-			XmlNode_InstanceItem.appendChild XmlNode_Position
-
-			XmlNode_NormalX = XmlDoc.CreateElement "NormalX"
-			XmlNode_NormalX.SetAttribute "value" (InstanceItem.NormalX as string)
-			XmlNode_InstanceItem.appendChild XmlNode_NormalX
-
-			XmlNode_NormalY = XmlDoc.CreateElement "NormalY"
-			XmlNode_NormalY.SetAttribute "value" (InstanceItem.NormalY as string)
-			XmlNode_InstanceItem.appendChild XmlNode_NormalY 
-
-			XmlNode_Color = XmlDoc.CreateElement "Color"
-			XmlNode_Color.SetAttribute "content" "char_array"
-			XmlNode_Color.InnerText = ColorValue
-			XmlNode_InstanceItem.appendChild XmlNode_Color
-
-			XmlNode_Scale = XmlDoc.CreateElement "Scale"
-			XmlNode_Scale.SetAttribute "value" (InstanceItem._Scale as string)
-			XmlNode_InstanceItem.appendChild XmlNode_Scale 
-
-			XmlNode_Ao = XmlDoc.CreateElement "Ao"
-			XmlNode_Ao.SetAttribute "value" (InstanceItem.Ao as string)
-			XmlNode_InstanceItem.appendChild XmlNode_Ao
-
-			XmlNode_Pad = XmlDoc.CreateElement "Pad"
-			XmlNode_Pad.SetAttribute "content" "char_array"
-			XmlNode_Pad.InnerText = PadValue
-			XmlNode_InstanceItem.appendChild XmlNode_Pad
-
-			XmlNode_InstanceList.appendChild XmlNode_InstanceItem
-		)
-
-		XmlNode_Item.appendChild XmlNode_InstanceList	
-
-		XmlNode_GrassInstanceList.appendChild XmlNode_Item
-	)
-	
-	XmlNode_instancedData.appendChild XmlNode_GrassInstanceList
-	return XmlDoc
-)
 
 struct rage__fwInstancedMapData
 (
-    ImapLink,
-    PropInstanceList,
-	GrassInstanceList,
+    ImapLink = #(),
+    PropInstanceList = #(),
+	GrassInstanceList = #(),
 
 	fn GetExtents  = 
 	(
-		local streamingExtentsMin = [8192,8192,8192]
-		local streamingExtentsMax = [-8192,-8192,-8192]
-		local entitiesExtentsMin = [8192,8192,8192]
-		local entitiesExtentsMax = [-8192,-8192,-8192]
+		local Extents = CMapData__Extents()
 
 		for Item in GrassInstanceList do
 		(
 			local BatchAABB = Item.BatchAABB
-			local lodDist = item.lodDist as float
+			local lodDist = Item.lodDist as float
 		
-			entitiesExtentsMax.x = amax entitiesExtentsMax.x BatchAABB._max.x
-			entitiesExtentsMax.y = amax entitiesExtentsMax.y BatchAABB._max.y
-			entitiesExtentsMax.z = amax entitiesExtentsMax.z BatchAABB._max.z
+			Extents.entitiesExtentsMax.x = amax Extents.entitiesExtentsMax.x BatchAABB._max.x
+			Extents.entitiesExtentsMax.y = amax Extents.entitiesExtentsMax.y BatchAABB._max.y
+			Extents.entitiesExtentsMax.z = amax Extents.entitiesExtentsMax.z BatchAABB._max.z
 
-			entitiesExtentsMin.x = amin entitiesExtentsMin.x BatchAABB._min.x
-			entitiesExtentsMin.y = amin entitiesExtentsMin.y BatchAABB._min.y
-			entitiesExtentsMin.z = amin entitiesExtentsMin.z BatchAABB._min.z
+			Extents.entitiesExtentsMin.x = amin Extents.entitiesExtentsMin.x BatchAABB._min.x
+			Extents.entitiesExtentsMin.y = amin Extents.entitiesExtentsMin.y BatchAABB._min.y
+			Extents.entitiesExtentsMin.z = amin Extents.entitiesExtentsMin.z BatchAABB._min.z
 
-			streamingExtentsMax.x = amax streamingExtentsMax.x (BatchAABB._max.x + lodDist)
-			streamingExtentsMax.y = amax streamingExtentsMax.y (BatchAABB._max.y + lodDist)
-			streamingExtentsMax.z = amax streamingExtentsMax.z (BatchAABB._max.z + lodDist - 100.0)
+			Extents.streamingExtentsMax.x = amax Extents.streamingExtentsMax.x (BatchAABB._max.x + lodDist)
+			Extents.streamingExtentsMax.y = amax Extents.streamingExtentsMax.y (BatchAABB._max.y + lodDist)
+			Extents.streamingExtentsMax.z = amax Extents.streamingExtentsMax.z (BatchAABB._max.z + lodDist - 100.0)
 
-			streamingExtentsMin.x = amin streamingExtentsMin.x (BatchAABB._min.x - lodDist)
-			streamingExtentsMin.y = amin streamingExtentsMin.y (BatchAABB._min.y - lodDist)
-			streamingExtentsMin.z = amin streamingExtentsMin.z (BatchAABB._min.z - lodDist + 100.0)
+			Extents.streamingExtentsMin.x = amin Extents.streamingExtentsMin.x (BatchAABB._min.x - lodDist)
+			Extents.streamingExtentsMin.y = amin Extents.streamingExtentsMin.y (BatchAABB._min.y - lodDist)
+			Extents.streamingExtentsMin.z = amin Extents.streamingExtentsMin.z (BatchAABB._min.z - lodDist + 100.0)
 		)
-		local Extents = CMapData__Extents streamingExtentsMin:streamingExtentsMin streamingExtentsMax:streamingExtentsMax entitiesExtentsMin:entitiesExtentsMin entitiesExtentsMax:entitiesExtentsMax
 		return Extents
+	),
+
+	fn WriteXML = 
+	(
+		XmlDocument = dotNetObject "System.Xml.XmlDocument"
+		
+		XmlElement_instancedData = XmlDocument.CreateElement "instancedData"
+		XmlDocument.appendChild XmlElement_instancedData
+		
+		XmlElement_ImapLink = XmlDocument.CreateElement "ImapLink"
+		XmlElement_PropInstanceList = XmlDocument.CreateElement "PropInstanceList"
+		XmlElement_GrassInstanceList = XmlDocument.CreateElement "GrassInstanceList"
+		
+		XmlElement_instancedData.appendChild XmlElement_ImapLink
+		XmlElement_instancedData.appendChild XmlElement_PropInstanceList
+	
+		for Item in GrassInstanceList do
+		(
+			XmlElement_Item = XmlDocument.CreateElement "Item"
+	
+			XmlElement_BatchAABB = XmlDocument.CreateElement "BatchAABB"
+			XmlElement_min = XmlDocument.CreateElement "min"
+			XmlElement_min.SetAttribute "x" (Item.BatchAABB._min.x as string)
+			XmlElement_min.SetAttribute "y" (Item.BatchAABB._min.y as string)
+			XmlElement_min.SetAttribute "z" (Item.BatchAABB._min.z as string)
+			XmlElement_min.SetAttribute "w" (Item.BatchAABB._min.w as string)
+			XmlElement_max = XmlDocument.CreateElement "max"
+			XmlElement_max.SetAttribute "x" (Item.BatchAABB._max.x as string)
+			XmlElement_max.SetAttribute "y" (Item.BatchAABB._max.y as string)
+			XmlElement_max.SetAttribute "z" (Item.BatchAABB._max.z as string)
+			XmlElement_max.SetAttribute "w" (Item.BatchAABB._max.w as string)
+	
+			XmlElement_BatchAABB.appendChild XmlElement_min
+			XmlElement_BatchAABB.appendChild XmlElement_max
+			XmlElement_Item.appendChild XmlElement_BatchAABB
+	
+			XmlElement_ScaleRange = XmlDocument.CreateElement "ScaleRange"
+			XmlElement_ScaleRange.SetAttribute "x" (Item.ScaleRange.x as string)
+			XmlElement_ScaleRange.SetAttribute "y" (Item.ScaleRange.y as string)
+			XmlElement_ScaleRange.SetAttribute "z" (Item.ScaleRange.z as string)
+			XmlElement_Item.appendChild XmlElement_ScaleRange
+	
+			XmlElement_archetypeName = XmlDocument.CreateElement "archetypeName"
+			XmlElement_archetypeName.InnerText = Item.archetypeName
+			XmlElement_Item.appendChild XmlElement_archetypeName
+	
+			XmlElement_lodDist = XmlDocument.CreateElement "lodDist"
+			XmlElement_lodDist.SetAttribute "value" (Item.lodDist as string)
+			XmlElement_Item.appendChild XmlElement_lodDist
+	
+			XmlElement_LodFadeStartDist = XmlDocument.CreateElement "LodFadeStartDist"
+			XmlElement_LodFadeStartDist.SetAttribute "value" (Item.LodFadeStartDist as string)
+			XmlElement_Item.appendChild XmlElement_LodFadeStartDist
+	
+			XmlElement_LodInstFadeRange = XmlDocument.CreateElement "LodInstFadeRange"
+			XmlElement_LodInstFadeRange.SetAttribute "value" (Item.LodInstFadeRange as string)
+			XmlElement_Item.appendChild XmlElement_LodInstFadeRange
+	
+			XmlElement_OrientToTerrain = XmlDocument.CreateElement "OrientToTerrain"
+			XmlElement_OrientToTerrain.SetAttribute "value" (Item.OrientToTerrain as string)
+			XmlElement_Item.appendChild XmlElement_OrientToTerrain
+	
+			XmlElement_InstanceList = XmlDocument.CreateElement "InstanceList"
+			
+			for InstanceItem in Item.InstanceList do
+			(
+				local PositionValue = ("\n              " + (InstanceItem.Position[1] as string) + "\n              " + (InstanceItem.Position[2] as string) + "\n              " + (InstanceItem.Position[3] as string) + "\n            ")
+				local ColorValue = ("\n              " + (InstanceItem._Color[1] as string) + "\n              " + (InstanceItem._Color[2] as string) + "\n              " + (InstanceItem._Color[3] as string) + "\n            ")
+				local PadValue = ("\n              " + (InstanceItem.Pad[1] as string) + "\n              " + (InstanceItem.Pad[2] as string) + "\n              " + (InstanceItem.Pad[3] as string) + "\n            ")	
+	
+				XmlElement_InstanceItem = XmlDocument.CreateElement "Item"
+	
+				XmlElement_Position = XmlDocument.CreateElement "Position"
+				XmlElement_Position.SetAttribute "content" "short_array"
+				XmlElement_Position.InnerText = PositionValue
+				XmlElement_InstanceItem.appendChild XmlElement_Position
+	
+				XmlElement_NormalX = XmlDocument.CreateElement "NormalX"
+				XmlElement_NormalX.SetAttribute "value" (InstanceItem.NormalX as string)
+				XmlElement_InstanceItem.appendChild XmlElement_NormalX
+	
+				XmlElement_NormalY = XmlDocument.CreateElement "NormalY"
+				XmlElement_NormalY.SetAttribute "value" (InstanceItem.NormalY as string)
+				XmlElement_InstanceItem.appendChild XmlElement_NormalY 
+	
+				XmlElement_Color = XmlDocument.CreateElement "Color"
+				XmlElement_Color.SetAttribute "content" "char_array"
+				XmlElement_Color.InnerText = ColorValue
+				XmlElement_InstanceItem.appendChild XmlElement_Color
+	
+				XmlElement_Scale = XmlDocument.CreateElement "Scale"
+				XmlElement_Scale.SetAttribute "value" (InstanceItem._Scale as string)
+				XmlElement_InstanceItem.appendChild XmlElement_Scale 
+	
+				XmlElement_Ao = XmlDocument.CreateElement "Ao"
+				XmlElement_Ao.SetAttribute "value" (InstanceItem.Ao as string)
+				XmlElement_InstanceItem.appendChild XmlElement_Ao
+	
+				XmlElement_Pad = XmlDocument.CreateElement "Pad"
+				XmlElement_Pad.SetAttribute "content" "char_array"
+				XmlElement_Pad.InnerText = PadValue
+				XmlElement_InstanceItem.appendChild XmlElement_Pad
+	
+				XmlElement_InstanceList.appendChild XmlElement_InstanceItem
+			)
+	
+			XmlElement_Item.appendChild XmlElement_InstanceList	
+	
+			XmlElement_GrassInstanceList.appendChild XmlElement_Item
+		)
+		
+		XmlElement_instancedData.appendChild XmlElement_GrassInstanceList
+		return XmlDocument
 	)
 )
 
@@ -248,53 +243,4 @@ fn GrassInstanceListFromFaces obj faces BatchSettings InstancesSettings =
 		append InstanceList InstanceData
 	)
 	local GrassInstanceList = rage__fwGrassInstanceListDef BatchAABB:batch ScaleRange:ScaleRange	archetypeName:archetypeName	lodDist:lodDist	LodFadeStartDist:LodFadeStartDist LodInstFadeRange:LodInstFadeRange	OrientToTerrain:OrientToTerrain InstanceList:InstanceList
-)
-
-fn ExportYmapGrass filename InstancedData =
-(
-	local filePath = getSaveFileName caption:"Save .ymap.xml file" filename:(filename+".ymap.xml") types:"XML Document (*.xml)"
-	if( filePath != undefined) then
-	( 	
-		format "YMAP GrassInstance EXPORTER: %\n\n" (filePath)
-		
-		local Extents = InstancedData.GetExtents()
-		
-		XDocument_YMAP = create_YMAP filename [0,0,0] [0,0,0]
-		XElement_CMapData = XDocument_YMAP.Element XName_CMapData
-		
-		XElement_streamingExtentsMin = XElement_CMapData.Element XName_streamingExtentsMin
-		XElement_streamingExtentsMin.SetAttributeValue XName_x (Extents.streamingExtentsMin.x as string)
-		XElement_streamingExtentsMin.SetAttributeValue XName_y (Extents.streamingExtentsMin.y as string)
-		XElement_streamingExtentsMin.SetAttributeValue XName_z (Extents.streamingExtentsMin.z as string)
-		
-		XElement_streamingExtentsMax = XElement_CMapData.Element XName_streamingExtentsMax
-		XElement_streamingExtentsMax.SetAttributeValue XName_x (Extents.streamingExtentsMax.x as string)
-		XElement_streamingExtentsMax.SetAttributeValue XName_y (Extents.streamingExtentsMax.y as string)
-		XElement_streamingExtentsMax.SetAttributeValue XName_z (Extents.streamingExtentsMax.z as string)
-		
-		XElement_entitiesExtentsMin = XElement_CMapData.Element XName_entitiesExtentsMin
-		XElement_entitiesExtentsMin.SetAttributeValue XName_x (Extents.entitiesExtentsMin.x as string)
-		XElement_entitiesExtentsMin.SetAttributeValue XName_y (Extents.entitiesExtentsMin.y as string)
-		XElement_entitiesExtentsMin.SetAttributeValue XName_z (Extents.entitiesExtentsMin.z as string)
-		
-		XElement_entitiesExtentsMax = XElement_CMapData.Element XName_entitiesExtentsMax
-		XElement_entitiesExtentsMax.SetAttributeValue XName_x (Extents.entitiesExtentsMax.x as string)
-		XElement_entitiesExtentsMax.SetAttributeValue XName_y (Extents.entitiesExtentsMax.y as string)
-		XElement_entitiesExtentsMax.SetAttributeValue XName_z (Extents.entitiesExtentsMax.z as string)
-		
-		XElement_contentFlags = XElement_CMapData.Element XName_contentFlags
-		XElement_contentFlags.SetAttributeValue XName_value 1088
-		XElement_physicsDictionaries = XElement_CMapData.Element XName_physicsDictionaries
-		XElement_Item = dotNetObject "System.Xml.Linq.XElement" XName_Item
-		XElement_Item.SetValue "v_proc1"
-		XElement_physicsDictionaries.Add XElement_Item
-		XElement_instancedData = XElement_CMapData.Element XName_instancedData
-		
-		--TEMPORARY: XML.LINQ IS LOW AT WRITING
-		xmlDoc = WriteXML(InstancedData)
-		NodeReader = dotNetObject "System.Xml.XmlNodeReader" xmlDoc
-		new = (dotNetClass "System.Xml.Linq.XElement").Load(NodeReader)
-		XElement_instancedData.ReplaceWith (new)
-		XDocument_YMAP.Save filePath
-	)
 )
