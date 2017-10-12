@@ -1,5 +1,5 @@
 try(destroyDialog GrassInstance_Rollout )catch()
-fileIn (scriptspath+"\\GTAV_Map_Helper\\grass.ms")
+fileIn (scriptspath+"\\GTAV_Map_Helper\\ymap\\instancedData.ms")
 
 clearlistener()
 actionMan.executeAction 0 "40472"

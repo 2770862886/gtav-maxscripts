@@ -1,5 +1,5 @@
 try(destroyDialog Ymap_Rollout )catch()
-fileIn (scriptspath+"\\GTAV_Map_Helper\\ymap.ms")
+fileIn (scriptspath+"\\GTAV_Map_Helper\\ymap\\entities.ms")
 
 clearlistener()
 actionMan.executeAction 0 "40472"

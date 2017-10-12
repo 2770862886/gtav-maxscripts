@@ -19,6 +19,183 @@ struct CBlockDesc
 	_time = localtime
 )
 
+struct rage__fwInstancedMapData
+(
+    ImapLink = #(),
+    PropInstanceList = #(),
+	GrassInstanceList = #(),
+
+	fn GetExtents  = 
+	(
+		local Extents = CMapData__Extents()
+
+		for Item in GrassInstanceList do
+		(
+			local BatchAABB = Item.BatchAABB
+			local lodDist = Item.lodDist as float
+		
+			Extents.entitiesExtentsMax.x = amax Extents.entitiesExtentsMax.x BatchAABB._max.x
+			Extents.entitiesExtentsMax.y = amax Extents.entitiesExtentsMax.y BatchAABB._max.y
+			Extents.entitiesExtentsMax.z = amax Extents.entitiesExtentsMax.z BatchAABB._max.z
+
+			Extents.entitiesExtentsMin.x = amin Extents.entitiesExtentsMin.x BatchAABB._min.x
+			Extents.entitiesExtentsMin.y = amin Extents.entitiesExtentsMin.y BatchAABB._min.y
+			Extents.entitiesExtentsMin.z = amin Extents.entitiesExtentsMin.z BatchAABB._min.z
+
+			Extents.streamingExtentsMax.x = amax Extents.streamingExtentsMax.x (BatchAABB._max.x + lodDist)
+			Extents.streamingExtentsMax.y = amax Extents.streamingExtentsMax.y (BatchAABB._max.y + lodDist)
+			Extents.streamingExtentsMax.z = amax Extents.streamingExtentsMax.z (BatchAABB._max.z + lodDist - 100.0)
+
+			Extents.streamingExtentsMin.x = amin Extents.streamingExtentsMin.x (BatchAABB._min.x - lodDist)
+			Extents.streamingExtentsMin.y = amin Extents.streamingExtentsMin.y (BatchAABB._min.y - lodDist)
+			Extents.streamingExtentsMin.z = amin Extents.streamingExtentsMin.z (BatchAABB._min.z - lodDist + 100.0)
+		)
+		return Extents
+	),
+
+	fn WriteXML = 
+	(
+		XmlDocument = dotNetObject "System.Xml.XmlDocument"
+		
+		XmlElement_instancedData = XmlDocument.CreateElement "instancedData"
+		XmlDocument.appendChild XmlElement_instancedData
+		
+		XmlElement_ImapLink = XmlDocument.CreateElement "ImapLink"
+		XmlElement_PropInstanceList = XmlDocument.CreateElement "PropInstanceList"
+		XmlElement_GrassInstanceList = XmlDocument.CreateElement "GrassInstanceList"
+		
+		XmlElement_instancedData.appendChild XmlElement_ImapLink
+		XmlElement_instancedData.appendChild XmlElement_PropInstanceList
+	
+		for Item in GrassInstanceList do
+		(
+			XmlElement_Item = XmlDocument.CreateElement "Item"
+	
+			XmlElement_BatchAABB = XmlDocument.CreateElement "BatchAABB"
+			XmlElement_min = XmlDocument.CreateElement "min"
+			XmlElement_min.SetAttribute "x" (Item.BatchAABB._min.x as string)
+			XmlElement_min.SetAttribute "y" (Item.BatchAABB._min.y as string)
+			XmlElement_min.SetAttribute "z" (Item.BatchAABB._min.z as string)
+			XmlElement_min.SetAttribute "w" (Item.BatchAABB._min.w as string)
+			XmlElement_max = XmlDocument.CreateElement "max"
+			XmlElement_max.SetAttribute "x" (Item.BatchAABB._max.x as string)
+			XmlElement_max.SetAttribute "y" (Item.BatchAABB._max.y as string)
+			XmlElement_max.SetAttribute "z" (Item.BatchAABB._max.z as string)
+			XmlElement_max.SetAttribute "w" (Item.BatchAABB._max.w as string)
+	
+			XmlElement_BatchAABB.appendChild XmlElement_min
+			XmlElement_BatchAABB.appendChild XmlElement_max
+			XmlElement_Item.appendChild XmlElement_BatchAABB
+	
+			XmlElement_ScaleRange = XmlDocument.CreateElement "ScaleRange"
+			XmlElement_ScaleRange.SetAttribute "x" (Item.ScaleRange.x as string)
+			XmlElement_ScaleRange.SetAttribute "y" (Item.ScaleRange.y as string)
+			XmlElement_ScaleRange.SetAttribute "z" (Item.ScaleRange.z as string)
+			XmlElement_Item.appendChild XmlElement_ScaleRange
+	
+			XmlElement_archetypeName = XmlDocument.CreateElement "archetypeName"
+			XmlElement_archetypeName.InnerText = Item.archetypeName
+			XmlElement_Item.appendChild XmlElement_archetypeName
+	
+			XmlElement_lodDist = XmlDocument.CreateElement "lodDist"
+			XmlElement_lodDist.SetAttribute "value" (Item.lodDist as string)
+			XmlElement_Item.appendChild XmlElement_lodDist
+	
+			XmlElement_LodFadeStartDist = XmlDocument.CreateElement "LodFadeStartDist"
+			XmlElement_LodFadeStartDist.SetAttribute "value" (Item.LodFadeStartDist as string)
+			XmlElement_Item.appendChild XmlElement_LodFadeStartDist
+	
+			XmlElement_LodInstFadeRange = XmlDocument.CreateElement "LodInstFadeRange"
+			XmlElement_LodInstFadeRange.SetAttribute "value" (Item.LodInstFadeRange as string)
+			XmlElement_Item.appendChild XmlElement_LodInstFadeRange
+	
+			XmlElement_OrientToTerrain = XmlDocument.CreateElement "OrientToTerrain"
+			XmlElement_OrientToTerrain.SetAttribute "value" (Item.OrientToTerrain as string)
+			XmlElement_Item.appendChild XmlElement_OrientToTerrain
+	
+			XmlElement_InstanceList = XmlDocument.CreateElement "InstanceList"
+			
+			for InstanceItem in Item.InstanceList do
+			(
+				local PositionValue = ("\r\n              " + (InstanceItem.Position[1] as string) + "\r\n              " + (InstanceItem.Position[2] as string) + "\r\n              " + (InstanceItem.Position[3] as string) + "\r\n            ")
+				local ColorValue = ("\r\n              " + (InstanceItem._Color[1] as string) + "\r\n              " + (InstanceItem._Color[2] as string) + "\r\n              " + (InstanceItem._Color[3] as string) + "\r\n            ")
+				local PadValue = ("\r\n              " + (InstanceItem.Pad[1] as string) + "\r\n              " + (InstanceItem.Pad[2] as string) + "\r\n              " + (InstanceItem.Pad[3] as string) + "\r\n            ")	
+	
+				XmlElement_InstanceItem = XmlDocument.CreateElement "Item"
+	
+				XmlElement_Position = XmlDocument.CreateElement "Position"
+				XmlElement_Position.SetAttribute "content" "short_array"
+				XmlElement_Position.InnerText = PositionValue
+				XmlElement_InstanceItem.appendChild XmlElement_Position
+	
+				XmlElement_NormalX = XmlDocument.CreateElement "NormalX"
+				XmlElement_NormalX.SetAttribute "value" (InstanceItem.NormalX as string)
+				XmlElement_InstanceItem.appendChild XmlElement_NormalX
+	
+				XmlElement_NormalY = XmlDocument.CreateElement "NormalY"
+				XmlElement_NormalY.SetAttribute "value" (InstanceItem.NormalY as string)
+				XmlElement_InstanceItem.appendChild XmlElement_NormalY 
+	
+				XmlElement_Color = XmlDocument.CreateElement "Color"
+				XmlElement_Color.SetAttribute "content" "char_array"
+				XmlElement_Color.InnerText = ColorValue
+				XmlElement_InstanceItem.appendChild XmlElement_Color
+	
+				XmlElement_Scale = XmlDocument.CreateElement "Scale"
+				XmlElement_Scale.SetAttribute "value" (InstanceItem._Scale as string)
+				XmlElement_InstanceItem.appendChild XmlElement_Scale 
+	
+				XmlElement_Ao = XmlDocument.CreateElement "Ao"
+				XmlElement_Ao.SetAttribute "value" (InstanceItem.Ao as string)
+				XmlElement_InstanceItem.appendChild XmlElement_Ao
+	
+				XmlElement_Pad = XmlDocument.CreateElement "Pad"
+				XmlElement_Pad.SetAttribute "content" "char_array"
+				XmlElement_Pad.InnerText = PadValue
+				XmlElement_InstanceItem.appendChild XmlElement_Pad
+	
+				XmlElement_InstanceList.appendChild XmlElement_InstanceItem
+			)
+	
+			XmlElement_Item.appendChild XmlElement_InstanceList	
+	
+			XmlElement_GrassInstanceList.appendChild XmlElement_Item
+		)
+		
+		XmlElement_instancedData.appendChild XmlElement_GrassInstanceList
+		return XmlDocument
+	)
+)
+
+struct rage__fwGrassInstanceListDef
+(
+	BatchAABB,
+	ScaleRange,
+	archetypeName,
+	lodDist,
+	LodFadeStartDist,
+	LodInstFadeRange,
+	OrientToTerrain,
+	InstanceList
+)
+
+struct rage__spdAABB
+(
+	_min,
+	_max
+)
+
+struct rage__fwGrassInstanceListDef__InstanceData
+(
+    Position,
+    NormalX,
+    NormalY,
+    _Color,
+    _Scale,
+    Ao,
+	Pad
+)
+
 struct CEntityDef
 (
 	archetypeName,
@@ -74,7 +251,7 @@ struct CEntityDef
 		XmlElement_scaleXY.SetAttribute "value" (scaleXY as string)
 		XmlElement_Item.appendChild XmlElement_scaleXY
 
-		local XmlElement_scaleZ = XmlDocument.CreateElement "scalez"
+		local XmlElement_scaleZ = XmlDocument.CreateElement "scaleZ"
 		XmlElement_scaleZ.SetAttribute "value" (scaleZ as string)
 		XmlElement_Item.appendChild XmlElement_scaleZ
 
@@ -219,19 +396,20 @@ struct CMapData
 		)
 		XmlElement_CMapData.appendChild XmlElement_physicsDictionaries
 		
+		local XmlElement_instancedData = XmlDocument.CreateElement "instancedData"
+		XmlElement_instancedData.appendChild (XmlDocument.CreateElement "ImapLink")
+		XmlElement_instancedData.appendChild (XmlDocument.CreateElement "PropInstanceList")
 
-		if(instancedData.GrassInstanceList != undefined and instancedData.GrassInstanceList.count > 0)then
+		if(instancedData.GrassInstanceList != undefined and instancedData.GrassInstanceList.count > 0) then 
 		(
-			local XmlElement_instancedData = XmlDocument.ImportNode (instancedData.WriteXML()).DocumentElement true
-			XmlElement_CMapData.appendChild XmlElement_instancedData
+			local NEW_instancedData = XmlDocument.ImportNode ((instancedData.WriteXML()).Item["instancedData"]) true
+			local XmlElement_GrassInstanceList = NEW_instancedData.Item["GrassInstanceList"]
 		)else
 		(
-			local XmlElement_instancedData = XmlDocument.CreateElement "instancedData"
-			XmlElement_instancedData.appendChild (XmlDocument.CreateElement "ImapLink")
-			XmlElement_instancedData.appendChild (XmlDocument.CreateElement "PropInstanceList")
-			XmlElement_instancedData.appendChild (XmlDocument.CreateElement "GrassInstanceList")
-			XmlElement_CMapData.appendChild XmlElement_instancedData
+			local XmlElement_GrassInstanceList = XmlDocument.CreateElement "GrassInstanceList"
 		)
+		XmlElement_instancedData.appendChild XmlElement_GrassInstanceList
+		XmlElement_CMapData.appendChild XmlElement_instancedData
 	
 		XmlElement_CMapData.appendChild (XmlDocument.CreateElement "timeCycleModifiers")---TO DO
 		XmlElement_CMapData.appendChild (XmlDocument.CreateElement "carGenerators")---TO DO
@@ -310,156 +488,14 @@ fn CreateCMapData settings =
 	return MapData
 )
 
-fn EntityFromGeometry obj settings =
-(	
-	local archetypeName = obj.name
-	local flags = settings[1]
-	--local guid = random 1 4294967295
-	local guid = rnd.Next()
-	local _position = (in coordsys world obj.pos)
-	local _rotation = inverse(in coordsys world obj.rotation)
-	local scaleXY = 1
-	local scaleZ = 1
-	local parentIndex = -1
-	local lodDist = 100 + (1.5 * (distance obj.max obj.min)/2)
-	local childLodDist = 0
-	local lodLevel = settings[2]
-	local numChildren = 0
-	local priorityLevel = settings[3]
-	local extensions = #()
-	local ambientOcclusionMultiplier = 255
-	local artificialAmbientOcclusion = 255
-	local tintValue = 0
-
-	local Entity = CEntityDef archetypeName:archetypeName flags:flags guid:guid _position:_position _rotation:_rotation scaleXY:scaleXY scaleZ:scaleZ parentIndex:parentIndex lodDist:lodDist childLodDist:childLodDist lodLevel:lodLevel numChildren:numChildren priorityLevel:priorityLevel extensions:extensions ambientOcclusionMultiplier:ambientOcclusionMultiplier artificialAmbientOcclusion:artificialAmbientOcclusion tintValue:tintValue
-	return Entity
-)
-
-fn ExportYmap CMapData =(
+fn ExportYmap CMapData =
+(
 	local filePath = getSaveFileName caption:"Save .ymap.xml file" filename:(CMapData._name+".ymap.xml") types:"Ymap XML Document (*.ymap.xml)"
 	if( filePath != undefined) then
 	( 	
 		format "YMAP EXPORTER: %\n\n" (filePath)
 		local XmlDocument = CMapData.WriteXML()
+		XmlDocument.Normalize()
 		XmlDocument.Save(filePath)
-	)
-)
-
-fn ReadEntitiesFromYmap = 
-(
-	local filePath = getOpenFileName caption:"Import .ymap.xml file" types:"XML Document (*.xml)"
-	
-	if(filePath != undefined) then
-	(
-		format "YMAP READER: %\n\n" (filePath)
-		
-		local XmlDocument_Ymap = dotNetObject "System.Xml.XmlDocument"
-		XmlDocument_Ymap.Load(filePath)
-		local XmlElement_entities = XmlDocument_Ymap.SelectNodes("descendant::CMapData/entities/Item")
-		local Enumerator = XmlElement_entities.GetEnumerator()
-		
-		local entities =#()
-				
-		while Enumerator.MoveNext() do
-		(
-			local XmlElement_CEntityDef = dotNetObject "System.Xml.XmlElement" Enumerator.Current
-			local type = XmlElement_CEntityDef.GetAttribute("type")
-			
-			if(type == "CEntityDef")then
-			(
-				local archetypeName = XmlElement_CEntityDef.Item["archetypeName"].InnerText
-				local flags = XmlElement_CEntityDef.Item["flags"].GetAttribute("value")
-				local guid = XmlElement_CEntityDef.Item["guid"].GetAttribute("value")
-	
-				local XmlElement_position = XmlElement_CEntityDef.Item["position"]
-				local position_x = XmlElement_position.GetAttribute("x") as float
-				local position_y = XmlElement_position.GetAttribute("y") as float
-				local position_z = XmlElement_position.GetAttribute("z") as float
-				local _position = [position_x,position_y,position_z]
-				
-				local XmlElement_rotation = XmlElement_CEntityDef.Item["rotation"]
-				local rotation_x = XmlElement_rotation.GetAttribute("x") as float
-				local rotation_y = XmlElement_rotation.GetAttribute("y") as float
-				local rotation_z = XmlElement_rotation.GetAttribute("z") as float
-				local rotation_w = XmlElement_rotation.GetAttribute("w") as float
-				local _rotation = quat rotation_x rotation_y rotation_z rotation_w
-				
-				local scaleXY = XmlElement_CEntityDef.Item["scaleXY"].GetAttribute("value") as float
-				local scaleZ = XmlElement_CEntityDef.Item["scaleZ"].GetAttribute("value") as float
-				local parentIndex = XmlElement_CEntityDef.Item["parentIndex"].GetAttribute("value")
-				local lodDist = XmlElement_CEntityDef.Item["lodDist"].GetAttribute("value")
-				local childLodDist = XmlElement_CEntityDef.Item["childLodDist"].GetAttribute("value")
-				local lodLevel = XmlElement_CEntityDef.Item["lodLevel"].InnerText
-				local numChildren = XmlElement_CEntityDef.Item["numChildren"].GetAttribute("value")
-				local priorityLevel = XmlElement_CEntityDef.Item["priorityLevel"].InnerText
-				local extensions = #() --NOT SUPPORTED
-				local ambientOcclusionMultiplier = XmlElement_CEntityDef.Item["ambientOcclusionMultiplier"].GetAttribute("value")
-				local artificialAmbientOcclusion = XmlElement_CEntityDef.Item["artificialAmbientOcclusion"].GetAttribute("value")
-				local tintValue = XmlElement_CEntityDef.Item["tintValue"].GetAttribute("value")
-	
-				local Entity = CEntityDef archetypeName:archetypeName flags:flags guid:guid _position:_position _rotation:_rotation scaleXY:scaleXY scaleZ:scaleZ parentIndex:parentIndex lodDist:lodDist childLodDist:childLodDist lodLevel:lodLevel numChildren:numChildren priorityLevel:priorityLevel extensions:extensions ambientOcclusionMultiplier:ambientOcclusionMultiplier artificialAmbientOcclusion:artificialAmbientOcclusion tintValue:tintValue
-				append entities Entity
-			)else
-			(
-				format "Skipped unsupported %\n" (type)
-			)
-		)
-	)
-	return entities
-)
-
-fn CheckEntitiesFromYmap =
-(
-	local entities = ReadEntitiesFromYmap()
-	local missing = #()
-	if(entities != undefined and entities.count > 0) then
-	(
-		for entity in entities do
-		(
-			if( getnodebyname(entity.archetypeName) == undefined ) do
-				appendifunique missing entity.archetypeName
-		)	
-		if(missing !=undefined and missing.count >0 )then
-		(
-			for item in missing do
-				format "MISSING: %\n" (item)
-		) else format "No entity missing in scene!\n"
-	)else format "The .ymap.xml file doesn't contain any entity.\n"
-)
-
---TODO: CASE SCENE HAS MULTIPLE OBJECTS WITH SAME NAME
-fn MoveObjectsByYmap =
-(
-	local entities = ReadEntitiesFromYmap()
-	local instances = #()
-			
-	if(entities != undefined and entities.count > 0) then
-	(
-		for entity in entities do
-		(
-			if( getnodebyname(entity.archetypeName) != undefined )then
-			(
-				if( finditem instances entity.archetypeName == 0 )then
-				(
-					format "FOUND: %\n" (entity.archetypeName)
-					append instances entity.archetypeName
-					selected_node = getnodebyname(entity.archetypeName)
-					selected_node.scale = [entity.scaleXY,entity.scaleXY,entity.scaleZ]
-					selected_node.rotation = (inverse(entity._rotation))	
-					selected_node.pos = entity._position
-				)
-				else
-				(
-					instanced_entity
-					format "FOUND: % (INSTANCE)\n" (entity.archetypeName)
-					selected_node = getnodebyname(entity.archetypeName)
-					maxOps.CloneNodes selected_node expandHierarchy:true cloneType:#instance newNodes:&instanced_entity
-					instanced_entity.scale = [entity.scaleXY,entity.scaleXY,entity.scaleZ]
-					instanced_entity.rotation = (inverse(entity._rotation))	
-					instanced_entity.pos = entity._position
-					instanced_entity.name = entity.archetypeName
-				)	
-			)else format "MISSING: %\n" (entity.archetypeName)
-		)
 	)
 )
