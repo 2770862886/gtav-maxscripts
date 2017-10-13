@@ -1,3 +1,26 @@
+fn alignPivotToFaceZUp node face:1 = if iskindof node Editable_Poly do
+(
+	c = polyop.getfacecenter node face
+	n = polyop.getfacenormal node face
+	
+	side = cross z_axis n
+	up = cross n side
+	
+	ftm = matrix3 n side up c
+	
+	p = (nodeGetBoundingBox node ftm)[1] * ftm
+	prerotateZ ftm -90 
+		
+	itm = ftm*(inverse node.transform)
+	node.transform = ftm
+	node.objectOffsetPos *= inverse itm
+	node.objectOffsetRot *= inverse itm.rotation
+		
+	node.pivot = p
+	node.transform
+	node.pivot = node.center
+)
+
 rollout PropsUtilityGUI "Placement Tools" width:150 height:200
 	(	
 		group "Utility"
@@ -7,7 +30,16 @@ rollout PropsUtilityGUI "Placement Tools" width:150 height:200
 			button 'btn_reset1' "Pivot to Parent" width:130 align:#center
 			button 'btn_centerbottom' "Center Pivot to Bottom" width:130 align:#center
 			button 'btn_reset3' "Position to Parent" width:130 align:#center
-		)			
+			button 'btn_reset4' "Reset Z up" width:130 align:#center
+		)
+		
+		on btn_reset4 pressed do 
+		(
+			for obj in selection do
+				alignPivotToFaceZUp obj
+		)
+
+
 		on btn_center pressed do
 		(
 			for i in selection do
