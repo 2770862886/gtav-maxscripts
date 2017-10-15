@@ -33,7 +33,7 @@ rollout Ymap_Rollout "Ymap Scripts" width:250 height:500
 	
 	group "CMapData"
 	(
-		edittext 'CMapData_name' "name:"
+		edittext 'CMapData_name' "name:" text:"New"
 		edittext 'CMapData_parent' "parent:"
 		spinner 'CMapData_flags' "flags:" range:[0,2147483647,0] type:#integer
 		spinner 'CMapData_contentFlags' "contentFlags:" range:[0,2147483647,0] type:#integer
@@ -45,17 +45,29 @@ rollout Ymap_Rollout "Ymap Scripts" width:250 height:500
 		dropdownlist 'Entity_lodLevel' "lodLevel:" items:#("LODTYPES_DEPTH_HD","LODTYPES_DEPTH_LOD","LODTYPES_DEPTH_SLOD1","LODTYPES_DEPTH_SLOD2","LODTYPES_DEPTH_SLOD3","LODTYPES_DEPTH_ORPHANHD","LODTYPES_DEPTH_SLOD4") 
 		dropdownlist 'Entity_priorityLevel' "priorityLevel:" items:#("PRI_REQUIRED","PRI_OPTIONAL_HIGH","PRI_OPTIONAL_MEDIUM","PRI_OPTIONAL_LOW")
 	)
-		button 'btn_add_entities' "Add Entities" width:232 height:21 align:#left
-		button 'btn_ymap_export' "Export .ymap.xml" width:232 height:21 align:#left
-		button 'btn_reset_entities' "Reset Entities" width:232 height:21 align:#left
+	button 'btn_add_entities' "Add Entities" width:232 height:21 align:#left
+	button 'btn_ymap_export' "Export .ymap.xml" width:232 height:21 align:#left
+	button 'btn_reset_entities' "Reset Entities" width:232 height:21 align:#left
 
-		button 'btn_ymap_check' "Check .ymap.xml" width:232 height:21 align:#left
-		button 'btn_ymap_import' "Import .ymap.xml" width:232 height:21 align:#left
+	button 'btn_ymap_check' "Check .ymap.xml" width:232 height:21 align:#left
+	button 'btn_ymap_import' "Import .ymap.xml" width:232 height:21 align:#left
+
+	fn ResetSettings =
+	(
+		CMapData_name.text = "New"
+		CMapData_parent.text = ""
+		CMapData_flags.value = 0
+		CMapData_contentFlags.value = 0
+		Entity_flags.value = 0
+		Entity_lodLevel.selected = Entity_lodLevel.items[1]
+		Entity_priorityLevel.selected = Entity_priorityLevel.items[1]
+	)
 	
 	on btn_reset_entities pressed do 
 	(
 		entities = #()
 		Extents = CMapData__Extents()
+		ResetSettings()
 	)
 	
 	on btn_add_entities pressed do

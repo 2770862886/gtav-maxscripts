@@ -1,4 +1,4 @@
-fn alignPivotToFaceZUp node face:1 = if iskindof node Editable_Poly do
+fn alignPivotToFaceZUp node face:1 =
 (
 	c = polyop.getfacecenter node face
 	n = polyop.getfacenormal node face
@@ -18,7 +18,6 @@ fn alignPivotToFaceZUp node face:1 = if iskindof node Editable_Poly do
 		
 	node.pivot = p
 	node.transform
-	node.pivot = node.center
 )
 
 rollout PropsUtilityGUI "Placement Tools" width:150 height:200
@@ -36,7 +35,14 @@ rollout PropsUtilityGUI "Placement Tools" width:150 height:200
 		on btn_reset4 pressed do 
 		(
 			for obj in selection do
-				alignPivotToFaceZUp obj
+			(
+				if (classof(obj) == Editable_Poly) then
+				(
+					obj.pivot = obj.center
+					alignPivotToFaceZUp obj
+					obj.pivot = obj.center
+				)else format "% is not an Editable_Poly.\n" (obj.name)
+			)
 		)
 
 
@@ -49,12 +55,12 @@ rollout PropsUtilityGUI "Placement Tools" width:150 height:200
 						children_center = [0,0,0]
 						for b in i.children do
 						(
-						children_center = children_center + b.center
+							children_center = children_center + b.center
 						)
 						children_center = children_center/i.children.count
 						i.pivot = children_center
 						i.children.pivot = children_center
-					)else messagebox (i.name + " hasn't any child.")
+					)else format "% hasn't any child.\n" (i.name)
 				)
 		)
 		
@@ -64,8 +70,8 @@ rollout PropsUtilityGUI "Placement Tools" width:150 height:200
 			(
 				if(i.parent != undefined) then
 				(
-				i.pivot = i.parent.pivot
-				)else messagebox (i.name+" has no parent.")
+					i.pivot = i.parent.pivot
+				)else format "% has no parent.\n" (i.name)
 			)
 		)
 		
@@ -75,9 +81,9 @@ rollout PropsUtilityGUI "Placement Tools" width:150 height:200
 			(
 				if(i.parent != undefined) then
 				(
-				i.pos = i.parent.pos
-				i.rotation = i.parent.rotation
-				)else messagebox (i.name+" has no parent.")
+					i.pos = i.parent.pos
+					i.rotation = i.parent.rotation
+				)else format "% has no parent.\n" (i.name)
 			)
 		)
 		
@@ -87,8 +93,8 @@ rollout PropsUtilityGUI "Placement Tools" width:150 height:200
 			(
 				if(i.parent != undefined) then
 				(
-				i.pos = i.parent.pos
-				)else messagebox (i.name+" has no parent.")
+					i.pos = i.parent.pos
+				)else format "% has no parent.\n" (i.name)
 			)
 		)
 		

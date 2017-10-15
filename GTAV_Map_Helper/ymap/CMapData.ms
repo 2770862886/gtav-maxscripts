@@ -1,4 +1,4 @@
-fileIn (scriptspath+"\\GTAV_Map_Helper\\xml.ms")
+DotNet.LoadAssembly "System.Xml"
 rnd = dotNetObject "System.Random"
 
 struct CMapData__Extents
@@ -495,7 +495,6 @@ fn ExportYmap CMapData =
 	( 	
 		format "YMAP EXPORTER: %\n\n" (filePath)
 		local XmlDocument = CMapData.WriteXML()
-		XmlDocument.Normalize()
 		XmlDocument.Save(filePath)
 	)
 )
