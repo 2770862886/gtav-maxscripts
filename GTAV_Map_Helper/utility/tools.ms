@@ -20,7 +20,7 @@ fn alignPivotToFaceZUp node face:1 =
 	node.transform
 )
 
-rollout PropsUtilityGUI "Placement Tools" width:150 height:200
+rollout PropsUtilityGUI "Placement Tools" width:150 height:225
 	(	
 		group "Utility"
 		(
@@ -30,6 +30,22 @@ rollout PropsUtilityGUI "Placement Tools" width:150 height:200
 			button 'btn_centerbottom' "Center Pivot to Bottom" width:130 align:#center
 			button 'btn_reset3' "Position to Parent" width:130 align:#center
 			button 'btn_reset4' "Reset Z up" width:130 align:#center
+			button 'btn_delete_duplicate' "Delete duplicates" width:130 align:#center
+		)
+		
+		on btn_delete_duplicate pressed do
+		(
+			local allNames = #()
+			local duplicateObjs = #()
+
+			for obj in objects do
+			(
+				if findItem allNames obj.name == 0 then 
+					append allNames obj.name
+				else append duplicateObjs obj
+			)
+			delete duplicateObjs
+			allNames = #()	
 		)
 		
 		on btn_reset4 pressed do 
