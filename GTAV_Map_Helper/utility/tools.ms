@@ -20,7 +20,7 @@ fn alignPivotToFaceZUp node face:1 =
 	node.transform
 )
 
-rollout PropsUtilityGUI "Placement Tools" width:150 height:225
+rollout PropsUtilityGUI "Placement Tools" width:150 height:240
 	(	
 		group "Utility"
 		(
@@ -30,7 +30,27 @@ rollout PropsUtilityGUI "Placement Tools" width:150 height:225
 			button 'btn_centerbottom' "Center Pivot to Bottom" width:130 align:#center
 			button 'btn_reset3' "Position to Parent" width:130 align:#center
 			button 'btn_reset4' "Reset Z up" width:130 align:#center
+			button 'btn_bottom_face' "Pivot to Bottom Face" width:130 align:#center
 			button 'btn_delete_duplicate' "Delete duplicates" width:130 align:#center
+		)
+		
+		on btn_bottom_face pressed do
+		(
+			for obj in selection do
+			(	
+				if(classof(obj) == Editable_Poly)then
+				(
+					local faces = polyop.getNumFaces obj
+					local fbottom = polyop.getfacecenter obj 1
+					for face = 2 to faces do
+					(
+						fcenter = polyop.getfacecenter obj face
+						if(fcenter.z < fbottom.z)do
+							fbottom = fcenter
+					)
+					obj.pivot = fbottom
+				)else format "% is not an Editable_Poly.\n" (obj.name)
+			)
 		)
 		
 		on btn_delete_duplicate pressed do
