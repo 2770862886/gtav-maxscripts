@@ -52,20 +52,20 @@ fn ReadEntitiesFromYmap =
 				local guid = XmlElement_CEntityDef.Item["guid"].GetAttribute("value")
 	
 				local XmlElement_position = XmlElement_CEntityDef.Item["position"]
-				local position_x = XmlElement_position.GetAttribute("x") as float
-				local position_y = XmlElement_position.GetAttribute("y") as float
-				local position_z = XmlElement_position.GetAttribute("z") as float
+				local position_x = XmlElement_position.GetAttribute("x") as double
+				local position_y = XmlElement_position.GetAttribute("y") as double
+				local position_z = XmlElement_position.GetAttribute("z") as double
 				local _position = [position_x,position_y,position_z]
 				
 				local XmlElement_rotation = XmlElement_CEntityDef.Item["rotation"]
-				local rotation_x = XmlElement_rotation.GetAttribute("x") as float
-				local rotation_y = XmlElement_rotation.GetAttribute("y") as float
-				local rotation_z = XmlElement_rotation.GetAttribute("z") as float
-				local rotation_w = XmlElement_rotation.GetAttribute("w") as float
+				local rotation_x = XmlElement_rotation.GetAttribute("x") as double
+				local rotation_y = XmlElement_rotation.GetAttribute("y") as double
+				local rotation_z = XmlElement_rotation.GetAttribute("z") as double
+				local rotation_w = XmlElement_rotation.GetAttribute("w") as double
 				local _rotation = quat rotation_x rotation_y rotation_z rotation_w
 				
-				local scaleXY = XmlElement_CEntityDef.Item["scaleXY"].GetAttribute("value") as float
-				local scaleZ = XmlElement_CEntityDef.Item["scaleZ"].GetAttribute("value") as float
+				local scaleXY = XmlElement_CEntityDef.Item["scaleXY"].GetAttribute("value") as double
+				local scaleZ = XmlElement_CEntityDef.Item["scaleZ"].GetAttribute("value") as double
 				local parentIndex = XmlElement_CEntityDef.Item["parentIndex"].GetAttribute("value")
 				local lodDist = XmlElement_CEntityDef.Item["lodDist"].GetAttribute("value")
 				local childLodDist = XmlElement_CEntityDef.Item["childLodDist"].GetAttribute("value")

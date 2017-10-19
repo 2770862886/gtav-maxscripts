@@ -101,8 +101,8 @@ fn readJson=(
 			local JValueRotW = JTokenArrayRot.item(3)
 			local JValueName = JTokenName
 					
-			local PositionValue = [(JValuePosX.Value as float), (JValuePosY.Value as float), (JValuePosZ.Value as float)]
-			local RotationValue = [(JValueRotX.Value as float), (JValueRotY.Value as float), (JValueRotZ.Value as float), (JValueRotW.Value as float)]
+			local PositionValue = [(JValuePosX.Value as double), (JValuePosY.Value as double), (JValuePosZ.Value as double)]
+			local RotationValue = [(JValueRotX.Value as double), (JValueRotY.Value as double), (JValueRotZ.Value as double), (JValueRotW.Value as double)]
 			local NameValue = JTokenName.Value
 					
 			local Entity = JsonEntityInfo EntityInfo_position:PositionValue EntityInfo_rotation:RotationValue EntityInfo_name:NameValue

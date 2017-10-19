@@ -1,16 +1,14 @@
 try(destroyDialog Water_Rollout )catch()
 fileIn (scriptspath+"\\GTAV_Map_Helper\\water.ms")
-struct WaterQuadValues(minX,maxX,minY,maxY,Type,IsInvisible,HasLimitedDepth,z,a1,a2,a3,a4,NoStencil,fDampening,Amplitude,XDirection,YDirection)
+struct WaterSettings(minX,maxX,minY,maxY,Type,IsInvisible,HasLimitedDepth,z,a1,a2,a3,a4,NoStencil,fDampening,Amplitude,XDirection,YDirection)
 
 clearlistener()
 actionMan.executeAction 0 "40472"
-format "water.xml Script\n\nHow to use the script:\nWork from Top view and create planes for each water block.\nCustomize your settings and add the blocks.\nWhen you have finished just export the .xml file.\n"
+format "water.xml Script\n\nHow to use the script:\nWork from Top view and create planes for each water block.\nCustomize your settings and add the blocks.\nIf no plane is selected the selected min and max values are used.\nWhen you have finished just export the .xml file.\n"
 
-XDocument_Water = create_Water()
-XElement_WaterData = XDocument_Water.Element XName_WaterData
-XElement_WaterQuads = XElement_WaterData.Element XName_WaterQuads
-XElement_CalmingQuads = XElement_WaterData.Element XName_CalmingQuads
-XElement_WaveQuads = XElement_WaterData.Element XName_WaveQuads
+WaterQuads = #()
+CalmingQuads = #()
+WaveQuads = #()
 		
 rollout Water_Rollout "Water.xml Scripts" width:170 height:555
 (
@@ -43,28 +41,26 @@ rollout Water_Rollout "Water.xml Scripts" width:170 height:555
 	button 'WaterQuads_Add' "Add Blocks" pos:[10,476] width:150 height:21 align:#left
 	button 'Water_Export' "Export water.xml" pos:[10,502] width:150 height:21 align:#left
 	button 'Water_Restart' "Restart" pos:[10,528] width:150 height:21 align:#left
-	
-	
 
 	on WaterQuads_Add pressed do
 	(
-		Water_Settings_Values = WaterQuadValues minX:WaterQuads_minX.value maxX:WaterQuads_maxX.value minY:WaterQuads_minY.value maxY:WaterQuads_maxY.value Type:WaterQuads_Type.value IsInvisible:WaterQuads_IsInvisible.checked HasLimitedDepth:WaterQuads_HasLimitedDepth.checked z:WaterQuads_z.value a1:WaterQuads_a1.value a2:WaterQuads_a2.value a3:WaterQuads_a3.value a4:WaterQuads_a4.value NoStencil:WaterQuads_NoStencil.checked fDampening:CalmingQuads_fDampening.value Amplitude:WaveQuads_Amplitude.value XDirection:WaveQuads_XDirection.value YDirection:WaveQuads_YDirection.value
+		Settings = WaterSettings minX:WaterQuads_minX.value maxX:WaterQuads_maxX.value minY:WaterQuads_minY.value maxY:WaterQuads_maxY.value Type:WaterQuads_Type.value IsInvisible:WaterQuads_IsInvisible.checked HasLimitedDepth:WaterQuads_HasLimitedDepth.checked z:WaterQuads_z.value a1:WaterQuads_a1.value a2:WaterQuads_a2.value a3:WaterQuads_a3.value a4:WaterQuads_a4.value NoStencil:WaterQuads_NoStencil.checked fDampening:CalmingQuads_fDampening.value Amplitude:WaveQuads_Amplitude.value XDirection:WaveQuads_XDirection.value YDirection:WaveQuads_YDirection.value
 		
 		list = getCurrentSelection()
 		
 		if(list.count == 0)then
 		(
-			XElement_WaterQuad = create_WaterQuad Water_Settings_Values
-			XElement_WaterQuads.Add XElement_WaterQuad
+			local WaterQuad = WaterQuadFromPlane Settings
+			append WaterQuads WaterQuad
 			if(CalmingQuads_Add.checked)do
 			(
-				XElement_CalmingQuad = create_CalmingQuad Water_Settings_Values
-				XElement_CalmingQuads.Add XElement_CalmingQuad
+				local CalmingQuad = CalmingQuadFromPlane Settings
+				append CalmingQuads CalmingQuad
 			)
 			if(WaveQuads_Add.checked)do
 			(
-				XElement_WaveQuad = create_WaveQuad Water_Settings_Values
-				XElement_WaveQuads.Add XElement_WaveQuad
+				local WaveQuad = WaveQuadFromPlane Settings
+				append WaveQuads WaveQuad
 			)
 			
 		)else
@@ -73,39 +69,40 @@ rollout Water_Rollout "Water.xml Scripts" width:170 height:555
 			(
 				if((superclassOf obj) == GeometryClass) then
 				(
-					Water_Settings_Values.minX = floor(obj.min.x)
-					Water_Settings_Values.maxX = ceil(obj.max.x)
-					Water_Settings_Values.minY = floor(obj.min.y)
-					Water_Settings_Values.maxY = ceil(obj.max.y)
-					XElement_WaterQuad = create_WaterQuad Water_Settings_Values
-					XElement_WaterQuads.Add XElement_WaterQuad
+					Settings.minX = floor(obj.min.x)
+					Settings.maxX = ceil(obj.max.x)
+					Settings.minY = floor(obj.min.y)
+					Settings.maxY = ceil(obj.max.y)
+					local WaterQuad = WaterQuadFromPlane Settings
+					append WaterQuads WaterQuad
 					
 					if(CalmingQuads_Add.checked)do
 					(
-						XElement_CalmingQuad = create_CalmingQuad Water_Settings_Values
-						XElement_CalmingQuads.Add XElement_CalmingQuad
+						local CalmingQuad = CalmingQuadFromPlane Settings
+						append CalmingQuads CalmingQuad
 					)
 					if(WaveQuads_Add.checked)do
 					(
-						XElement_WaveQuad = create_WaveQuad Water_Settings_Values
-						XElement_WaveQuads.Add XElement_WaveQuad
+						local WaveQuad = WaveQuadFromPlane Settings
+						append WaveQuads WaveQuad
 					)
 				)
 				else (format "% is not a Geometry, water block will be skipped.\n" (obj.name))
 			)
 		)
 	)
+
 	on Water_Export pressed do
 	(
-		export_Water XDocument_Water
+		local Data = WaterData WaterQuads:WaterQuads CalmingQuads:CalmingQuads WaveQuads:WaveQuads
+		ExportWaterData Data
 	)
+
 	on Water_Restart pressed do
 	(
-		XDocument_Water = create_Water()
-		XElement_WaterData = XDocument_Water.Element XName_WaterData
-		XElement_WaterQuads = XElement_WaterData.Element XName_WaterQuads
-		XElement_CalmingQuads = XElement_WaterData.Element XName_CalmingQuads
-		XElement_WaveQuads = XElement_WaterData.Element XName_WaveQuads
+		WaterQuads = #()
+		CalmingQuads = #()
+		WaveQuads = #()
 	)
 )
 createdialog Water_Rollout
