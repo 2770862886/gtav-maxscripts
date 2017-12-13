@@ -3,10 +3,10 @@ rnd = dotNetObject "System.Random"
 
 struct CMapData__Extents
 (
-	streamingExtentsMin = [8192,8192,8192],
-	streamingExtentsMax = [-8192,-8192,-8192],
-	entitiesExtentsMin = [8192,8192,8192],
-	entitiesExtentsMax = [-8192,-8192,-8192]
+	streamingExtentsMin = [65536,65536,65536],
+	streamingExtentsMax = [-65536,-65536,-65536],
+	entitiesExtentsMin = [65536,65536,65536],
+	entitiesExtentsMax = [-65536,-65536,-65536]
 )
 
 struct CBlockDesc

@@ -2,8 +2,8 @@ fileIn (scriptspath+"\\GTAV_Map_Helper\\ymap\\CMapData.ms")
 
 fn BatchFromFaces obj faces =
 (
-	local bbmax = [-8192,-8192,-8192,0]
-	local bbmin = [8192,8192,8192,0]
+	local bbmax = [-65536,-65536,-65536,0]
+	local bbmin = [65536,65536,65536,0]
 	
 	for index in faces do
 	(
