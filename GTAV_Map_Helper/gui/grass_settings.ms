@@ -10,6 +10,7 @@ GrassInstanceList = #()
 global assetsPath = (scriptspath+"\\GTAV_Map_Helper\\assets\\v_proc1\\")
 global BatchSettings = #()
 global InstanceSettings = #()
+global batchDummy
 
 --TODO: CREATE A COPY FOR EACH BATCH THEN INSTANCES INSIDE THAT BATCH
 --TODO: LINK COLOR OF INSTANCES TO A TINT TO BE ADDED TO THE MATERIAL (TO PREVIEW IT)
@@ -79,7 +80,7 @@ fn PaintGrass =
 			
 			if (hit) then
 			( 
-				local grassMesh = InstanceGrassAsset archetypeName
+				local grassMesh = InstanceGrassAsset BatchSettings[2]
 				grassMesh.pos = worldHit
 				grassMesh.dir = worldNormal
 				grassMesh.parent = batchDummy
@@ -205,9 +206,15 @@ rollout GrassInstance_Rollout "GrassInstance Scripts" width:504 height:480
 		)else
 		(
 			thePainterInterface.endPaintSession()
-			if(isDeleted(batchDummy) == false and batchDummy.children != undefined)do
-			(	
-				CalculateBoundBoxFromChildren batchDummy
+			if(batchDummy != undefined)then
+			(
+				if(isDeleted(batchDummy) == false)then
+				(
+					if(batchDummy.children != undefined)do
+					(	
+						CalculateBoundBoxFromChildren batchDummy
+					)
+				)
 			)
 		)
 	)
