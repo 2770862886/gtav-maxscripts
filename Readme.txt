@@ -11,11 +11,15 @@ Ymap & Ytyp:
 Select geometries and click the export button. (Yes it only works with Geometries)
 Of course exported models have to be coherent with those used to generate the metadata in order to properly work in game.
 
-InstancedGrass:
-Select your geometries and be sure they are of class Editable_Poly.
-Each selected Editable_Poly is used as a batch. The script uses its selected polygons as position for instances.
-Select your polygons for each object and click "Add Batch", repeat this for each object and customize the settings, when ready click "Export" to export the ymap.xml.
-I suggest to tesselate/turbosmooth/subdivide your geometry sample to increase polygons density and so the instances density.
+Instanced Grass Painter:
+Click on the button to import the assets and wait until they are loaded.
+Select the meshes you want to paint over, select the archetypeName and click on 'Enable Paint' to start painting.
+Click again on 'Enable Paint' to close the current batch. Repeat these steps for each batch.
+When you finish, select the root dummies of the batches, customize your setting for both batches and instances and click 'Add Batches'.
+The chosen settings will be used for all the selected batches when you add them.
+Click 'Reset' if you want to reset the batches you collected in the exporter.
+To export the .ymap.xml file just click on 'Export .ymap.xml'
+NOTE: This is a beta script, it may crash.
 
 Water.xml:
 Work from Top View and create planes, they will be used as water blocks. 
