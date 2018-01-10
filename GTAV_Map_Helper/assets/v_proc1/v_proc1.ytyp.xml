@@ -1,0 +1,1233 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<CMapTypes>
+  <extensions/>
+  <archetypes>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="100.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="11"/>
+      <bbMin x="-1.26149200" y="-0.92181490" z="-0.01442300"/>
+      <bbMax x="1.18394500" y="0.88339800" z="0.96408800"/>
+      <bsCentre x="-0.03877354" y="-0.01920849" z="0.47483250"/>
+      <bsRadius value="1.59659300"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_BrittleBush_01</name>
+      <textureDictionary>ng_ip_dry_bushes</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_BrittleBush_01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="100.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="11"/>
+      <bbMin x="-1.26149200" y="-0.92181490" z="-0.01442300"/>
+      <bbMax x="1.18394500" y="0.88339800" z="0.96408800"/>
+      <bsCentre x="-0.03877354" y="-0.01920849" z="0.47483250"/>
+      <bsRadius value="1.59659300"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_Desert_Sage_01</name>
+      <textureDictionary>ng_ip_dry_bushes</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_Desert_Sage_01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="100.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="11"/>
+      <bbMin x="-0.83915900" y="-0.80281300" z="-0.04686700"/>
+      <bbMax x="0.83915900" y="0.80281300" z="1.28546500"/>
+      <bsCentre x="0.00000000" y="0.00000000" z="0.61929900"/>
+      <bsRadius value="1.33883300"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_Dry_Plants_01</name>
+      <textureDictionary>ng_ip_plants</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_Dry_Plants_01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="40.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.27546200" y="-1.15496000" z="-0.00855100"/>
+      <bbMax x="0.95719800" y="1.20006900" z="1.14039700"/>
+      <bsCentre x="-0.15913200" y="0.02255452" z="0.56592300"/>
+      <bsRadius value="1.72126500"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_DryGrasses01</name>
+      <textureDictionary>ng_ip_dry_grasses</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_DryGrasses01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="40.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.27979500" y="-1.06920200" z="-0.04451900"/>
+      <bbMax x="1.09703300" y="1.08037200" z="1.11042600"/>
+      <bsCentre x="-0.09138095" y="0.00558496" z="0.53295350"/>
+      <bsRadius value="1.70322300"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_DryGrasses01b</name>
+      <textureDictionary>ng_ip_dry_grasses</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_DryGrasses01b</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="20.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.17003900" y="-1.24732800" z="-0.25326800"/>
+      <bbMax x="1.26191400" y="1.25115400" z="1.01861900"/>
+      <bsCentre x="0.04593742" y="0.00191295" z="0.38267550"/>
+      <bsRadius value="1.85570100"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>PROC_DryGrassFronds01</name>
+      <textureDictionary>ng_ip_dry_grasses</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>PROC_DryGrassFronds01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="40.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.74903000" y="-0.81087100" z="-0.08804500"/>
+      <bbMax x="0.89002110" y="0.80066300" z="0.79024000"/>
+      <bsCentre x="0.07049548" y="-0.00510401" z="0.35109750"/>
+      <bsRadius value="1.23033700"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_DryPlantsGrass_01</name>
+      <textureDictionary>ng_ip_dry_grasses</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_DryPlantsGrass_01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="40.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.89288700" y="-0.69469200" z="-0.10417300"/>
+      <bbMax x="0.89288800" y="0.82318300" z="0.81348600"/>
+      <bsCentre x="0.00000048" y="0.06424546" z="0.35465650"/>
+      <bsRadius value="1.25847500"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_DryPlantsGrass_02</name>
+      <textureDictionary>ng_ip_dry_grasses</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_DryPlantsGrass_02</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="60.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="11"/>
+      <bbMin x="-1.29909000" y="-1.06856200" z="-0.01887000"/>
+      <bbMax x="1.29296900" y="1.40205900" z="1.33745900"/>
+      <bsCentre x="-0.00306046" y="0.16674850" z="0.65929450"/>
+      <bsRadius value="1.91457400"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_Forest_Grass01</name>
+      <textureDictionary>ng_ip_plants</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_Forest_Grass01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="100.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="11"/>
+      <bbMin x="-1.45917100" y="-1.27332400" z="-0.01640100"/>
+      <bbMax x="1.28957000" y="1.24986600" z="1.79564100"/>
+      <bsCentre x="-0.08480048" y="-0.01172900" z="0.88962000"/>
+      <bsRadius value="2.07397900"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_Forest_Ivy_01</name>
+      <textureDictionary>ng_ip_plants</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_Forest_Ivy_01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="40.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.76684700" y="-0.81888200" z="-0.18441500"/>
+      <bbMax x="0.81626200" y="0.81838200" z="0.57288800"/>
+      <bsCentre x="0.02470750" y="-0.00024998" z="0.19423650"/>
+      <bsRadius value="1.20003900"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>PROC_GrassDandelion01</name>
+      <textureDictionary>ng_ip_plants</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>PROC_GrassDandelion01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="40.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.11964100" y="-1.00220900" z="-0.06519300"/>
+      <bbMax x="1.05822600" y="1.17019200" z="1.16275700"/>
+      <bsCentre x="-0.03070748" y="0.08399153" z="0.54878210"/>
+      <bsRadius value="1.65607200"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_Grasses01</name>
+      <textureDictionary>ng_ip_green_grasses</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_Grasses01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="40.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.29096200" y="-1.25694500" z="-0.00258600"/>
+      <bbMax x="1.35936500" y="1.33322900" z="1.15503600"/>
+      <bsCentre x="0.03420150" y="0.03814197" z="0.57622500"/>
+      <bsRadius value="1.94121900"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_Grasses01b</name>
+      <textureDictionary>ng_ip_green_grasses</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_Grasses01b</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="20.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.17003900" y="-1.24732800" z="-0.25326800"/>
+      <bbMax x="1.26191400" y="1.25115400" z="1.01861900"/>
+      <bsCentre x="0.04593742" y="0.00191295" z="0.38267550"/>
+      <bsRadius value="1.85570100"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>PROC_GrassFronds01</name>
+      <textureDictionary>ng_ip_green_grasses</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>PROC_GrassFronds01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="40.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.79116600" y="-0.87172200" z="-0.26095200"/>
+      <bbMax x="0.79260300" y="0.87544200" z="0.73370000"/>
+      <bsCentre x="0.00071853" y="0.00186002" z="0.23637400"/>
+      <bsRadius value="1.27967200"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_GrassPlantMix_01</name>
+      <textureDictionary>ng_ip_green_grasses</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_GrassPlantMix_01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="40.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.80418090" y="-0.77256600" z="-0.03569400"/>
+      <bbMax x="0.80418200" y="0.73478400" z="1.04263300"/>
+      <bsCentre x="0.00000048" y="-0.01889104" z="0.50346950"/>
+      <bsRadius value="1.22696000"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_GrassPlantMix_02</name>
+      <textureDictionary>ng_ip_green_grasses</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_GrassPlantMix_02</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="100.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="11"/>
+      <bbMin x="-1.31886600" y="-0.92181490" z="-0.01442300"/>
+      <bbMax x="1.18394500" y="0.88339800" z="0.96408800"/>
+      <bsCentre x="-0.06746054" y="-0.01920849" z="0.47483250"/>
+      <bsRadius value="1.61866800"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_Indian_Pbrush_01</name>
+      <textureDictionary>ng_ip_dry_bushes</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_Indian_Pbrush_01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="100.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="11"/>
+      <bbMin x="-1.23880300" y="-1.26289400" z="-0.01640100"/>
+      <bbMax x="1.19888700" y="1.18061800" z="1.77611000"/>
+      <bsCentre x="-0.01995802" y="-0.04113805" z="0.87985460"/>
+      <bsRadius value="1.94462000"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_LeafyBush_01</name>
+      <textureDictionary>ng_ip_plants</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_LeafyBush_01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="100.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="11"/>
+      <bbMin x="-1.32681600" y="-1.14411000" z="-0.01640100"/>
+      <bbMax x="1.35673100" y="1.33282400" z="1.77610900"/>
+      <bsCentre x="0.01495755" y="0.09435702" z="0.87985400"/>
+      <bsRadius value="2.03406700"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_LeafyPlant_01</name>
+      <textureDictionary>ng_ip_plants</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_LeafyPlant_01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="100.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="11"/>
+      <bbMin x="-1.40560600" y="-1.16264300" z="-0.05109000"/>
+      <bbMax x="1.18283900" y="1.16811700" z="1.48715200"/>
+      <bsCentre x="-0.11138340" y="0.00273705" z="0.71803100"/>
+      <bsRadius value="1.90385700"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_LizardTail_01</name>
+      <textureDictionary>ng_ip_plants</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_LizardTail_01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="100.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="11"/>
+      <bbMin x="-1.40532900" y="-1.14301600" z="-0.16088000"/>
+      <bbMax x="1.37019400" y="1.13838500" z="1.66302800"/>
+      <bsCentre x="-0.01756752" y="-0.00231540" z="0.75107400"/>
+      <bsRadius value="2.01463200"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_Lupins_01</name>
+      <textureDictionary>ng_ip_plants</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_Lupins_01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="50.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="11"/>
+      <bbMin x="-0.98619400" y="-0.99712700" z="-0.00423500"/>
+      <bbMax x="0.98118900" y="0.99712700" z="0.64785700"/>
+      <bsCentre x="-0.00250250" y="0.00000000" z="0.32181100"/>
+      <bsRadius value="1.43813000"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_MeadowMix_01</name>
+      <textureDictionary>ng_ip_plants</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_MeadowMix_01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="50.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="11"/>
+      <bbMin x="-0.98118900" y="-0.99712700" z="-0.00423500"/>
+      <bbMax x="0.98118900" y="0.99712700" z="0.67983900"/>
+      <bsCentre x="0.00000000" y="0.00000000" z="0.33780200"/>
+      <bsRadius value="1.44013300"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_MeadowPoppy_01</name>
+      <textureDictionary>ng_ip_plants</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_MeadowPoppy_01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="100.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="11"/>
+      <bbMin x="-1.29963000" y="-0.97038000" z="-0.07936300"/>
+      <bbMax x="1.18815100" y="1.38794700" z="1.52052100"/>
+      <bsCentre x="-0.05573952" y="0.20878340" z="0.72057900"/>
+      <bsRadius value="1.89145400"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_Sage_01</name>
+      <textureDictionary>ng_ip_plants</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_Sage_01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="100.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="11"/>
+      <bbMin x="-0.99668400" y="-0.99593700" z="-0.13098000"/>
+      <bbMax x="0.99668400" y="0.99593800" z="0.64225400"/>
+      <bsCentre x="0.00000000" y="0.00000048" z="0.25563700"/>
+      <bsRadius value="1.46107600"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_Scrub_Bush01</name>
+      <textureDictionary>ng_ip_dry_bushes</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_Scrub_Bush01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="100.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="11"/>
+      <bbMin x="-0.57297800" y="-0.82665600" z="-0.01571800"/>
+      <bbMax x="0.99858600" y="0.91917400" z="2.30003500"/>
+      <bsCentre x="0.21280400" y="0.04625904" z="1.14215900"/>
+      <bsRadius value="1.64927600"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>proc_sml_reeds_01</name>
+      <textureDictionary>ng_ip_sml_reeds</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>proc_sml_reeds_01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="100.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="11"/>
+      <bbMin x="-0.92514600" y="-0.87921100" z="-0.01571800"/>
+      <bbMax x="0.76167500" y="0.96535500" z="1.72840100"/>
+      <bsCentre x="-0.08173549" y="0.04307199" z="0.85634150"/>
+      <bsRadius value="1.52395400"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>proc_sml_reeds_01b</name>
+      <textureDictionary>ng_ip_sml_reeds</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>proc_sml_reeds_01b</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="100.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="11"/>
+      <bbMin x="-0.52904700" y="-0.47596600" z="-0.00921500"/>
+      <bbMax x="0.52904700" y="0.47596500" z="1.72840100"/>
+      <bsCentre x="0.00000000" y="-0.00000051" z="0.85959300"/>
+      <bsRadius value="1.12305900"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_Sml_Reeds_01c</name>
+      <textureDictionary>ng_ip_sml_reeds</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_Sml_Reeds_01c</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="40.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.05751300" y="-0.05139100" z="-0.01732100"/>
+      <bbMax x="0.05751400" y="0.05138700" z="0.04559000"/>
+      <bsCentre x="0.00000050" y="-0.00000200" z="0.01413450"/>
+      <bsRadius value="0.08329514"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_Stones_01</name>
+      <textureDictionary>ng_ip_stones_01</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_Stones_01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="40.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.20416300" y="-0.27230500" z="-0.03715000"/>
+      <bbMax x="0.20416300" y="0.27231000" z="0.06684800"/>
+      <bsCentre x="0.00000000" y="0.00000250" z="0.01484900"/>
+      <bsRadius value="0.34429320"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_Stones_02</name>
+      <textureDictionary>ng_ip_stones_01</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_Stones_02</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="40.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.15747300" y="-0.08147400" z="-0.02670200"/>
+      <bbMax x="0.15747300" y="0.08146800" z="0.03694400"/>
+      <bsCentre x="0.00000000" y="-0.00000300" z="0.00512100"/>
+      <bsRadius value="0.18013320"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_Stones_03</name>
+      <textureDictionary>ng_ip_stones_01</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_Stones_03</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="40.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.12169000" y="-0.13033900" z="-0.04672100"/>
+      <bbMax x="0.12169000" y="0.13033500" z="0.10305300"/>
+      <bsCentre x="0.00000000" y="-0.00000200" z="0.02816600"/>
+      <bsRadius value="0.19340180"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_Stones_04</name>
+      <textureDictionary>ng_ip_stones_01</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_Stones_04</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="40.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.27622700" y="-0.14102600" z="-0.03575900"/>
+      <bbMax x="0.27622800" y="0.14102900" z="0.06928300"/>
+      <bsCentre x="0.00000051" y="0.00000151" z="0.01676200"/>
+      <bsRadius value="0.31456140"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_Stones_05</name>
+      <textureDictionary>ng_ip_stones_01</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_Stones_05</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="40.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.49832400" y="-0.49456800" z="-0.04672100"/>
+      <bbMax x="0.49832400" y="0.49456700" z="0.10305300"/>
+      <bsCentre x="0.00000000" y="-0.00000048" z="0.02816600"/>
+      <bsRadius value="0.70606800"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_Stones_06</name>
+      <textureDictionary>ng_ip_stones_01</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_Stones_06</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="100.00000000"/>
+      <flags value="536870912"/>
+      <specialAttribute value="11"/>
+      <bbMin x="-1.25516100" y="-0.98764900" z="-0.01640100"/>
+      <bbMax x="1.33963800" y="1.28599500" z="1.79927200"/>
+      <bsCentre x="0.04223847" y="0.14917300" z="0.89143550"/>
+      <bsRadius value="1.94930200"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Proc_WildQuinine</name>
+      <textureDictionary>ng_ip_plants</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Proc_WildQuinine</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="50.00000000"/>
+      <flags value="8192"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.11929400" y="-0.84583700" z="-0.04889400"/>
+      <bbMax x="1.11929300" y="0.84583500" z="1.15440500"/>
+      <bsCentre x="-0.00000060" y="-0.00000101" z="0.55275550"/>
+      <bsRadius value="1.52651200"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_dandy_B</name>
+      <textureDictionary>ng_ip_forest</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_dandy_B</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="70.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.03883200" y="-0.79434100" z="-0.11835400"/>
+      <bbMax x="0.84016700" y="1.10394800" z="0.98500590"/>
+      <bsCentre x="-0.09933245" y="0.15480350" z="0.43332600"/>
+      <bsRadius value="1.44495200"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_dryweed_001_a</name>
+      <textureDictionary>ng_ip_desert_plants</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_dryweed_001_a</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="70.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.01150900" y="-0.84941500" z="-0.11614000"/>
+      <bbMax x="0.89223000" y="1.03122900" z="0.93387600"/>
+      <bsCentre x="-0.05963946" y="0.09090704" z="0.40886800"/>
+      <bsRadius value="1.43732200"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_dryweed_002_a</name>
+      <textureDictionary>ng_ip_desert_plants</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_dryweed_002_a</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="90.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.48847600" y="-0.97018500" z="-0.10233400"/>
+      <bbMax x="1.48444300" y="1.19294200" z="0.76934500"/>
+      <bsCentre x="-0.00201654" y="0.11137850" z="0.33350550"/>
+      <bsRadius value="1.88925800"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_FernBa</name>
+      <textureDictionary>ng_ip_forest</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_FernBa</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="90.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.96991100" y="-0.79559200" z="-0.01298300"/>
+      <bbMax x="0.95695500" y="0.90808000" z="0.49730500"/>
+      <bsCentre x="-0.00647795" y="0.05624396" z="0.24216100"/>
+      <bsRadius value="1.31107800"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_FernBb</name>
+      <textureDictionary>ng_ip_forest</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_FernBb</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="65.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.70965390" y="-0.73697800" z="-0.05226000"/>
+      <bbMax x="0.70965700" y="0.73697900" z="1.46215000"/>
+      <bsCentre x="0.00000155" y="0.00000054" z="0.70494500"/>
+      <bsRadius value="1.27283500"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_FlowerWeed_005_A</name>
+      <textureDictionary>ng_ip_forest</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_FlowerWeed_005_A</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="70.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.84459400" y="-0.87453200" z="-0.04043300"/>
+      <bbMax x="0.90177800" y="0.94967000" z="0.81558100"/>
+      <bsCentre x="0.02859199" y="0.03756904" z="0.38757400"/>
+      <bsRadius value="1.33325600"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_grass_001_a</name>
+      <textureDictionary>ng_ip_desert_plants</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_grass_001_a</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="40.00000000"/>
+      <flags value="8192"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.36632000" y="-1.42681900" z="-0.03419700"/>
+      <bbMax x="1.38113500" y="1.42682200" z="1.13798500"/>
+      <bsCentre x="0.00740755" y="0.00000155" z="0.55189400"/>
+      <bsRadius value="2.06553800"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Prop_Grass_Ca</name>
+      <textureDictionary>ng_ip_dryhills</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Prop_Grass_Ca</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="40.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.33728600" y="-1.19847900" z="-0.04009100"/>
+      <bbMax x="1.33728400" y="0.96982400" z="0.88154200"/>
+      <bsCentre x="-0.00000095" y="-0.11432750" z="0.42072550"/>
+      <bsRadius value="1.78215300"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Prop_Grass_Da</name>
+      <textureDictionary>ng_ip_dryhills</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Prop_Grass_Da</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="65.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.34222200" y="-1.06736200" z="-0.04070300"/>
+      <bbMax x="1.34222300" y="1.06298600" z="0.35263700"/>
+      <bsCentre x="0.00000048" y="-0.00218797" z="0.15596700"/>
+      <bsRadius value="1.72477100"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_log_Aa</name>
+      <textureDictionary>ng_ip_forest</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_log_Aa</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="50.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.25846300" y="-0.11288500" z="-0.02311100"/>
+      <bbMax x="1.25846200" y="0.11288600" z="0.18874800"/>
+      <bsCentre x="-0.00000060" y="0.00000050" z="0.08281850"/>
+      <bsRadius value="1.26794800"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_log_Ab</name>
+      <textureDictionary>ng_ip_forest</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_log_Ab</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="50.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.40205000" y="-1.08388800" z="-0.15783700"/>
+      <bbMax x="1.40205200" y="1.08388800" z="1.87497200"/>
+      <bsCentre x="0.00000095" y="0.00000000" z="0.85856750"/>
+      <bsRadius value="2.04294800"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_log_Ac</name>
+      <textureDictionary>ng_ip_forest</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_log_Ac</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="50.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.72865300" y="-0.27758000" z="0.02021100"/>
+      <bbMax x="1.67024400" y="0.27757900" z="0.39219000"/>
+      <bsCentre x="-0.02920449" y="-0.00000051" z="0.20620050"/>
+      <bsRadius value="1.73198400"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_log_Ad</name>
+      <textureDictionary>ng_ip_forest</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_log_Ad</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="50.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.90964300" y="-1.43278900" z="-0.11841100"/>
+      <bbMax x="1.32681400" y="1.58148900" z="1.69528100"/>
+      <bsCentre x="0.20858560" y="0.07435000" z="0.78843500"/>
+      <bsRadius value="2.08429200"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_log_Ae</name>
+      <textureDictionary>ng_ip_forest</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_log_Ae</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="50.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-2.09103600" y="-0.13520800" z="-0.02056400"/>
+      <bbMax x="2.09103400" y="0.13520900" z="0.27154800"/>
+      <bsCentre x="-0.00000119" y="0.00000049" z="0.12549200"/>
+      <bsRadius value="2.10048600"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_log_Af</name>
+      <textureDictionary>ng_ip_forest</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_log_Af</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="90.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.90624100" y="-0.52876800" z="-0.01667000"/>
+      <bbMax x="0.69008100" y="0.69515200" z="1.47889500"/>
+      <bsCentre x="-0.10808000" y="0.08319199" z="0.73111250"/>
+      <bsRadius value="1.25329000"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_saplin_001_B</name>
+      <textureDictionary>ng_ip_forest</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_saplin_001_B</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="50.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.49887200" y="-0.69758200" z="-0.07646400"/>
+      <bbMax x="0.75544600" y="0.65963000" z="0.36267400"/>
+      <bsCentre x="0.12828700" y="-0.01897597" z="0.14310500"/>
+      <bsRadius value="0.94976060"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_saplin_001_C</name>
+      <textureDictionary>ng_ip_forest</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_saplin_001_C</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="90.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.74581200" y="-0.51922400" z="-0.02122700"/>
+      <bbMax x="0.54286000" y="0.64147300" z="1.30031300"/>
+      <bsCentre x="-0.10147600" y="0.06112450" z="0.63954300"/>
+      <bsRadius value="1.09022500"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_saplin_002_B</name>
+      <textureDictionary>ng_ip_forest</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_saplin_002_B</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="50.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.72722400" y="-0.70243200" z="-0.00800800"/>
+      <bbMax x="0.60716890" y="0.56608500" z="0.61653000"/>
+      <bsCentre x="-0.06002748" y="-0.06817347" z="0.30426100"/>
+      <bsRadius value="0.97208380"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_saplin_002_C</name>
+      <textureDictionary>ng_ip_forest</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_saplin_002_C</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="70.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="11"/>
+      <bbMin x="-0.60309390" y="-0.40541500" z="-0.03526800"/>
+      <bbMax x="0.40502100" y="0.53429600" z="1.36001800"/>
+      <bsCentre x="-0.09903646" y="0.06444049" z="0.66237490"/>
+      <bsRadius value="0.98058340"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_small_bushyba</name>
+      <textureDictionary>ng_ip_desert_plants</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_small_bushyba</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="70.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.91740000" y="-0.97587500" z="-0.17771500"/>
+      <bbMax x="0.91739900" y="0.97587500" z="0.91470300"/>
+      <bsCentre x="-0.00000048" y="0.00000000" z="0.36849400"/>
+      <bsRadius value="1.44647800"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_tall_drygrass_aa</name>
+      <textureDictionary>ng_ip_desert_plants</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_tall_drygrass_aa</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="40.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-1.33728600" y="-0.96982900" z="-0.03645900"/>
+      <bbMax x="1.33728400" y="0.96982400" z="0.92722000"/>
+      <bsCentre x="-0.00000095" y="-0.00000250" z="0.44538050"/>
+      <bsRadius value="1.72077400"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_Tall_Grass_Ba</name>
+      <textureDictionary>ng_ip_dryhills</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_Tall_Grass_Ba</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="70.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="11"/>
+      <bbMin x="-0.97612900" y="-1.12872600" z="-0.20898500"/>
+      <bbMax x="1.12961300" y="1.02679400" z="1.64008900"/>
+      <bsCentre x="0.07674199" y="-0.05096602" z="0.71555200"/>
+      <bsRadius value="1.76773100"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_thindesertfiller_aa</name>
+      <textureDictionary>ng_ip_desert_plants</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_thindesertfiller_aa</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="40.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.66015400" y="-0.65420300" z="-0.07969299"/>
+      <bbMax x="0.66355300" y="0.65770800" z="1.61498800"/>
+      <bsCentre x="0.00169951" y="0.00175250" z="0.76764750"/>
+      <bsRadius value="1.25948900"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>prop_Weed_001_Aa</name>
+      <textureDictionary>ng_ip_dryhills</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>prop_Weed_001_Aa</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="40.00000000"/>
+      <flags value="0"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.72229300" y="-0.89366900" z="-0.05397900"/>
+      <bbMax x="0.72229200" y="0.89367300" z="1.14655000"/>
+      <bsCentre x="-0.00000048" y="0.00000203" z="0.54628560"/>
+      <bsRadius value="1.29640700"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>Prop_Weed_002_Ba</name>
+      <textureDictionary>ng_ip_dryhills</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>Prop_Weed_002_Ba</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="25.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.54343200" y="-0.58567700" z="-0.13138000"/>
+      <bbMax x="0.58639200" y="0.58139200" z="0.45980600"/>
+      <bsCentre x="0.02147996" y="-0.00214255" z="0.16421300"/>
+      <bsRadius value="0.86429930"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>urbandryfrnds_01</name>
+      <textureDictionary>ng_ip_urbangrass</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>urbandryfrnds_01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="30.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.79608300" y="-0.80286800" z="-0.05460800"/>
+      <bbMax x="0.79608500" y="0.80286900" z="0.25845600"/>
+      <bsCentre x="0.00000101" y="0.00000048" z="0.10192400"/>
+      <bsRadius value="1.14142400"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>urbandrygrass_01</name>
+      <textureDictionary>ng_ip_urbangrass</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>urbandrygrass_01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="25.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.54343200" y="-0.58567700" z="-0.13138000"/>
+      <bbMax x="0.58639200" y="0.58139200" z="0.45980600"/>
+      <bsCentre x="0.02147996" y="-0.00214255" z="0.16421300"/>
+      <bsRadius value="0.86429930"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>urbangrnfrnds_01</name>
+      <textureDictionary>ng_ip_urbangrass</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>urbangrnfrnds_01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="30.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.81052500" y="-0.79692100" z="-0.05460800"/>
+      <bbMax x="0.81052400" y="0.79691800" z="0.25845600"/>
+      <bsCentre x="-0.00000054" y="-0.00000155" z="0.10192400"/>
+      <bsRadius value="1.14740300"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>urbangrngrass_01</name>
+      <textureDictionary>ng_ip_urbangrass</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>urbangrngrass_01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="15.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.63119500" y="-0.60818100" z="-0.03364500"/>
+      <bbMax x="0.63119600" y="0.63217400" z="0.59156500"/>
+      <bsCentre x="0.00000054" y="0.01199651" z="0.27896000"/>
+      <bsRadius value="0.93848270"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>urbanweeds01</name>
+      <textureDictionary>ng_ip_urbangrass</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>urbanweeds01</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="30.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.60930000" y="-0.60477800" z="-0.03364500"/>
+      <bbMax x="0.63417290" y="0.55436100" z="0.59156500"/>
+      <bsCentre x="0.01243651" y="-0.02520853" z="0.27896000"/>
+      <bsRadius value="0.90563740"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>UrbanWeeds01_L1</name>
+      <textureDictionary>ng_ip_urbangrass</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>UrbanWeeds01_L1</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="15.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.23300700" y="-0.39352300" z="-0.04052900"/>
+      <bbMax x="0.23300700" y="0.39352000" z="0.51375900"/>
+      <bsCentre x="0.00000000" y="-0.00000152" z="0.23661500"/>
+      <bsRadius value="0.53475250"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>urbanweeds02</name>
+      <textureDictionary>ng_ip_urbangrass</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>urbanweeds02</assetName>
+      <extensions/>
+    </Item>
+    <Item type="CBaseArchetypeDef">
+      <lodDist value="25.00000000"/>
+      <flags value="536879104"/>
+      <specialAttribute value="0"/>
+      <bbMin x="-0.04450000" y="-0.39211900" z="-0.04052900"/>
+      <bbMax x="0.22230200" y="0.37985400" z="0.51375900"/>
+      <bsCentre x="0.08890101" y="-0.00613248" z="0.23661500"/>
+      <bsRadius value="0.49354860"/>
+      <hdTextureDist value="5.00000000"/>
+      <name>UrbanWeeds02_L1</name>
+      <textureDictionary>ng_ip_urbangrass</textureDictionary>
+      <clipDictionary/>
+      <drawableDictionary/>
+      <physicsDictionary/>
+      <assetType>ASSET_TYPE_DRAWABLE</assetType>
+      <assetName>UrbanWeeds02_L1</assetName>
+      <extensions/>
+    </Item>
+  </archetypes>
+  <name>v_proc1</name>
+  <dependencies/>
+  <compositeEntityTypes/>
+</CMapTypes>

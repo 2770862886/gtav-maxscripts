@@ -200,3 +200,75 @@ fn ExportYtyp CMapTypes =
 		XmlDocument.Save(filePath)
 	)
 )
+
+fn ReadYtypFromXML = 
+(
+	local filePath = getOpenFileName caption:"Import .ytyp.xml file" types:"XML Document (*.xml)"
+	
+	if(filePath != undefined) then
+	(
+		format "YTYP READER: %\n\n" (filePath)
+		
+		local XmlDocument_Ytyp = dotNetObject "System.Xml.XmlDocument"
+        XmlDocument_Ytyp.Load(filePath)
+        extensions = #() --NOT SUPPORTED
+		local XmlElement_archetypes = XmlDocument_Ytyp.SelectNodes("descendant::CMapTypes/archetypes/Item")
+		local Enumerator = XmlElement_archetypes.GetEnumerator()
+		
+		local archetypes =#()
+				
+		while Enumerator.MoveNext() do
+		(
+			local XmlElement_CBaseArchetypeDef = dotNetObject "System.Xml.XmlElement" Enumerator.Current
+			local type = XmlElement_CBaseArchetypeDef.GetAttribute("type")
+			
+			if(type == "CBaseArchetypeDef")then
+			(
+                local lodDist = XmlElement_CBaseArchetypeDef.Item["lodDist"].GetAttribute("value") as float
+                local flags = XmlElement_CBaseArchetypeDef.Item["flags"].GetAttribute("value") as integer
+                local specialAttribute = XmlElement_CBaseArchetypeDef.Item["specialAttribute"].GetAttribute("value") as integer
+               
+                local XmlElement_bbMin = XmlElement_CBaseArchetypeDef.Item["bbMin"]
+				local bbMin_x = XmlElement_bbMin.GetAttribute("x") as double
+				local bbMin_y = XmlElement_bbMin.GetAttribute("y") as double
+				local bbMin_z = XmlElement_bbMin.GetAttribute("z") as double
+				local bbMin = [bbMin_x,bbMin_y,bbMin_z]
+
+                local XmlElement_bbMax = XmlElement_CBaseArchetypeDef.Item["bbMax"]
+				local bbMax_x = XmlElement_bbMax.GetAttribute("x") as double
+				local bbMax_y = XmlElement_bbMax.GetAttribute("y") as double
+				local bbMax_z = XmlElement_bbMax.GetAttribute("z") as double
+                local bbMax = [bbMax_x,bbMax_y,bbMax_z]
+
+                local XmlElement_bsCentre = XmlElement_CBaseArchetypeDef.Item["bsCentre"]
+				local bsCentre_x = XmlElement_bsCentre.GetAttribute("x") as double
+				local bsCentre_y = XmlElement_bsCentre.GetAttribute("y") as double
+				local bsCentre_z = XmlElement_bsCentre.GetAttribute("z") as double
+                local bsCentre = [bsCentre_x,bsCentre_y,bsCentre_z]
+                
+                local bsRadius = XmlElement_CBaseArchetypeDef.Item["bsRadius"].GetAttribute("value") as float
+                local hdTextureDist = XmlElement_CBaseArchetypeDef.Item["hdTextureDist"].GetAttribute("value") as float
+
+                local _name = XmlElement_CBaseArchetypeDef.Item["name"].InnerText
+                local textureDictionary = XmlElement_CBaseArchetypeDef.Item["name"].InnerText
+                local clipDictionary = XmlElement_CBaseArchetypeDef.Item["clipDictionary"].InnerText
+                local drawableDictionary = XmlElement_CBaseArchetypeDef.Item["drawableDictionary"].InnerText
+                local physicsDictionary = XmlElement_CBaseArchetypeDef.Item["physicsDictionary"].InnerText
+                local assetType = XmlElement_CBaseArchetypeDef.Item["assetType"].InnerText
+                local assetName = XmlElement_CBaseArchetypeDef.Item["assetName"].InnerText
+                extensions = #() --NOT SUPPORTED
+				
+                local Archetype = CBaseArchetypeDef lodDist:lodDist flags:flags specialAttribute:specialAttribute bbMin:bbMin bbMax:bbMax bsCentre:bsCentre bsRadius:bsRadius hdTextureDist:hdTextureDist _name:_name textureDictionary:textureDictionary clipDictionary:clipDictionary drawableDictionary:drawableDictionary physicsDictionary:physicsDictionary assetType:assetType assetName:assetName extensions:extensions
+                append archetypes Archetype
+			)else
+			(
+				format "Skipped unsupported %\n" (type)
+			)
+        )
+        _name = XmlDocument_Ytyp.Item["CMapTypes"].Item["name"].InnerText
+        dependencies = #() --NOT SUPPORTED
+        compositeEntityTypes = #() --NOT SUPPORTED
+	)
+	local MapTypes = CMapTypes extensions:extensions archetypes:archetypes _name:_name dependencies:dependencies compositeEntityTypes:compositeEntityTypes
+	return MapTypes
+)

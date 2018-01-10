@@ -1,17 +1,71 @@
 fileIn (scriptspath+"\\GTAV_Map_Helper\\ymap\\CMapData.ms")
 
+fn BatchFromDummy dummyBox =
+(
+	local bbmax = [dummyBox.max.x,dummyBox.max.y,dummyBox.max.z,0]
+	local bbmin = [dummyBox.min.x,dummyBox.min.y,dummyBox.min.z,0]
+	local batch = rage__spdAABB _min:bbmin _max:bbmax
+	return batch
+)
+
+fn InstanceDataFromMesh batch obj settings =
+(
+	local NormalX = ((obj.dir.x +1)*0.5 * 255) as integer
+	local NormalY = ((obj.dir.y +1)*0.5 * 255) as integer
+
+	local _Scale = settings[1]
+	local Colors = settings[2]
+	local Ao = settings[3]
+	local Pad = settings[4]
+	
+    local world_pos = obj.position
+    local batch_pos = (world_pos - batch._min)/(batch._max-batch._min) * 65535 
+	local new_pos = #(batch_pos.x as integer,batch_pos.y as integer,batch_pos.z as integer)
+	
+    local InstanceData = rage__fwGrassInstanceListDef__InstanceData Position:new_pos NormalX:NormalX NormalY:NormalY _Color:Colors _Scale:_Scale Ao:Ao Pad:Pad
+    return InstanceData
+)
+
+fn GrassInstanceListFromMeshes objList dummyBox BatchSettings InstancesSettings =
+(
+	local batch = BatchFromDummy dummyBox
+	local ScaleRange = BatchSettings[1]
+	local archetypeName = BatchSettings[2]
+	local lodDist = BatchSettings[3]
+	local LodFadeStartDist = BatchSettings[4]
+	local LodInstFadeRange = BatchSettings[5]
+	local OrientToTerrain = BatchSettings[6]
+	local InstanceList = #()
+	
+	for obj in objList do
+	(
+		local settings = deepCopy InstancesSettings	
+		if(InstancesSettings[1] == -1)do(settings[1] = random 1 255)
+		
+		if(InstancesSettings[2][1] == -1)do(settings[2][1] = random 0 255)
+		if(InstancesSettings[2][2] == -1)do(settings[2][2] = random 0 255)
+		if(InstancesSettings[2][3] == -1)do(settings[2][3] = random 0 255)
+		
+		local InstanceData = InstanceDataFromMesh batch obj settings
+		append InstanceList InstanceData
+	)
+	local GrassInstanceList = rage__fwGrassInstanceListDef BatchAABB:batch ScaleRange:ScaleRange	archetypeName:archetypeName	lodDist:lodDist	LodFadeStartDist:LodFadeStartDist LodInstFadeRange:LodInstFadeRange	OrientToTerrain:OrientToTerrain InstanceList:InstanceList
+)
+
+
+/*
 fn ColorFromFaceTexture obj faceIndex bitmapName = 
 (
-	/*local obj = snapshotAsMesh theobj*/
+	--local obj = snapshotAsMesh theobj
 	local mapChannel = 1
 	
 	if(polyop.getMapSupport obj mapChannel) then
 	(
-		/*
-		local matID = polyop.getFaceMatID obj faceIndex
-		local mat = obj.material[matID]
-		local matDiffuseMap = mat.diffuseMap
-		local bitmapTest = openBitMap matDiffuseMap.filename*/
+		
+		--local matID = polyop.getFaceMatID obj faceIndex
+		--local mat = obj.material[matID]
+		--local matDiffuseMap = mat.diffuseMap
+		--local bitmapTest = openBitMap matDiffuseMap.filename
 		local bitmapTest = bitmapName
 		
 		local colorAvg = color 0 0 0
@@ -20,15 +74,15 @@ fn ColorFromFaceTexture obj faceIndex bitmapName =
 		
 		for vertIndex = 1 to faceVerts.count do
 		(
-			local mapVert = polyop.getMapVert obj mapChannel mapFace[vertIndex] /*vertices uv map*/
+			local mapVert = polyop.getMapVert obj mapChannel mapFace[vertIndex] --vertices uv map
 			
-			/* vertices absolute uv map */
-			local myPoint = point2 (mod mapVert.x 1) (mod mapVert.y 1) /*TEMP*/
-			if (myPoint.x < 0) do (myPoint.x = 1 + myPoint.x) /*TEMP*/
-			if (myPoint.y < 0) do (myPoint.y = 1 + myPoint.y) /*TEMP*/
+			--vertices absolute uv map
+			local myPoint = point2 (mod mapVert.x 1) (mod mapVert.y 1) --TEMP
+			if (myPoint.x < 0) do (myPoint.x = 1 + myPoint.x) --TEMP
+			if (myPoint.y < 0) do (myPoint.y = 1 + myPoint.y) --TEMP
 
-			local pixelPoint = point2 (myPoint.x*bitmapTest.width) (myPoint.y*bitmapTest.height) /*pixel from vertices uv map*/
-			local pixelColor = getPixels bitmapTest pixelPoint 1 /*rgb of the pixel*/
+			local pixelPoint = point2 (myPoint.x*bitmapTest.width) (myPoint.y*bitmapTest.height) --pixel from vertices uv map
+			local pixelColor = getPixels bitmapTest pixelPoint 1 --rgb of the pixel
 			colorAvg = colorAvg + pixelColor[1]
 		)
 		colorAvg.r = (colorAvg.r/faceVerts.count)
@@ -119,4 +173,4 @@ fn GrassInstanceListFromFaces obj faces BatchSettings InstancesSettings bitmapNa
 		append InstanceList InstanceData
 	)
 	local GrassInstanceList = rage__fwGrassInstanceListDef BatchAABB:batch ScaleRange:ScaleRange	archetypeName:archetypeName	lodDist:lodDist	LodFadeStartDist:LodFadeStartDist LodInstFadeRange:LodInstFadeRange	OrientToTerrain:OrientToTerrain InstanceList:InstanceList
-)
+)*/
