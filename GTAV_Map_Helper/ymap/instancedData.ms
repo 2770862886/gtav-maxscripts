@@ -30,7 +30,7 @@ fn GrassInstanceListFromMeshes objList dummyBox BatchSettings InstancesSettings 
 (
 	local batch = BatchFromDummy dummyBox
 	local ScaleRange = BatchSettings[1]
-	local archetypeName = BatchSettings[2]
+	local archetypeName = objList[1].name  -- TODO: BE SURE ALL THE INSTANCES USE THE SAME ARCHETYPE
 	local lodDist = BatchSettings[3]
 	local LodFadeStartDist = BatchSettings[4]
 	local LodInstFadeRange = BatchSettings[5]
@@ -49,7 +49,7 @@ fn GrassInstanceListFromMeshes objList dummyBox BatchSettings InstancesSettings 
 		local InstanceData = InstanceDataFromMesh batch obj settings
 		append InstanceList InstanceData
 	)
-	local GrassInstanceList = rage__fwGrassInstanceListDef BatchAABB:batch ScaleRange:ScaleRange	archetypeName:archetypeName	lodDist:lodDist	LodFadeStartDist:LodFadeStartDist LodInstFadeRange:LodInstFadeRange	OrientToTerrain:OrientToTerrain InstanceList:InstanceList
+	local GrassInstanceList = rage__fwGrassInstanceListDef BatchAABB:batch ScaleRange:ScaleRange archetypeName:archetypeName	lodDist:lodDist	LodFadeStartDist:LodFadeStartDist LodInstFadeRange:LodInstFadeRange	OrientToTerrain:OrientToTerrain InstanceList:InstanceList
 )
 
 
