@@ -159,7 +159,7 @@ rollout GrassInstance_Rollout "Instanced Grass Painter" width:504 height:480
 	button 'btn_grassymap_importassets' "Import Assets" pos:[12,448] width:232 height:21 align:#left
 	button 'btn_grassymap_fillfaces' "Fill Select Faces" pos:[260,320] width:232 height:21 align:#left
 	button 'btn_grassymap_checkxml' "Check .ymap.xml" pos:[260,352] width:232 height:21 align:#left
-	button 'btn_grassymap_importxml' "Import .ymap.xml" pos:[260,384] width:232 height:21 align:#left enabled:false
+	button 'btn_grassymap_importxml' "Import .ymap.xml" pos:[260,384] width:232 height:21 align:#left enabled:true
 	
 	fn RefreshSettings =
 	(

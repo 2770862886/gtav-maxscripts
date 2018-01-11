@@ -78,11 +78,11 @@ fn ReadGrassFromXML =
 			local min_y = XmlElement_BatchAABB_min.GetAttribute("y") as double
 			local min_z = XmlElement_BatchAABB_min.GetAttribute("z") as double
 			local min_w = XmlElement_BatchAABB_min.GetAttribute("w") as double
-			local XmlElement_BatchAABB_max = XmlElement_GrassInstanceList_Item.Item["max"]
-			local max_x = XmlElement_BatchAABB_min.GetAttribute("x") as double
-			local max_y = XmlElement_BatchAABB_min.GetAttribute("y") as double
-			local max_z = XmlElement_BatchAABB_min.GetAttribute("z") as double
-			local max_w = XmlElement_BatchAABB_min.GetAttribute("w") as double
+			local XmlElement_BatchAABB_max = XmlElement_BatchAABB.Item["max"]
+			local max_x = XmlElement_BatchAABB_max.GetAttribute("x") as double
+			local max_y = XmlElement_BatchAABB_max.GetAttribute("y") as double
+			local max_z = XmlElement_BatchAABB_max.GetAttribute("z") as double
+			local max_w = XmlElement_BatchAABB_max.GetAttribute("w") as double
 			
 			local bbmin = [min_x,min_y,min_z,min_w]
 			local bbmax = [max_x,max_y,max_z,max_w]
@@ -108,15 +108,36 @@ fn ReadGrassFromXML =
 			while InstanceList_Enumerator.MoveNext() do
 			(
 				local XmlElement_Instance = dotNetObject "System.Xml.XmlElement" InstanceList_Enumerator.Current
+
 				local Instance_Position = XmlElement_Instance.Item["Position"].InnerText
-				local Instance_NormalX = XmlElement_Instance.Item["NormalX"].GetAttribute("value") as integer
-				local Instance_NormalY = XmlElement_Instance.Item["NormalY"].GetAttribute("value") as integer
+				local Instance_Position_Array = (DotNetObject "System.String" Instance_Position).Split("\n")
+				local Position_x = (DotNetObject "System.String" Instance_Position_Array[2]).Trim() as integer
+				local Position_y = (DotNetObject "System.String" Instance_Position_Array[3]).Trim() as integer
+				local Position_z = (DotNetObject "System.String" Instance_Position_Array[4]).Trim() as integer
+				local Position = [Position_x,Position_y,Position_z]
+
+				local NormalX = XmlElement_Instance.Item["NormalX"].GetAttribute("value") as integer
+				local NormalY = XmlElement_Instance.Item["NormalY"].GetAttribute("value") as integer
+
 				local Instance_Color = XmlElement_Instance.Item["Color"].InnerText
-				local Instance_Scale = XmlElement_Instance.Item["Scale"].GetAttribute("value") as integer
-				local Instance_Ao = XmlElement_Instance.Item["Ao"].GetAttribute("value") as integer
+				local Instance_Color_Array = (DotNetObject "System.String" Instance_Color).Split("\n")
+				local Color_Array_R = (DotNetObject "System.String" Instance_Color_Array[2]).Trim() as integer
+				local Color_Array_G = (DotNetObject "System.String" Instance_Color_Array[3]).Trim() as integer
+				local Color_Array_B = (DotNetObject "System.String" Instance_Color_Array[4]).Trim() as integer
+				local _Color = [Color_Array_R,Color_Array_G,Color_Array_B]
+
+				local _Scale = XmlElement_Instance.Item["Scale"].GetAttribute("value") as integer
+				local Ao = XmlElement_Instance.Item["Ao"].GetAttribute("value") as integer
+
 				local Instance_Pad = XmlElement_Instance.Item["Pad"].InnerText
-				--BUILD INSTANCE
-				--APPEND INSTANCE
+				local Instance_Pad_Array = (DotNetObject "System.String" Instance_Pad).Split("\n")
+				local Instance_Pad_x = (DotNetObject "System.String" Instance_Pad_Array[2]).Trim() as integer
+				local Instance_Pad_y = (DotNetObject "System.String" Instance_Pad_Array[3]).Trim() as integer
+				local Instance_Pad_z = (DotNetObject "System.String" Instance_Pad_Array[4]).Trim() as integer
+				local Pad = [Instance_Pad_x,Instance_Pad_y,Instance_Pad_z]
+
+				local InstanceData = rage__fwGrassInstanceListDef__InstanceData Position:Position NormalX:NormalX NormalY:NormalY _Color:_Color _Scale:_Scale Ao:Ao Pad:Pad
+				append InstanceList InstanceData
 			)
 
 			local GrassInstanceList_Item = rage__fwGrassInstanceListDef BatchAABB:batch ScaleRange:ScaleRange archetypeName:grass_archetypeName lodDist:grass_lodDist LodFadeStartDist:LodFadeStartDist LodInstFadeRange:LodInstFadeRange OrientToTerrain:OrientToTerrain InstanceList:InstanceList
@@ -151,9 +172,34 @@ fn InstanceDataFromXML =
 
 	if(GrassInstanceList != undefined and GrassInstanceList.count > 0) then
 	(
-		for grass in GrassInstanceList do
+		with redraw off
 		(
-			print grass
+			for grass in GrassInstanceList do
+			(
+				batchDummy = Dummy()
+				batchDummy.name = uniquename("Batch_")
+		
+				Batch_max = [grass.BatchAABB._max.x,grass.BatchAABB._max.y,grass.BatchAABB._max.z]
+				Batch_min = [grass.BatchAABB._min.x,grass.BatchAABB._min.y,grass.BatchAABB._min.z]
+				Batch_position = (Batch_max + Batch_min)/2
+				Batch_size = Batch_max - Batch_min
+					
+				batchDummy.position = Batch_position
+				batchDummy.boxsize = Batch_size
+					
+				for instanceGrass in grass.InstanceList do
+				(
+					local grassMesh = InstanceGrassAsset grass.archetypeName
+					grassMesh.parent = batchDummy
+					print ("X:"+instanceGrass.NormalX as string)
+					print ("Y:"+instanceGrass.NormalY as string)
+					grassMesh.pos = ((instanceGrass.Position/65535)*(Batch_size))+Batch_min
+					grassMesh.dir.y = ((instanceGrass.NormalY/255)/0.5)-1
+					grassMesh.dir.x = ((instanceGrass.NormalX/255)/0.5)-1
+					--grassMesh.scale = [instanceGrass._Scale,instanceGrass._Scale,instanceGrass._Scale]
+					--handle others properties..
+				)
+			)
 		)
 	)
 )
