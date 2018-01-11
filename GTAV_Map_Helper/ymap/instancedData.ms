@@ -191,11 +191,14 @@ fn InstanceDataFromXML =
 				(
 					local grassMesh = InstanceGrassAsset grass.archetypeName
 					grassMesh.parent = batchDummy
-					print ("X:"+instanceGrass.NormalX as string)
-					print ("Y:"+instanceGrass.NormalY as string)
+					
 					grassMesh.pos = ((instanceGrass.Position/65535)*(Batch_size))+Batch_min
-					grassMesh.dir.y = ((instanceGrass.NormalY/255)/0.5)-1
-					grassMesh.dir.x = ((instanceGrass.NormalX/255)/0.5)-1
+					grassMesh.dir.y = ((instanceGrass.NormalY/255.0)/0.5)-1.0
+					grassMesh.dir.x = ((instanceGrass.NormalX/255.0)/0.5)-1.0
+					--grassMesh.dir.y = instanceGrass.NormalY*0.0078431373 - 1.0
+					--grassMesh.dir.x = instanceGrass.NormalX*0.0078431373 - 1.0
+
+
 					--grassMesh.scale = [instanceGrass._Scale,instanceGrass._Scale,instanceGrass._Scale]
 					--handle others properties..
 				)
