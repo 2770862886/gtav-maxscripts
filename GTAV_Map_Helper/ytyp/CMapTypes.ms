@@ -249,7 +249,7 @@ fn ReadYtypFromXML =
                 local bsRadius = XmlElement_CBaseArchetypeDef.Item["bsRadius"].GetAttribute("value") as float
                 local hdTextureDist = XmlElement_CBaseArchetypeDef.Item["hdTextureDist"].GetAttribute("value") as float
 
-                local _name = XmlElement_CBaseArchetypeDef.Item["name"].InnerText
+                local _name = toLower (XmlElement_CBaseArchetypeDef.Item["name"].InnerText)
                 local textureDictionary = XmlElement_CBaseArchetypeDef.Item["name"].InnerText
                 local clipDictionary = XmlElement_CBaseArchetypeDef.Item["clipDictionary"].InnerText
                 local drawableDictionary = XmlElement_CBaseArchetypeDef.Item["drawableDictionary"].InnerText

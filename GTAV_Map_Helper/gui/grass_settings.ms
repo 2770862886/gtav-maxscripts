@@ -158,6 +158,8 @@ rollout GrassInstance_Rollout "Instanced Grass Painter" width:504 height:480
 	button 'btn_grassymap_reset' "Reset" pos:[12,416] width:232 height:21 align:#left
 	button 'btn_grassymap_importassets' "Import Assets" pos:[12,448] width:232 height:21 align:#left
 	button 'btn_grassymap_fillfaces' "Fill Select Faces" pos:[260,320] width:232 height:21 align:#left
+	button 'btn_grassymap_checkxml' "Check .ymap.xml" pos:[260,352] width:232 height:21 align:#left
+	button 'btn_grassymap_importxml' "Import .ymap.xml" pos:[260,384] width:232 height:21 align:#left enabled:false
 	
 	fn RefreshSettings =
 	(
@@ -186,6 +188,16 @@ rollout GrassInstance_Rollout "Instanced Grass Painter" width:504 height:480
 			InstancePad = #(Instances_PadX.value,Instances_PadY.value,Instances_PadZ.value)
 			BatchSettings = #([ScaleRangeX,ScaleRangeY,ScaleRangeZ],archetypeName,lodDist,LodFadeStartDist,LodInstFadeRange,OrientToTerrain)
 			InstanceSettings = #(InstanceScale,InstanceColor,InstanceAo,InstancePad)
+	)
+
+	on btn_grassymap_checkxml pressed do
+	(
+		CheckGrassFromYmap()
+	)
+
+	on btn_grassymap_importxml pressed do
+	(
+		InstanceDataFromXML()
 	)
 	
 	on btn_grassymap_importassets pressed do 

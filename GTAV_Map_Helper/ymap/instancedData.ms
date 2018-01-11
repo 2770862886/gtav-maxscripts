@@ -52,6 +52,112 @@ fn GrassInstanceListFromMeshes objList dummyBox BatchSettings InstancesSettings 
 	local GrassInstanceList = rage__fwGrassInstanceListDef BatchAABB:batch ScaleRange:ScaleRange archetypeName:archetypeName	lodDist:lodDist	LodFadeStartDist:LodFadeStartDist LodInstFadeRange:LodInstFadeRange	OrientToTerrain:OrientToTerrain InstanceList:InstanceList
 )
 
+fn ReadGrassFromXML = 
+(
+	local filePath = getOpenFileName caption:"Import .ymap.xml file" types:"XML Document (*.xml)"
+	
+	if(filePath != undefined) then
+	(
+		format "YMAP READER: %\n\n" (filePath)
+		
+		local XmlDocument_Ymap = dotNetObject "System.Xml.XmlDocument"
+		XmlDocument_Ymap.Load(filePath)
+		local XmlElement_GrassInstanceList = XmlDocument_Ymap.SelectNodes("descendant::CMapData/instancedData/GrassInstanceList/Item")
+		local GrassInstanceList_Enumerator = XmlElement_GrassInstanceList.GetEnumerator()
+
+		local GrassInstanceList = #()
+
+		while GrassInstanceList_Enumerator.MoveNext() do
+		(
+			local XmlElement_GrassInstanceList_Item = dotNetObject "System.Xml.XmlElement" GrassInstanceList_Enumerator.Current
+			
+			local XmlElement_BatchAABB = XmlElement_GrassInstanceList_Item.Item["BatchAABB"]
+			
+			local XmlElement_BatchAABB_min = XmlElement_BatchAABB.Item["min"]
+			local min_x = XmlElement_BatchAABB_min.GetAttribute("x") as double
+			local min_y = XmlElement_BatchAABB_min.GetAttribute("y") as double
+			local min_z = XmlElement_BatchAABB_min.GetAttribute("z") as double
+			local min_w = XmlElement_BatchAABB_min.GetAttribute("w") as double
+			local XmlElement_BatchAABB_max = XmlElement_GrassInstanceList_Item.Item["max"]
+			local max_x = XmlElement_BatchAABB_min.GetAttribute("x") as double
+			local max_y = XmlElement_BatchAABB_min.GetAttribute("y") as double
+			local max_z = XmlElement_BatchAABB_min.GetAttribute("z") as double
+			local max_w = XmlElement_BatchAABB_min.GetAttribute("w") as double
+			
+			local bbmin = [min_x,min_y,min_z,min_w]
+			local bbmax = [max_x,max_y,max_z,max_w]
+			local batch = rage__spdAABB _min:bbmin _max:bbmax
+
+			local XmlElement_ScaleRange = XmlElement_GrassInstanceList_Item.Item["ScaleRange"]
+			local ScaleRange_x = XmlElement_ScaleRange.GetAttribute("x") as float
+			local ScaleRange_y = XmlElement_ScaleRange.GetAttribute("y") as float
+			local ScaleRange_z = XmlElement_ScaleRange.GetAttribute("z") as float
+			local ScaleRange = [ScaleRange_x,ScaleRange_y,ScaleRange_z]
+
+			local grass_archetypeName = XmlElement_GrassInstanceList_Item.Item["archetypeName"].InnerText
+			local grass_lodDist = XmlElement_GrassInstanceList_Item.Item["lodDist"].GetAttribute("value") as float
+			local LodFadeStartDist = XmlElement_GrassInstanceList_Item.Item["LodFadeStartDist"].GetAttribute("value") as float
+			local LodInstFadeRange = XmlElement_GrassInstanceList_Item.Item["LodInstFadeRange"].GetAttribute("value") as float
+			local OrientToTerrain = XmlElement_GrassInstanceList_Item.Item["OrientToTerrain"].GetAttribute("value") as float
+
+			local XmlElement_InstanceList = XmlElement_GrassInstanceList_Item.SelectNodes("descendant::InstanceList/Item")
+			local InstanceList_Enumerator = XmlElement_InstanceList.GetEnumerator()
+
+			local InstanceList = #()
+			
+			while InstanceList_Enumerator.MoveNext() do
+			(
+				local XmlElement_Instance = dotNetObject "System.Xml.XmlElement" InstanceList_Enumerator.Current
+				local Instance_Position = XmlElement_Instance.Item["Position"].InnerText
+				local Instance_NormalX = XmlElement_Instance.Item["NormalX"].GetAttribute("value") as integer
+				local Instance_NormalY = XmlElement_Instance.Item["NormalY"].GetAttribute("value") as integer
+				local Instance_Color = XmlElement_Instance.Item["Color"].InnerText
+				local Instance_Scale = XmlElement_Instance.Item["Scale"].GetAttribute("value") as integer
+				local Instance_Ao = XmlElement_Instance.Item["Ao"].GetAttribute("value") as integer
+				local Instance_Pad = XmlElement_Instance.Item["Pad"].InnerText
+				--BUILD INSTANCE
+				--APPEND INSTANCE
+			)
+
+			local GrassInstanceList_Item = rage__fwGrassInstanceListDef BatchAABB:batch ScaleRange:ScaleRange archetypeName:grass_archetypeName lodDist:grass_lodDist LodFadeStartDist:LodFadeStartDist LodInstFadeRange:LodInstFadeRange OrientToTerrain:OrientToTerrain InstanceList:InstanceList
+			append GrassInstanceList GrassInstanceList_Item
+		)
+	)
+	return GrassInstanceList
+)
+
+fn CheckGrassFromYmap =
+(
+	local GrassInstanceList = ReadGrassFromXML()
+	local missing = #()
+	if(GrassInstanceList != undefined and GrassInstanceList.count > 0) then
+	(
+		for grass in GrassInstanceList do
+		(
+			if( getnodebyname(grass.archetypeName) == undefined ) do
+				appendifunique missing grass.archetypeName
+		)	
+		if(missing !=undefined and missing.count >0 )then
+		(
+			for item in missing do
+				format "MISSING: %\n" (item)
+		) else format "No mesh missing in scene!\n"
+	)else format "The .ymap.xml file doesn't contain any batch of grass.\n"
+)
+
+fn InstanceDataFromXML =
+(
+	local GrassInstanceList = ReadGrassFromXML()
+
+	if(GrassInstanceList != undefined and GrassInstanceList.count > 0) then
+	(
+		for grass in GrassInstanceList do
+		(
+			print grass
+		)
+	)
+)
+
 
 /*
 fn ColorFromFaceTexture obj faceIndex bitmapName = 
