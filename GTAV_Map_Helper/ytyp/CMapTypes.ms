@@ -117,7 +117,7 @@ fn ArchetypeFromGeometry obj settings =
 
     if(settings[3] == "")then
     (
-        local textureDictionary = obj.name+"_txd"
+        local textureDictionary = obj.name
     )else
     (
         local textureDictionary = settings[3]
