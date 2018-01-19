@@ -71,7 +71,13 @@ fn ImportInstancedGrassAssets grassName =
 		importFile  filePath #noPrompt using:FBXIMP
 		format "FBX Importer: % imported.\n" (filePath)
 		local grassMesh = getnodebyname(grassName)
-		local assetsDummy = getnodebyname("v_proc1")
+
+		if(getnodebyname("v_proc1") == undefined)then
+		(
+			assetsDummy = Dummy()
+			assetsDummy.name = "v_proc1"
+		)else(local assetsDummy = getnodebyname("v_proc1"))
+
 		grassMesh.parent = assetsDummy
 	)else	(format "FBX Importer: % already in scene.\n" (grassName as string))
 )
@@ -203,11 +209,6 @@ rollout GrassInstance_Rollout "Instanced Grass Painter" width:504 height:480
 	on btn_grassymap_importassets pressed do 
 	(
 		--TODO: READ YTYP AND RESCALE THE MESH IF REQUIRED (DIFFERENT UNITS?!)
-		if(getnodebyname("v_proc1") == undefined)then
-		(
-			assetsDummy = Dummy()
-			assetsDummy.name = "v_proc1"
-		)
 		for item in Batch_archetypeName.items do (ImportInstancedGrassAssets item)
 	)
 	
@@ -222,7 +223,9 @@ rollout GrassInstance_Rollout "Instanced Grass Painter" width:504 height:480
 				batchDummy = Dummy()
 				batchDummy.name = uniquename("Batch_")
 				RefreshSettings()
-			
+				
+				ImportInstancedGrassAssets BatchSettings[2]
+
 				--TODO: ALLOW BRUSH SETTINGS CUSTOMIZATION
 				thePainterInterface.ScriptFunctions StartPaintGrass PaintGrass EndPaintGrass CancelPaintGrass systemEnd
 				thePainterInterface.drawTrace = false
