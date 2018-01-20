@@ -469,6 +469,7 @@ rollout GrassInstance_Rollout "Instanced Grass Painter" width:504 height:480
 			RefreshSettings()
 			batchDummy = Dummy()
 			batchDummy.name = uniquename("Batch_")
+			ImportInstancedGrassAssets BatchSettings[2]
 			
 			for obj in list do
 			(
