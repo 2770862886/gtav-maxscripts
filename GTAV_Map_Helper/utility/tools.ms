@@ -1,3 +1,32 @@
+try(destroyDialog PropsUtilityGUI )catch()
+rollout PaintVertices_Rollout "Vertices Painter" width:150 height:88
+(
+	spinner 'the_Channel' "Channel :" pos:[10,10] width:130 height:16 range:[-2,0,0] type:#integer
+	colorPicker 'the_Color' "" pos:[10,36] width:130 height:16 alpha:true color:[255,0,0]
+	button 'btn_Paint' "Paint" pos:[10,62] width:130 height:16
+	
+	on btn_Paint pressed do
+	(
+		with undo on
+		(
+			theColor = the_Color.color
+			theChannel = the_Channel.value
+			for obj in (selection as array) do
+			( 
+				if(theChannel == -2) then
+				(
+					if classOf obj == editable_mesh then meshop.setVertAlpha obj theChannel obj.verts (theColor.alpha/255.0 as float)
+					else format "% is not Editable_Mesh" (obj) --if classOf obj == editable_poly then polyop.setVertAlpha obj theChannel obj.verts theColor.alpha
+				)else
+				(
+					if classOf obj == editable_mesh then meshop.setVertColor obj theChannel obj.verts theColor
+					else if classOf obj == editable_poly then polyop.setVertColor obj theChannel obj.verts theColor
+				)
+			)
+		)
+	)
+)
+
 fn alignPivotToFaceZUp node face:1 =
 (
 	c = polyop.getfacecenter node face
@@ -20,18 +49,25 @@ fn alignPivotToFaceZUp node face:1 =
 	node.transform
 )
 
-rollout PropsUtilityGUI "Placement Tools" width:150 height:240
+rollout PropsUtilityGUI "Placement Tools" width:170 height:270
 	(	
 		group "Utility"
 		(
-			button 'btn_center' "Center Pivot to Children" width:130 align:#center
-			button 'btn_reset2' "Pos and Rot to Parent" width:130 align:#center
-			button 'btn_reset1' "Pivot to Parent" width:130 align:#center
-			button 'btn_centerbottom' "Center Pivot to Bottom" width:130 align:#center
-			button 'btn_reset3' "Position to Parent" width:130 align:#center
-			button 'btn_reset4' "Reset Z up" width:130 align:#center
-			button 'btn_bottom_face' "Pivot to Bottom Face" width:130 align:#center
-			button 'btn_delete_duplicate' "Delete objects with same name" width:130 align:#center
+			button 'btn_center' "Center Pivot to Children" width:150 align:#center
+			button 'btn_reset2' "Pos and Rot to Parent" width:150 align:#center
+			button 'btn_reset1' "Pivot to Parent" width:150 align:#center
+			button 'btn_centerbottom' "Center Pivot to Bottom" width:150 align:#center
+			button 'btn_reset3' "Position to Parent" width:150 align:#center
+			button 'btn_reset4' "Reset Z up" width:150 align:#center
+			button 'btn_bottom_face' "Pivot to Bottom Face" width:150 align:#center
+			button 'btn_delete_duplicate' "Delete objects with same name" width:150 align:#center
+			button 'btn_vertices_painter' "Vertices Painter" width:150 align:#center
+		)
+		
+		on btn_vertices_painter pressed do
+		(
+			try(destroyDialog PaintVertices_Rollout )catch()
+			createdialog PaintVertices_Rollout
 		)
 		
 		on btn_bottom_face pressed do
