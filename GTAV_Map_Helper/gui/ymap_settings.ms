@@ -59,8 +59,8 @@ rollout Ymap_Rollout "Ymap Scripts" width:250 height:500
 		CMapData_flags.value = 0
 		CMapData_contentFlags.value = 0
 		Entity_flags.value = 0
-		Entity_lodLevel.selected = Entity_lodLevel.items[1]
-		Entity_priorityLevel.selected = Entity_priorityLevel.items[1]
+		--Entity_lodLevel.selected = Entity_lodLevel.items[1]
+		--Entity_priorityLevel.selected = Entity_priorityLevel.items[1]
 	)
 	
 	on btn_reset_entities pressed do 

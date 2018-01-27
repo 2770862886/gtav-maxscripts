@@ -31,115 +31,139 @@ rollout PropsUtilityGUI "Placement Tools" width:150 height:240
 			button 'btn_reset3' "Position to Parent" width:130 align:#center
 			button 'btn_reset4' "Reset Z up" width:130 align:#center
 			button 'btn_bottom_face' "Pivot to Bottom Face" width:130 align:#center
-			button 'btn_delete_duplicate' "Delete duplicates" width:130 align:#center
+			button 'btn_delete_duplicate' "Delete objects with same name" width:130 align:#center
 		)
 		
 		on btn_bottom_face pressed do
 		(
-			for obj in selection do
-			(	
-				if(classof(obj) == Editable_Poly)then
-				(
-					local faces = polyop.getNumFaces obj
-					local fbottom = polyop.getfacecenter obj 1
-					for face = 2 to faces do
-					(
-						fcenter = polyop.getfacecenter obj face
-						if(fcenter.z < fbottom.z)do
-							fbottom = fcenter
+			with undo on
+			(
+				for obj in selection do
+					(	
+						if(classof(obj) == Editable_Poly)then
+						(
+							local faces = polyop.getNumFaces obj
+							local fbottom = polyop.getfacecenter obj 1
+							local fcenter = polyop.getfacecenter obj 1
+							for face = 2 to faces do
+							(
+								fcenter = polyop.getfacecenter obj face
+								if(fcenter.z < fbottom.z)do
+									fbottom = fcenter
+							)
+							obj.pivot = fbottom
+						)else format "% is not an Editable_Poly.\n" (obj.name)
 					)
-					obj.pivot = fbottom
-				)else format "% is not an Editable_Poly.\n" (obj.name)
 			)
 		)
 		
 		on btn_delete_duplicate pressed do
 		(
-			local allNames = #()
-			local duplicateObjs = #()
-
-			for obj in objects do
+			with undo on
 			(
-				if findItem allNames obj.name == 0 then 
-					append allNames obj.name
-				else append duplicateObjs obj
+				local allNames = #()
+				local duplicateObjs = #()
+
+				for obj in objects do
+				(
+					if findItem allNames obj.name == 0 then append allNames obj.name
+					else append duplicateObjs obj
+				)
+				delete duplicateObjs
+				allNames = #()	
 			)
-			delete duplicateObjs
-			allNames = #()	
 		)
 		
 		on btn_reset4 pressed do 
 		(
-			for obj in selection do
+			with undo on
 			(
-				if (classof(obj) == Editable_Poly) then
-				(
-					obj.pivot = obj.center
-					alignPivotToFaceZUp obj
-					obj.pivot = obj.center
-				)else format "% is not an Editable_Poly.\n" (obj.name)
+				for obj in selection do
+					(
+						if (classof(obj) == Editable_Poly) then
+						(
+							obj.pivot = obj.center
+							alignPivotToFaceZUp obj
+							obj.pivot = obj.center
+						)else format "% is not an Editable_Poly.\n" (obj.name)
+					)
 			)
 		)
 
 
 		on btn_center pressed do
 		(
-			for i in selection do
-				(	
-					if(i.children.count > 0) then
-					(
-						children_center = [0,0,0]
-						for b in i.children do
+			with undo on
+			(
+				for i in selection do
+					(	
+						if(i.children.count > 0) then
 						(
-							children_center = children_center + b.center
-						)
-						children_center = children_center/i.children.count
-						i.pivot = children_center
-						i.children.pivot = children_center
-					)else format "% hasn't any child.\n" (i.name)
-				)
+							children_center = [0,0,0]
+							for b in i.children do
+							(
+								children_center = children_center + b.center
+							)
+							children_center = children_center/i.children.count
+							i.pivot = children_center
+							i.children.pivot = children_center
+						)else format "% hasn't any child.\n" (i.name)
+					)
+			)
 		)
 		
 		on btn_reset1 pressed do
 		(
-			for i in selection do
+			with undo on
 			(
-				if(i.parent != undefined) then
-				(
-					i.pivot = i.parent.pivot
-				)else format "% has no parent.\n" (i.name)
+				for i in selection do
+					(
+						if(i.parent != undefined) then
+						(
+							i.pivot = i.parent.pivot
+						)else format "% has no parent.\n" (i.name)
+					)
 			)
 		)
 		
 		on btn_reset2 pressed do
 		(
-			for i in selection do
+			with undo on
 			(
-				if(i.parent != undefined) then
-				(
-					i.pos = i.parent.pos
-					i.rotation = i.parent.rotation
-				)else format "% has no parent.\n" (i.name)
+				for i in selection do
+					(
+						if(i.parent != undefined) then
+						(
+							i.pos = i.parent.pos
+							i.rotation = i.parent.rotation
+						)else format "% has no parent.\n" (i.name)
+					)
 			)
 		)
 		
 		on btn_reset3 pressed do
 		(
-			for i in selection do
+			with undo on
 			(
-				if(i.parent != undefined) then
-				(
-					i.pos = i.parent.pos
-				)else format "% has no parent.\n" (i.name)
+				for i in selection do
+					(
+						if(i.parent != undefined) then
+						(
+							i.pos = i.parent.pos
+						)else format "% has no parent.\n" (i.name)
+					)
 			)
 		)
 		
 		on btn_centerbottom pressed do
 		(
-			for i in selection do
+			with undo on
 			(
-				i.pivot = i.center
-				i.pivot.z = i.min.z
+				for i in selection do
+					(
+						i.pivot = i.center
+						i.pivot.z = i.min.z
+					)
 			)
 		)
 	)

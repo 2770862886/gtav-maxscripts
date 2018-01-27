@@ -37,7 +37,7 @@ rollout Ytyp_Rollout "Ytyp Scripts" width:250 height:500
 		Archetype_clipDictionary.text = ""
 		Archetype_drawableDictionary.text = ""
 		Archetype_physicsDictionary.text = ""
-		Archetype_assetType.selected = Archetype_assetType.items[1]
+		--Archetype_assetType.selected = Archetype_assetType.items[1]
 	)
 
 	on btn_reset_archetypes pressed do 
