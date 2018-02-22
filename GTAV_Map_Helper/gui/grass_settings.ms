@@ -58,8 +58,13 @@ fn InstanceGrassAsset grassName =
 	if(getnodebyname(grassName) != undefined) then
 	(
 		local selectedNode = getnodebyname(grassName)
-		maxOps.CloneNodes selectedNode expandHierarchy:false cloneType:#instance newNodes:&grassMesh
-		grassMesh.name = grassName
+		
+		local newColor = #()
+		if(InstanceSettings[2][1] == -1)then(newColor[1] = random 0 255)else(newColor[1] = InstanceSettings[2][1])
+		if(InstanceSettings[2][2] == -1)then(newColor[2] = random 0 255)else(newColor[2] = InstanceSettings[2][1])
+		if(InstanceSettings[2][3] == -1)then(newColor[3] = random 0 255)else(newColor[3] = InstanceSettings[2][1])
+		
+		local grassMesh = instance selectedNode name:selectedNode.name wirecolor:(Color newColor[1] newColor[2] newColor[3])
 	)
 	else(format "Mesh named % not found in scene.\n" (grassName as string))
 	return grassMesh
@@ -98,7 +103,7 @@ fn InstanceDataFromMesh batch obj settings =
 	local NormalY = ((obj.dir.y +1)*0.5 * 255) as integer
 
 	local _Scale = settings[1]
-	local Colors = settings[2]
+	local Colors = obj.wirecolor as Point3
 	local Ao = settings[3]
 	local Pad = settings[4]
 	
@@ -126,9 +131,9 @@ fn GrassInstanceListFromMeshes objList dummyBox BatchSettings InstancesSettings 
 		local settings = deepCopy InstancesSettings	
 		if(InstancesSettings[1] == -1)do(settings[1] = random 1 255)
 		
-		if(InstancesSettings[2][1] == -1)do(settings[2][1] = random 0 255)
-		if(InstancesSettings[2][2] == -1)do(settings[2][2] = random 0 255)
-		if(InstancesSettings[2][3] == -1)do(settings[2][3] = random 0 255)
+		--if(InstancesSettings[2][1] == -1)do(settings[2][1] = random 0 255)
+		--if(InstancesSettings[2][2] == -1)do(settings[2][2] = random 0 255)
+		--if(InstancesSettings[2][3] == -1)do(settings[2][3] = random 0 255)
 		
 		local InstanceData = InstanceDataFromMesh batch obj settings
 		append InstanceList InstanceData
@@ -277,7 +282,7 @@ fn InstanceDataFromXML =
 				(
 					local grassMesh = InstanceGrassAsset grass.archetypeName
 					grassMesh.parent = batchDummy
-					
+					grassMesh.wirecolor = instanceGrass._Color
 					grassMesh.pos = ((instanceGrass.Position/65535)*(Batch_size))+Batch_min
 					grassMesh.dir.y = ((instanceGrass.NormalY/255.0)/0.5)-1.0
 					grassMesh.dir.x = ((instanceGrass.NormalX/255.0)/0.5)-1.0
