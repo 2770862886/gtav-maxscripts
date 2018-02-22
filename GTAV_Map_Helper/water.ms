@@ -189,12 +189,12 @@ fn WaterQuadFromPlane settings =
 
 fn CalmingQuadFromPlane settings =
 (
-	return (CalmingQuad minX:settings.minX maxX:settings.maxX minY:settings.minY maxY:settings.maxX fDampening:settings.fDampening)
+	return (CalmingQuad minX:settings.minX maxX:settings.maxX minY:settings.minY maxY:settings.maxY fDampening:settings.fDampening)
 )
 
 fn WaveQuadFromPlane settings =
 (
-	return (WaveQuad minX:settings.minX maxX:settings.maxX minY:settings.minY maxY:settings.maxX Amplitude:settings.Amplitude XDirection:settings.XDirection YDirection:settings.YDirection)
+	return (WaveQuad minX:settings.minX maxX:settings.maxX minY:settings.minY maxY:settings.maxY Amplitude:settings.Amplitude XDirection:settings.XDirection YDirection:settings.YDirection)
 )
 
 
