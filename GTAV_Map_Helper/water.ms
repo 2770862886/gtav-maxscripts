@@ -184,7 +184,7 @@ struct WaveQuad
 
 fn WaterQuadFromPlane settings =
 (
-	return (WaterQuad minX:settings.minX maxX:settings.maxX minY:settings.minY maxY:settings.maxX Type:settings.Type IsInvisible:settings.IsInvisible HasLimitedDepth:settings.HasLimitedDepth z:settings.z a1:settings.a1 a2:settings.a2 a3:settings.a3 a4:settings.a4 NoStencil:settings.NoStencil)
+	return (WaterQuad minX:settings.minX maxX:settings.maxX minY:settings.minY maxY:settings.maxY Type:settings.Type IsInvisible:settings.IsInvisible HasLimitedDepth:settings.HasLimitedDepth z:settings.z a1:settings.a1 a2:settings.a2 a3:settings.a3 a4:settings.a4 NoStencil:settings.NoStencil)
 )
 
 fn CalmingQuadFromPlane settings =
