@@ -69,10 +69,10 @@ rollout Water_Rollout "Water.xml Scripts" width:170 height:555
 			(
 				if((superclassOf obj) == GeometryClass) then
 				(
-					Settings.minX = floor(obj.min.x)
-					Settings.maxX = ceil(obj.max.x)
-					Settings.minY = floor(obj.min.y)
-					Settings.maxY = ceil(obj.max.y)
+					Settings.minX = floor(obj.min.x) as integer
+					Settings.maxX = ceil(obj.max.x) as integer
+					Settings.minY = floor(obj.min.y) as integer
+					Settings.maxY = ceil(obj.max.y) as integer
 					local WaterQuad = WaterQuadFromPlane Settings
 					append WaterQuads WaterQuad
 					

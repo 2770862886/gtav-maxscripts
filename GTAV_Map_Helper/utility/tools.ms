@@ -49,7 +49,7 @@ fn alignPivotToFaceZUp node face:1 =
 	node.transform
 )
 
-rollout PropsUtilityGUI "Placement Tools" width:170 height:270
+rollout PropsUtilityGUI "Placement Tools" width:170 height:290
 	(	
 		group "Utility"
 		(
@@ -62,6 +62,20 @@ rollout PropsUtilityGUI "Placement Tools" width:170 height:270
 			button 'btn_bottom_face' "Pivot to Bottom Face" width:150 align:#center
 			button 'btn_delete_duplicate' "Delete objects with same name" width:150 align:#center
 			button 'btn_vertices_painter' "Vertices Painter" width:150 align:#center
+			button 'btn_group_by_material' "Group By Material" width:150 align:#center
+		)
+		
+		on btn_group_by_material pressed do
+		(
+			with undo on
+			(	
+				for mat in SceneMaterials do
+				(
+					local selected = for geom in Geometry where geom.material == mat collect geom
+					local theGroup = group selected name:mat.name select:false
+					--for n in theGroup where (isGroupHead n == true) do (setGroupOpen n true)
+				)
+			)
 		)
 		
 		on btn_vertices_painter pressed do

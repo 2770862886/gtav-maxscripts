@@ -73,7 +73,7 @@ fn ImportInstancedGrassAssets grassName =
 		importFile  filePath #noPrompt using:FBXIMP
 		format "FBX Importer: % imported.\n" (filePath)
 		local grassMesh = getnodebyname(grassName)
-
+		grassMesh.scale = [1,1,1]
 		if(getnodebyname("v_proc1") == undefined)then
 		(
 			assetsDummy = Dummy()
