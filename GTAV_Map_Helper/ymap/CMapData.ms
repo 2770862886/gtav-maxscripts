@@ -118,7 +118,7 @@ struct rage__fwInstancedMapData
 			for InstanceItem in Item.InstanceList do
 			(
 				local PositionValue = ("\r\n              " + (InstanceItem.Position[1] as string) + "\r\n              " + (InstanceItem.Position[2] as string) + "\r\n              " + (InstanceItem.Position[3] as string) + "\r\n            ")
-				local ColorValue = ("\r\n              " + (InstanceItem._Color[1] as string) + "\r\n              " + (InstanceItem._Color[2] as string) + "\r\n              " + (InstanceItem._Color[3] as string) + "\r\n            ")
+				local ColorValue = ("\r\n              " + ((InstanceItem._Color[1] as integer)as string) + "\r\n              " + ((InstanceItem._Color[2] as integer) as string) + "\r\n              " + ((InstanceItem._Color[3] as integer) as string) + "\r\n            ")
 				local PadValue = ("\r\n              " + (InstanceItem.Pad[1] as string) + "\r\n              " + (InstanceItem.Pad[2] as string) + "\r\n              " + (InstanceItem.Pad[3] as string) + "\r\n            ")	
 	
 				XmlElement_InstanceItem = XmlDocument.CreateElement "Item"
