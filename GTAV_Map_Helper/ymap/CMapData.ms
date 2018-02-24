@@ -44,11 +44,11 @@ struct rage__fwInstancedMapData
 
 			Extents.streamingExtentsMax.x = amax Extents.streamingExtentsMax.x (BatchAABB._max.x + lodDist)
 			Extents.streamingExtentsMax.y = amax Extents.streamingExtentsMax.y (BatchAABB._max.y + lodDist)
-			Extents.streamingExtentsMax.z = amax Extents.streamingExtentsMax.z (BatchAABB._max.z + lodDist - 100.0)
+			Extents.streamingExtentsMax.z = amax Extents.streamingExtentsMax.z (BatchAABB._max.z + lodDist) -- - 100.0
 
 			Extents.streamingExtentsMin.x = amin Extents.streamingExtentsMin.x (BatchAABB._min.x - lodDist)
 			Extents.streamingExtentsMin.y = amin Extents.streamingExtentsMin.y (BatchAABB._min.y - lodDist)
-			Extents.streamingExtentsMin.z = amin Extents.streamingExtentsMin.z (BatchAABB._min.z - lodDist + 100.0)
+			Extents.streamingExtentsMin.z = amin Extents.streamingExtentsMin.z (BatchAABB._min.z - lodDist) -- + 100.0
 		)
 		return Extents
 	),
