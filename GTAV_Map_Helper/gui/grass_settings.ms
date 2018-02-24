@@ -419,6 +419,7 @@ rollout GrassInstance_Rollout "Instanced Grass Painter" width:504 height:480
 
 	on btn_grassymap_importxml pressed do
 	(
+		RefreshSettings()
 		InstanceDataFromXML()
 	)
 	
