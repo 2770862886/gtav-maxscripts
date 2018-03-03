@@ -2,7 +2,7 @@ try(destroyDialog PropsUtilityGUI )catch()
 rollout PaintVertices_Rollout "Vertices Painter" width:150 height:114
 (
 	dropdownlist 'the_Channel' pos:[10,10] width:130 height:16 items:#("Vertex Color","Vertex Illumination","Vertex Alpha")
-	colorPicker 'the_Color' "" pos:[10,36] width:130 height:16 alpha:true color:[255,0,0]
+	colorPicker 'the_Color' "" pos:[10,36] width:130 height:16 alpha:false color:[255,0,0]
 	button 'btn_Paint' "Paint" pos:[10,88] width:130 height:16
 	checkbox 'ck_selected' "Only selected vertices" pos:[10,62] width:130 height:16
 	
@@ -24,11 +24,11 @@ rollout PaintVertices_Rollout "Vertices Painter" width:150 height:114
 				if(ck_selected.checked)then local vertList = obj.selectedVerts
 				else local vertList = obj.verts
 				
-				if(theChannel == -2) then
+				/*if(theChannel == -2) then
 				(
 					if classOf obj == editable_mesh then meshop.setVertAlpha obj theChannel vertList (theColor.alpha/255.0 as float)
 					--if classOf obj == editable_poly then polyop.setVertAlpha obj theChannel vertList (theColor.alpha/255.0 as float)
-				)
+				)*/
 				
 				if classOf obj == editable_mesh then meshop.setVertColor obj theChannel vertList theColor
 				else if classOf obj == editable_poly then polyop.setVertColor obj theChannel vertList theColor
