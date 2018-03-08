@@ -72,3 +72,32 @@ fn create_GIMS_composite=(
 		)
 	)
 )
+
+try(destroyDialog GIMS_Shortcuts )catch()
+
+rollout GIMS_Shortcuts "GIMS Shortcuts" width:170 height:125
+(	
+
+	group "GIMS EVO Shortcuts"
+	(
+		button 'btn_createmodel' "Create Model" width:140 align:#center
+		button 'btn_createmultimodels' "Create Multiple Models" width:140 align:#center
+		button 'btn_createcomposite' "Create Composite" width:140 align:#center
+	)
+	
+	on btn_createmodel pressed do
+	(
+		create_GIMS_model()
+	)	
+	
+	on btn_createmultimodels pressed do
+	(
+		create_multiple_GIMS_models()
+	)
+	
+	on btn_createcomposite pressed do
+	(
+		create_GIMS_composite()
+	)
+)
+createdialog GIMS_Shortcuts
