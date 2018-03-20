@@ -73,15 +73,23 @@ struct rage__fwInstancedMapData
 	
 			XmlElement_BatchAABB = XmlDocument.CreateElement "BatchAABB"
 			XmlElement_min = XmlDocument.CreateElement "min"
-			XmlElement_min.SetAttribute "x" (Item.BatchAABB._min.x as string)
-			XmlElement_min.SetAttribute "y" (Item.BatchAABB._min.y as string)
-			XmlElement_min.SetAttribute "z" (Item.BatchAABB._min.z as string)
-			XmlElement_min.SetAttribute "w" (Item.BatchAABB._min.w as string)
+			bbMinX = formattedPrint (Item.BatchAABB._min.x) format:"0.8f"
+			bbMinY = formattedPrint (Item.BatchAABB._min.y) format:"0.8f"
+			bbMinZ = formattedPrint (Item.BatchAABB._min.z) format:"0.8f"
+			bbMinW = formattedPrint (Item.BatchAABB._min.w) format:"0.8f"
+			XmlElement_min.SetAttribute "x" bbMinX
+			XmlElement_min.SetAttribute "y" bbMinY
+			XmlElement_min.SetAttribute "z" bbMinZ
+			XmlElement_min.SetAttribute "w" bbMinW
 			XmlElement_max = XmlDocument.CreateElement "max"
-			XmlElement_max.SetAttribute "x" (Item.BatchAABB._max.x as string)
-			XmlElement_max.SetAttribute "y" (Item.BatchAABB._max.y as string)
-			XmlElement_max.SetAttribute "z" (Item.BatchAABB._max.z as string)
-			XmlElement_max.SetAttribute "w" (Item.BatchAABB._max.w as string)
+			bbMaxX = formattedPrint (Item.BatchAABB._max.x) format:"0.8f"
+			bbMaxY = formattedPrint (Item.BatchAABB._max.y) format:"0.8f"
+			bbMaxZ = formattedPrint (Item.BatchAABB._max.z) format:"0.8f"
+			bbMaxW = formattedPrint (Item.BatchAABB._max.w) format:"0.8f"
+			XmlElement_max.SetAttribute "x" bbMaxX
+			XmlElement_max.SetAttribute "y" bbMaxY
+			XmlElement_max.SetAttribute "z" bbMaxZ
+			XmlElement_max.SetAttribute "w" bbMaxW
 	
 			XmlElement_BatchAABB.appendChild XmlElement_min
 			XmlElement_BatchAABB.appendChild XmlElement_max
@@ -235,16 +243,23 @@ struct CEntityDef
 		XmlElement_Item.appendChild XmlElement_guid
 
 		local XmlElement_position = XmlDocument.CreateElement "position"
-		XmlElement_position.SetAttribute "x" (_position.x as string)
-		XmlElement_position.SetAttribute "y" (_position.y as string)
-		XmlElement_position.SetAttribute "z" (_position.z as string)
+		posX = formattedPrint (_position.x) format:"0.8f"
+		posY = formattedPrint (_position.y) format:"0.8f"
+		posZ = formattedPrint (_position.z) format:"0.8f"
+		XmlElement_position.SetAttribute "x" posX
+		XmlElement_position.SetAttribute "y" posY
+		XmlElement_position.SetAttribute "z" posZ
 		XmlElement_Item.appendChild XmlElement_position
 
 		local XmlElement_rotation = XmlDocument.CreateElement "rotation"
-		XmlElement_rotation.SetAttribute "x" (_rotation.x as string)
-		XmlElement_rotation.SetAttribute "y" (_rotation.y as string)
-		XmlElement_rotation.SetAttribute "z" (_rotation.z as string)
-		XmlElement_rotation.SetAttribute "w" (_rotation.w as string)
+		rotX = formattedPrint (_rotation.x) format:"0.8f"
+		rotY = formattedPrint (_rotation.y) format:"0.8f"
+		rotZ = formattedPrint (_rotation.z) format:"0.8f"
+		rotW = formattedPrint (_rotation.w) format:"0.8f"
+		XmlElement_rotation.SetAttribute "x" rotX
+		XmlElement_rotation.SetAttribute "y" rotY
+		XmlElement_rotation.SetAttribute "z" rotZ
+		XmlElement_rotation.SetAttribute "w" rotW
 		XmlElement_Item.appendChild XmlElement_rotation
 
 		local XmlElement_scaleXY = XmlDocument.CreateElement "scaleXY"
@@ -346,27 +361,39 @@ struct CMapData
 		XmlElement_CMapData.appendChild XmlElement_contentFlags
 
 		local XmlElement_streamingExtentsMin = XmlDocument.CreateElement "streamingExtentsMin"
-		XmlElement_streamingExtentsMin.SetAttribute "x" (streamingExtentsMin.x as string)
-		XmlElement_streamingExtentsMin.SetAttribute "y" (streamingExtentsMin.y as string)
-		XmlElement_streamingExtentsMin.SetAttribute "z" (streamingExtentsMin.z as string)
+		strMinX = formattedPrint (streamingExtentsMin.x) format:"0.8f"
+		strMinY = formattedPrint (streamingExtentsMin.y) format:"0.8f"
+		strMinZ = formattedPrint (streamingExtentsMin.z) format:"0.8f"
+		XmlElement_streamingExtentsMin.SetAttribute "x" strMinX
+		XmlElement_streamingExtentsMin.SetAttribute "y" strMinY
+		XmlElement_streamingExtentsMin.SetAttribute "z" strMinZ
 		XmlElement_CMapData.appendChild XmlElement_streamingExtentsMin
 
 		local XmlElement_streamingExtentsMax = XmlDocument.CreateElement "streamingExtentsMax"
-		XmlElement_streamingExtentsMax.SetAttribute "x" (streamingExtentsMax.x as string)
-		XmlElement_streamingExtentsMax.SetAttribute "y" (streamingExtentsMax.y as string)
-		XmlElement_streamingExtentsMax.SetAttribute "z" (streamingExtentsMax.z as string)
+		strMaxX = formattedPrint (streamingExtentsMax.x) format:"0.8f"
+		strMaxY = formattedPrint (streamingExtentsMax.y) format:"0.8f"
+		strMaxZ = formattedPrint (streamingExtentsMax.z) format:"0.8f"
+		XmlElement_streamingExtentsMax.SetAttribute "x" strMaxX
+		XmlElement_streamingExtentsMax.SetAttribute "y" strMaxY
+		XmlElement_streamingExtentsMax.SetAttribute "z" strMaxZ
 		XmlElement_CMapData.appendChild XmlElement_streamingExtentsMax
 
 		local XmlElement_entitiesExtentsMin = XmlDocument.CreateElement "entitiesExtentsMin"
-		XmlElement_entitiesExtentsMin.SetAttribute "x" (entitiesExtentsMin.x as string)
-		XmlElement_entitiesExtentsMin.SetAttribute "y" (entitiesExtentsMin.y as string)
-		XmlElement_entitiesExtentsMin.SetAttribute "z" (entitiesExtentsMin.z as string)
+		entMinX = formattedPrint (entitiesExtentsMin.x) format:"0.8f"
+		entMinY = formattedPrint (entitiesExtentsMin.y) format:"0.8f"
+		entMinZ = formattedPrint (entitiesExtentsMin.z) format:"0.8f"
+		XmlElement_entitiesExtentsMin.SetAttribute "x" entMinX
+		XmlElement_entitiesExtentsMin.SetAttribute "y" entMinY
+		XmlElement_entitiesExtentsMin.SetAttribute "z" entMinZ
 		XmlElement_CMapData.appendChild XmlElement_entitiesExtentsMin
 
 		local XmlElement_entitiesExtentsMax = XmlDocument.CreateElement "entitiesExtentsMax"
-		XmlElement_entitiesExtentsMax.SetAttribute "x" (entitiesExtentsMax.x as string)
-		XmlElement_entitiesExtentsMax.SetAttribute "y" (entitiesExtentsMax.y as string)
-		XmlElement_entitiesExtentsMax.SetAttribute "z" (entitiesExtentsMax.z as string)
+		entMaxX = formattedPrint (entitiesExtentsMax.x) format:"0.8f"
+		entMaxY = formattedPrint (entitiesExtentsMax.y) format:"0.8f"
+		entMaxZ = formattedPrint (entitiesExtentsMax.z) format:"0.8f"
+		XmlElement_entitiesExtentsMax.SetAttribute "x" entMaxX
+		XmlElement_entitiesExtentsMax.SetAttribute "y" entMaxY
+		XmlElement_entitiesExtentsMax.SetAttribute "z" entMaxZ
 		XmlElement_CMapData.appendChild XmlElement_entitiesExtentsMax
 		
 		local XmlElement_entities = XmlDocument.CreateElement "entities"
